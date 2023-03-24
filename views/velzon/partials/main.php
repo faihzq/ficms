@@ -1,0 +1,2 @@
+<!doctype html>
+<html lang="<?= Yii::$app->language ?>" data-layout="vertical" data-topbar="dark" data-sidebar-size="lg" data-sidebar="dark" data-sidebar-image="img-1" data-preloader="enable" data-layout-style="default" data-layout-mode="light" data-layout-width="fluid" data-layout-position="fixed">

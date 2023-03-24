@@ -13,11 +13,11 @@ use yii\bootstrap5\NavBar;
 AppAsset::register($this);
 
 $this->registerCsrfMetaTags();
-// $this->registerMetaTag(['charset' => Yii::$app->charset], 'charset');
-// $this->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, shrink-to-fit=no']);
-// $this->registerMetaTag(['name' => 'description', 'content' => $this->params['meta_description'] ?? '']);
-// $this->registerMetaTag(['name' => 'keywords', 'content' => $this->params['meta_keywords'] ?? '']);
-// $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii::getAlias('@web/favicon.ico')]);
+$this->registerMetaTag(['charset' => Yii::$app->charset], 'charset');
+$this->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, shrink-to-fit=no']);
+$this->registerMetaTag(['name' => 'description', 'content' => $this->params['meta_description'] ?? '']);
+$this->registerMetaTag(['name' => 'keywords', 'content' => $this->params['meta_keywords'] ?? '']);
+$this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii::getAlias('@web/favicon.ico')]);
 ?>
 <?php $this->beginPage() ?>
 
@@ -26,62 +26,64 @@ $this->registerCsrfMetaTags();
 <html lang="<?= Yii::$app->language ?>" data-layout="vertical" data-topbar="dark" data-sidebar-size="lg" data-sidebar="dark" data-sidebar-image="img-1" data-preloader="enable" data-layout-style="default" data-layout-mode="light" data-layout-width="fluid" data-layout-position="fixed">
 
     <head>
-        <meta charset="utf-8" />
-        <title><?= Html::encode($this->title) ?></title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-        <meta content="Themesbrand" name="author" />
-        <!-- App favicon -->
-        <link rel="shortcut icon" href="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/images/favicon.ico">
-
-        <!-- Head-css Start -->
-        <?= $this->render('head-css.php')?>
-        <!-- Head-css End -->
-
+        <title><?= Html::encode(Yii::$app->name) ?></title>
+        <?php $this->head() ?>
     </head>
 
     <body>
         <?php $this->beginBody() ?>
+
         <!-- Begin page -->
-        
-        <!-- Header Start -->
-        <?= $this->render('header.php')?>
-        <!-- Header End -->
+        <div id="layout-wrapper">
+            
+            <!-- Top Bar Start -->
+            <?= $this->render('topbar.php')?>
+            <!-- Top Bar End -->
+            <!-- Top Bar Start -->
+            <?= $this->render('sidebar.php')?>
+            <!-- Top Bar End -->
 
-        <!-- Navbar start -->
-        <?= $this->render('nav.php')?>
-        <!-- Navbar End -->
-        
-        <div class="main-content">
-            <div class="page-content">
-                <div class="container-fluid">
-                    <?= $content ?>
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="main-content">
+                <div class="page-content">
+                    <div class="container-fluid">
+
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                    <h4 class="mb-sm-0"><?= ($this->title) ? $this->title : '' ?></h4>
+
+                                    <div class="page-title-right">
+                                        <?php if (!empty($this->params['breadcrumbs'])): ?>
+                                            <?= Breadcrumbs::widget(['links' => $this->params['breadcrumbs']]) ?>
+                                        <?php endif ?>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <?= Alert::widget() ?>
+                        <?= $content ?>
+                    </div>
                 </div>
+                <!-- start navbar-custom -->
+                <?= $this->render('footer.php')?>
+                <!-- end navbar-custom -->
             </div>
+            <!-- end main content-->
         </div>
+        <!-- END layout-wrapper -->
 
-        <!-- Setting start -->
-        <?= $this->render('setting.php')?>
-        <!-- Setting End -->
+        <!-- start customizer -->
+        <?= $this->render('customizer.php')?>
+        <!-- end customizer -->
 
-        <!-- Footer start -->
-        <?= $this->render('footer.php')?>
-        <!-- Footer end -->
-
-        <!-- Navbar start -->
-        <?= $this->render('vendor-script.php')?>
-        <!-- Navbar End -->
-
-        <!-- apexcharts -->
-        <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/libs/apexcharts/apexcharts.min.js"></script>
-
-        <!-- projects js -->
-        <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/js/pages/dashboard-projects.init.js"></script>
-
-        <!-- App js -->
-        <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/js/app.js"></script>
         <?php $this->endBody() ?>
-        
     </body>
+
 </html>
+
 <?php $this->endPage() ?>

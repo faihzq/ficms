@@ -8,23 +8,17 @@ $config = [
     'name' => 'Boat Management Information System (BMIS)',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    // 'defaultRoute' => 'site/index',
+    'defaultRoute' => 'velzon/index', // velzon example theme
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
-        'view' => [
-            'theme' => [
-                'basePath' => '@app/theme/velzon',
-                'baseUrl' => '@web/theme/velzon',
-                'pathMap' => [
-                    '@app/views' => '@app/theme/velzon',
-                ],
-            ],
-        ],
+        
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'yOTMDMmwamj-6eR8VYLy_vlbxK9xw4Yf',
+            'cookieValidationKey' => 'yHY-OvSxAtovH9B5YTsd_EyoekgCoh4C',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -52,14 +46,13 @@ $config = [
             ],
         ],
         'db' => $db,
-        
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '<action>' => '/velzon/root' // velzon example
             ],
         ],
-        
     ],
     'params' => $params,
 ];

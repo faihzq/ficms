@@ -13,6 +13,7 @@ class User extends ActiveRecord implements IdentityInterface
 {
 
     const STATUS_DELETED = 0;
+    const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
 
     public $password;
@@ -20,14 +21,21 @@ class User extends ActiveRecord implements IdentityInterface
 
     public static function tableName()
     {
-        return 'user';
+        return '{{%user}}';
+    }
+
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+        ];
     }
 
     public function rules()
     {
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
 
             ['username', 'trim'],
             ['username', 'required'],
@@ -41,7 +49,7 @@ class User extends ActiveRecord implements IdentityInterface
             ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This email address has already been taken.'],
 
             [['password','password_repeat'], 'required','on'=>'create'],
-            [['password','password_repeat'], 'string', 'min' => 6,'on'=>'create'],
+            [['password','password_repeat'], 'string', 'min' => Yii::$app->params['user.passwordMinLength'],'on'=>'create'],
             ['password_repeat', 'compare', 'compareAttribute'=>'password', 'message'=>"Passwords don't match",'on'=>'create'],
 
             [['firstname','user_role_id'], 'required'],
@@ -121,6 +129,11 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->getAuthKey() === $authKey;
     }
 
+    public function generateAuthKey()
+    {
+        $this->auth_key = Yii::$app->security->generateRandomString();
+    }
+
     /**
      * Validates password
      *
@@ -149,6 +162,13 @@ class User extends ActiveRecord implements IdentityInterface
         ]);
     }
 
+    public static function findByVerificationToken($token) {
+        return static::findOne([
+            'verification_token' => $token,
+            'status' => self::STATUS_INACTIVE
+        ]);
+    }
+
     public static function isPasswordResetTokenValid($token)
     {
         if (empty($token)) {
@@ -169,6 +189,11 @@ class User extends ActiveRecord implements IdentityInterface
         $this->password_reset_token = null;
     }
 
+    public function generateEmailVerificationToken()
+    {
+        $this->verification_token = Yii::$app->security->generateRandomString() . '_' . time();
+    }
+
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
@@ -178,5 +203,38 @@ class User extends ActiveRecord implements IdentityInterface
             return true;
         }
         return false;
+    }
+
+    public function getFullname()
+    {
+        return $this->firstname.' '.$this->lastname;
+    }
+
+    public function getStatusName()
+    {
+        if ($this->status==10) {
+            $status = '<span class="badge badge-soft-success text-uppercase">Active</span>';
+        } else $status = '<span class="badge badge-soft-warning text-uppercase">Not Active</span>';
+
+        return $status;
+    }
+
+    public function getUserRole()
+    {
+        return $this->hasOne(UserRole::className(),['id'=>'user_role_id']);
+    }
+
+    public function sendEmail($user)
+    {
+        return Yii::$app
+            ->mailer
+            ->compose(
+                ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
+                ['user' => $user]
+            )
+            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+            ->setTo($this->email)
+            ->setSubject('Account registration at ' . Yii::$app->name)
+            ->send();
     }
 }

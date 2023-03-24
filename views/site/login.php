@@ -11,10 +11,11 @@ use yii\bootstrap5\Html;
 <html lang="<?= Yii::$app->language ?>">
     <head>
         <meta charset="utf-8" />
-        <title><?= Html::encode($this->title) ?></title>
+        <title><?= Html::encode(Yii::$app->name) ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesbrand" name="author" />
+        <?php $this->registerCsrfMetaTags() ?>
         <!-- App favicon -->
         <link rel="shortcut icon" href="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/images/favicon.ico">
 
@@ -52,7 +53,7 @@ use yii\bootstrap5\Html;
                         <div class="text-center mt-sm-5 mb-4 text-white-50">
                             <div>
                                 <a href="index.html" class="d-inline-block auth-logo">
-                                    <img src="assets/images/logo-light.png" alt="" height="20">
+                                    <img src="<?= \Yii::getAlias('@web');?>/images/logo-light.png" alt="" height="20">
                                 </a>
                             </div>
                             <p class="mt-3 fs-15 fw-medium">Premium Admin & Dashboard Template</p>
@@ -73,36 +74,38 @@ use yii\bootstrap5\Html;
                                 <div class="p-2 mt-4">
                                     <?php $form = ActiveForm::begin([
                                         'id' => 'login-form',
-                                        'layout' => 'horizontal',
-                                        'fieldConfig' => [
-                                            'template' => "{label}\n{input}\n{error}",
-                                            
-                                        ],
+                                        // 'layout' => 'horizontal',
+                                        // 'fieldConfig' => [
+                                        //     'template' => "{label}\n<div>{input}</div>\n<div>{error}</div>",
+                                        //     'labelOptions' => ['class' => 'control-label'],
+                                        // ],
                                     ]); ?>
                                     
 
                                     <div class="mb-3">
-                                        <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+                                        <?= $form->field($model, 'username')->textInput(['autofocus' => true,'placeholder'=>'Enter username/email']) ?>
                                     </div>
 
                                     <div class="mb-3">
                                         <div class="float-end">
-                                            <a href="auth-pass-reset-basic.html" class="text-muted">Forgot password?</a>
+                                            <?= Html::a('Forgot password?', ['site/request-password-reset'], ['class'=>'text-muted']) ?>
+                                            <!-- <a href="auth-pass-reset-basic.html" class="text-muted">Forgot password?</a> -->
                                         </div>
+                                        <label class="form-label" for="password-input">Password</label>
                                         <div class="position-relative auth-pass-inputgroup mb-3">
-                                            <?= $form->field($model, 'password')->passwordInput() ?>
+                                            <?= $form->field($model, 'password')->passwordInput(['placeholder'=>'Enter your password...', 'class'=>'form-control pe-5 password-input'])->label(false) ?>
                                             <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
                                         </div>
                                     </div>
 
                                     <div class="form-check">
                                         <?= $form->field($model, 'rememberMe')->checkbox([
-                                            'template' => "<div class=\"offset-lg-1 col-lg-3 custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
+                                            'template' => "<div>{input} {label}</div>\n<div>{error}</div>",
                                         ]) ?>
                                     </div>
 
                                     <div class="mt-4">
-                                        <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                                        <?= Html::submitButton('Sign In', ['class' => 'btn btn-success w-100', 'name' => 'login-button']) ?>
                                     </div>
 
                                     <?php ActiveForm::end(); ?>
@@ -114,7 +117,7 @@ use yii\bootstrap5\Html;
                         <!-- end card -->
 
                         <div class="mt-4 text-center">
-                            <p class="mb-0">Don't have an account ? <a href="auth-signup-basic.html" class="fw-semibold text-primary text-decoration-underline"> Signup </a> </p>
+                            <p class="mb-0">Don't have an account ? <?= Html::a('Signup', ['site/signup'], ['class'=>'fw-semibold text-primary text-decoration-underline']) ?> </p>
                         </div>
 
                     </div>
@@ -126,20 +129,19 @@ use yii\bootstrap5\Html;
         <!-- end auth page content -->
 
         <footer class="footer">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row">
-                    <div class="col-sm-6">
-                        <?= date('Y') ?> &copy; BMIS
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="text-sm-end d-none d-sm-block">
-                            Design & Develop by Galtech (M) Sdn. Bhd.
+                    <div class="col-lg-12">
+                        <div class="text-center">
+                            <p class="mb-0 text-muted">&copy;
+                                <?= date('Y') ?> BMIS. Design & Develop by Galtech (M) Sdn. Bhd.
+                            </p>
                         </div>
+                        
                     </div>
                 </div>
             </div>
         </footer>
-
         
     </div>
 
@@ -149,7 +151,6 @@ use yii\bootstrap5\Html;
     <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/libs/node-waves/waves.min.js"></script>
     <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/libs/feather-icons/feather.min.js"></script>
     <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
-    <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/js/plugins.js"></script>
 
     <!-- particles js -->
     <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/libs/particles.js/particles.js"></script>
