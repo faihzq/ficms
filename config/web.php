@@ -9,7 +9,7 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     // 'defaultRoute' => 'site/index',
-    'defaultRoute' => 'velzon/index', // velzon example theme
+    // 'defaultRoute' => 'velzon/index', // velzon example theme
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -26,6 +26,18 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+            // 'authTimeout' => 3600, // set the authentication timeout to 1 hour
+            'loginUrl' => ['site/login'],
+            'on afterLogin' => function($event) {
+                // do something after the user logs in
+                Yii::info('User ' . Yii::$app->user->identity->fullname . ' logged in.', 'app');
+            },
+            // 'on beforeLogin' => function ($event) {
+            //     Yii::$app->session->setFlash('success', 'You have been logged in successfully.');
+            // },
+            // 'on afterLogout' => function ($event) {
+            //     Yii::$app->session->setFlash('success', 'You have been logged out successfully.');
+            // },
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -50,7 +62,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '<action>' => '/velzon/root' // velzon example
+                // '<action>' => '/velzon/root' // velzon example
             ],
         ],
     ],

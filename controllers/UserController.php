@@ -156,6 +156,19 @@ class UserController extends Controller
         // return $this->redirect(['index']);
     }
 
+     public function actionActivate($id)
+    {
+        $model = $this->findModel($id);
+        if ($model->status == 10){
+            $model->status = 9;
+        } else {
+            $model->status = 10;
+        }
+        $model->save(false);
+
+        return $this->redirect(['index']);
+    }
+
     /**
      * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

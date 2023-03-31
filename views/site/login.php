@@ -17,18 +17,18 @@ use yii\bootstrap5\Html;
         <meta content="Themesbrand" name="author" />
         <?php $this->registerCsrfMetaTags() ?>
         <!-- App favicon -->
-        <link rel="shortcut icon" href="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/images/favicon.ico">
+        <link rel="shortcut icon" href="<?= \Yii::getAlias('@web');?>/images/favicon.ico">
 
         <!-- Layout config Js -->
-        <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/js/layout.js"></script>
+        <script src="<?= \Yii::getAlias('@web');?>/js/layout.js"></script>
         <!-- Bootstrap Css -->
-        <link href="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?= \Yii::getAlias('@web');?>/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <!-- Icons Css -->
-        <link href="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?= \Yii::getAlias('@web');?>/css/icons.min.css" rel="stylesheet" type="text/css" />
         <!-- App Css-->
-        <link href="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?= \Yii::getAlias('@web');?>/css/app.min.css" rel="stylesheet" type="text/css" />
         <!-- custom Css-->
-        <link href="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/css/custom.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?= \Yii::getAlias('@web');?>/css/custom.min.css" rel="stylesheet" type="text/css" />
 
     </head>
 <body>
@@ -146,18 +146,18 @@ use yii\bootstrap5\Html;
     </div>
 
     <!-- JAVASCRIPT -->
-    <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/libs/simplebar/simplebar.min.js"></script>
-    <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/libs/node-waves/waves.min.js"></script>
-    <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/libs/feather-icons/feather.min.js"></script>
-    <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+    <script src="<?= \Yii::getAlias('@web');?>/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= \Yii::getAlias('@web');?>/libs/simplebar/simplebar.min.js"></script>
+    <script src="<?= \Yii::getAlias('@web');?>/libs/node-waves/waves.min.js"></script>
+    <script src="<?= \Yii::getAlias('@web');?>/libs/feather-icons/feather.min.js"></script>
+    <script src="<?= \Yii::getAlias('@web');?>/js/pages/plugins/lord-icon-2.1.0.js"></script>
 
     <!-- particles js -->
-    <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/libs/particles.js/particles.js"></script>
+    <script src="<?= \Yii::getAlias('@web');?>/libs/particles.js/particles.js"></script>
     <!-- particles app js -->
-    <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/js/pages/particles.app.js"></script>
+    <script src="<?= \Yii::getAlias('@web');?>/js/pages/particles.app.js"></script>
     <!-- password-addon init -->
-    <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/js/pages/password-addon.init.js"></script>
+    <script src="<?= \Yii::getAlias('@web');?>/js/pages/password-addon.init.js"></script>
 
 </body>
 

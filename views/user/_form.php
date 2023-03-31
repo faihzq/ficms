@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap5\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var app\models\User $model */
@@ -83,7 +83,7 @@ use yii\widgets\ActiveForm;
                 <div class="card-footer">
                     <div class="form-group">
                         <a href="<?php echo Yii::$app->request->referrer ?: Yii::$app->homeUrl ?>" title="Cancel" class="btn btn-label rounded-pill btn-warning btn-animation bg-gradient waves-effect waves-light"><i class="mdi mdi-keyboard-return label-icon align-middle rounded-pill"></i>  Cancel</a>
-                        <?= Html::submitButton('<i class="mdi mdi-content-save-outline label-icon align-middle rounded-pill"></i> Save', ['class' => 'btn btn-label rounded-pill btn-success btn-animation bg-gradient waves-effect waves-light float-end']) ?>
+                        <?= Html::submitButton('<i class="mdi mdi-content-save-outline label-icon align-middle rounded-pill"></i> Submit', ['class' => 'btn btn-label rounded-pill btn-success btn-animation bg-gradient waves-effect waves-light float-end']) ?>
                     </div>
 
                     <?php ActiveForm::end(); ?>

@@ -3,15 +3,13 @@
 use app\models\User;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
 
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Users';
 $this->params['breadcrumbs'][] = $this->title;
-$this->params['breadcrumbs'][] = 'Index';
+$this->params['breadcrumbs'][] = 'List';
 ?>
 
 <!--datatable css-->
@@ -33,15 +31,14 @@ $this->params['breadcrumbs'][] = 'Index';
                         <h5 class="card-title mb-0 flex-grow-1">All Users</h5>
                         <div class="flex-shrink-0">
                            <div class="d-flex flex-wrap gap-2">
-                                <?= Html::a('<i class="ri-add-line align-bottom me-1"></i> Create User', ['create'], ['class' => 'btn btn-danger add-btn']) ?>
-                                <button class="btn btn-soft-secondary" id="remove-actions" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
+                                <?= Html::a('<i class="ri-add-line label-icon align-middle rounded-pill"></i> Create User', ['create'], ['class' => 'btn btn-label rounded-pill btn-danger btn-animation bg-gradient waves-effect waves-light']) ?>
                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <table id="alternative-pagination" class="table nowrap dt-responsive align-middle table-hover table-bordered" style="width:100%">
-                        <thead>
+                        <thead class="table-light">
                             <tr>
                                 <th width="3%">No</th>
                                 <th>Name</th>
@@ -71,8 +68,13 @@ $this->params['breadcrumbs'][] = 'Index';
                                         <ul class="dropdown-menu dropdown-menu-end">
                                             <li>
                                                 <a href="<?php echo Url::to(['user/view','id'=>$user->id]) ?>" title="" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a>
-                                                </li>
-                                            <li><a href="<?php echo Url::to(['user/update','id'=>$user->id]) ?>" title="" class="dropdown-item"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
+                                            </li>
+                                            <li>
+                                                <a href="<?php echo Url::to(['user/update','id'=>$user->id]) ?>" title="" class="dropdown-item"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a>
+                                            </li>
+                                            <li>
+                                                <a href="<?php echo Url::to(['user/activate','id'=>$user->id]) ?>" title="" class="dropdown-item"><i class="ri-shut-down-fill align-bottom me-2 text-muted"></i><?php echo $user->status == 10? 'Deactivate':'Activate'?></a>
+                                            </li>
                                             
                                         </ul>
                                     </div>

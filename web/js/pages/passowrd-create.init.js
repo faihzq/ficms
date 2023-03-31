@@ -40,6 +40,7 @@ var letter = document.getElementById("pass-lower");
 var capital = document.getElementById("pass-upper");
 var number = document.getElementById("pass-number");
 var length = document.getElementById("pass-length");
+var passwordMinLength = document.getElementById("password-min-length").value;
 
 // When the user clicks on the password field, show the message box
 myInput.onfocus = function () {
@@ -84,7 +85,7 @@ myInput.onkeyup = function () {
     }
 
     // Validate length
-    if (myInput.value.length >= 8) {
+    if (myInput.value.length >= passwordMinLength) {
         length.classList.remove("invalid");
         length.classList.add("valid");
     } else {

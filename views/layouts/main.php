@@ -10,6 +10,15 @@ use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
 
+if (!Yii::$app->user->isGuest) {
+    $user = Yii::$app->user->identity;
+    // Access user properties or methods here
+} else {
+    // Redirect the user to the login page or show an error message
+    Yii::$app->getResponse()->redirect(['site/login'])->send();
+    exit();
+}
+
 AppAsset::register($this);
 
 $this->registerCsrfMetaTags();

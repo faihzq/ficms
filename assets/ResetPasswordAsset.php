@@ -15,12 +15,11 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class AppAsset extends AssetBundle
+class ResetPasswordAsset extends AssetBundle
 {
     public $basePath = '@webroot';//@app/themes/my-theme/assets
     public $baseUrl = '@web';
     public $css = [
-        'libs/dropzone/dropzone.css',
         'css-site/site.css',
         'css/bootstrap.min.css',
         'css/icons.min.css',
@@ -36,11 +35,12 @@ class AppAsset extends AssetBundle
         'libs/feather-icons/feather.min.js',
         'js/pages/plugins/lord-icon-2.1.0.js',
         'js/plugins.js',
-        'js/app.js'
+        'libs/particles.js/particles.js',
+        'js/pages/particles.app.js'
+        
         
     ];
     public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap5\BootstrapAsset',
+
     ];
 }
