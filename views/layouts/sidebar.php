@@ -38,6 +38,21 @@
                         <i class="bx bxs-dashboard"></i> <span data-key="t-dashboards">Dashboards</span>
                     </a>
                 </li> <!-- end Dashboard Menu -->
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarBoats" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarBoats">
+                        <i class="bx bxs-ship"></i> <span data-key="t-boat">Boats</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarBoats">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="<?php echo Url::to(['boat/create']) ?>" class="nav-link" data-key="t-boatCreate"> New Boat </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?php echo Url::to(['boat/index']) ?>" class="nav-link" data-key="t-boatList"> Boats List </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li> <!-- end Dashboard Menu -->
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-components">Administration</span></li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="<?php echo Url::to(['user/index']) ?>">
