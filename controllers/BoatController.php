@@ -46,7 +46,7 @@ class BoatController extends Controller
     {
         $model = Boat::find()->all();
 
-        return $this->render('index', [
+        return $this->render('indexTable', [
             'model' => $model,
         ]);
     }
@@ -59,8 +59,10 @@ class BoatController extends Controller
      */
     public function actionView($id)
     {
+        $modelImages = BoatImages::find()->andWhere(['boat_id'=>$id])->all();
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'modelImages' => $modelImages,
         ]);
     }
 
@@ -87,8 +89,27 @@ class BoatController extends Controller
                 if ($model->imageFile){
                     $model->upload();
                 }
+                // input gallery
+                $model->imageFiles = UploadedFile::getInstances($model, 'imageFiles');
+                if ($model->imageFiles){
+                    $directoryPath = 'uploads/boatGallery/';
+                    if (!file_exists($directoryPath)) {
+                        mkdir($directoryPath, 0777, true);
+                    }
+                    foreach ($model->imageFiles as $file) {
+                        $filename = uniqid() . '.' . $file->extension;
+                        $file->saveAs('uploads/boatGallery/' . $filename);
+                        $modelImages = new BoatImages();
+                        $modelImages->boat_id = $model->id;
+                        $modelImages->image_file = $filename;
+                        $modelImages->uploaded_by = $model->updated_user_id;
+                        $modelImages->date = $time;
 
-                if ($model->save()){
+                        $modelImages->save(false);
+                    }
+                }
+
+                if ($model->save(false)){
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
                 
@@ -128,10 +149,30 @@ class BoatController extends Controller
             if ($model->imageFile){
                 $model->upload();
             }
+            // input gallery
+            $model->imageFiles = UploadedFile::getInstances($model, 'imageFiles');
+            if ($model->imageFiles){
+                $directoryPath = 'uploads/boatGallery/';
+                if (!file_exists($directoryPath)) {
+                    mkdir($directoryPath, 0777, true);
+                }
+                foreach ($model->imageFiles as $file) {
+                    $filename = uniqid() . '.' . $file->extension;
+                    $file->saveAs('uploads/boatGallery/' . $filename);
+                    $modelImages = new BoatImages();
+                    $modelImages->boat_id = $model->id;
+                    $modelImages->image_file = $filename;
+                    $modelImages->uploaded_by = $model->updated_user_id;
+                    $modelImages->date = $time;
 
-            if ($model->save()){
+                    $modelImages->save(false);
+                }
+            }
+
+            if ($model->save(false)){
                 return $this->redirect(['view', 'id' => $model->id]);
             }
+
             
         }
 
@@ -139,7 +180,7 @@ class BoatController extends Controller
             'model' => $model,
             'listBoatStatus' => $listBoatStatus,
         ]);
-    }
+    }  
 
     /**
      * Deletes an existing Boat model.

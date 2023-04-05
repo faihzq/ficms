@@ -25,6 +25,7 @@ use yii\web\UploadedFile;
 class Boat extends \yii\db\ActiveRecord
 {
     public $imageFile;
+    public $imageFiles;
     /**
      * {@inheritdoc}
      */
@@ -47,6 +48,7 @@ class Boat extends \yii\db\ActiveRecord
             [['boat_description', 'image_file'], 'string'],
             [['boat_name', 'power', 'propulsion', 'speed'], 'string', 'max' => 100],
             [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
+            [['imageFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
         ];
     }
 
@@ -90,6 +92,35 @@ class Boat extends \yii\db\ActiveRecord
         }
     }
 
+    public function uploads()
+    {
+        
+
+        if ($this->validate()) {          
+            $directoryPath = 'uploads/boatGallery/';
+            if (!file_exists($directoryPath)) {
+                mkdir($directoryPath, 0777, true);
+            }
+            date_default_timezone_set('Asia/Kuala_Lumpur');
+            $time = date_default_timezone_get();
+            $time = date('Y-m-d H:i:s');
+            foreach ($this->imageFiles as $file) {
+                $file->saveAs('uploads/boatGallery/' . uniqid() . '.' . $file->extension);
+                $modelImages = new BoatImages();
+                $modelImages->boat_id = $this->id;
+                $modelImages->image_file = $file->baseName . '.' . $file->extension;
+                $modelImages->uploaded_by = $this->updated_user_id;
+                $modelImages->date = $time;
+
+                $modelImages->save(false);
+            }
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
+
     public function getStatus()
     {
         return $this->hasOne(BoatStatus::className(),['id'=>'status_id']);
@@ -110,6 +141,27 @@ class Boat extends \yii\db\ActiveRecord
             
             default:
                 $statusLabel = 'bg-info';
+                break;
+        }
+
+        return $statusLabel;
+    }
+
+    public function getStatusTable()
+    {
+        switch ($this->status_id) {
+            case 1:
+                $statusLabel = 'badge-soft-success';
+                break;
+            case 2:
+                $statusLabel = 'badge-soft-dark';
+                break;
+            case 3:
+                $statusLabel = 'badge-soft-warning';
+                break;
+            
+            default:
+                $statusLabel = 'badge-soft-info';
                 break;
         }
 

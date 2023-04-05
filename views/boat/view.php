@@ -43,7 +43,7 @@ $baseUrl = Url::base();
                                         <div class="hstack gap-3 flex-wrap">
                                             <div class="text-muted"><i class=" ri-map-pin-user-line align-bottom me-1"></i><span id="ticket-client"><?php echo $model->updatedUser->fullname?></span></div>
                                             <div class="vr"></div>
-                                            <div class="text-muted">Create Date : <span class="fw-medium " id="create-date"><?php echo date('d M, Y', strtotime($model->created_time))?></span></div>
+                                            <div class="text-muted">Created Date : <span class="fw-medium " id="create-date"><?php echo date('d M, Y', strtotime($model->created_time))?></span></div>
                                             <div class="vr"></div>
                                             <div class="text-muted">Updated Date : <span class="fw-medium" id="due-date"><?php echo date('d M, Y', strtotime($model->updated_time))?></span></div>
                                             <div class="vr"></div>
@@ -64,7 +64,7 @@ $baseUrl = Url::base();
         </div><!-- end col -->
     </div><!-- end row -->
     <div class="row">
-        <div class="col-xxl-8">
+        <div class="col-xxl-9">
             <div class="card">
                 <div class="card-body p-4">
                     <h5 class="card-title mb-3">Description</h5>
@@ -79,24 +79,13 @@ $baseUrl = Url::base();
                             <!-- Swiper -->
                             <div class="swiper effect-coverflow-swiper rounded pb-5">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <img src="<?= \Yii::getAlias('@web');?>/images/small/img-4.jpg" alt="" class="img-fluid" />
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img src="<?= \Yii::getAlias('@web');?>/images/small/img-5.jpg" alt="" class="img-fluid" />
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img src="<?= \Yii::getAlias('@web');?>/images/small/img-6.jpg" alt="" class="img-fluid" />
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img src="<?= \Yii::getAlias('@web');?>/images/small/img-7.jpg" alt="" class="img-fluid" />
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img src="<?= \Yii::getAlias('@web');?>/images/small/img-8.jpg" alt="" class="img-fluid" />
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img src="<?= \Yii::getAlias('@web');?>/images/small/img-9.jpg" alt="" class="img-fluid" />
-                                    </div>
+                                    <?php foreach ($modelImages as $image) { ?>
+                                        <div class="swiper-slide">
+                                            <img src="<?= \Yii::getAlias('@web');?>/uploads/boatGallery/<?php echo $image->image_file?>" alt="" class="img-fluid" />
+                                        </div>
+                                    <?php } ?>
+                                    
+                                    
                                 </div>
                                 <div class="swiper-pagination swiper-pagination-dark"></div>
                             </div>
@@ -107,6 +96,7 @@ $baseUrl = Url::base();
                     <div class="card-footer mt-3">
                         
                             <a href="<?php echo Url::to(['boat/index']) ?>" title="Cancel" class="btn btn-label btn-warning btn-animation bg-gradient waves-effect waves-light rounded-pill"><i class="mdi mdi-keyboard-return label-icon align-middle rounded-pill"></i>  Cancel</a>
+                            
                             <?= Html::a('<i class="mdi mdi-content-save label-icon align-middle rounded-pill"></i>Update', ['update', 'id' => $model->id], ['class' => 'btn btn-label btn-primary rounded-pill btn-animation bg-gradient waves-effect waves-light float-end']) ?>
                             <?= Html::a('<i class="mdi mdi-delete label-icon align-middle rounded-pill"></i>Delete', ['delete', 'id' => $model->id], [
                                 'class' => 'btn btn-label btn-danger rounded-pill btn-animation bg-gradient waves-effect waves-light',
@@ -124,7 +114,7 @@ $baseUrl = Url::base();
             <!--end card-->
         </div>
         <!--end col-->
-        <div class="col-xxl-4">
+        <div class="col-xxl-3">
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title mb-0">General Info</h5>
@@ -158,7 +148,7 @@ $baseUrl = Url::base();
                                     <td><?php echo $model->propulsion ?></td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-medium">speed</td>
+                                    <td class="fw-medium">Speed</td>
                                     <td><?php echo $model->speed ?></td>
                                 </tr>
                                 <tr>
@@ -171,14 +161,6 @@ $baseUrl = Url::base();
                                         <span class="badge <?php echo $model->statusLabel?>"><?php echo $model->status->name?></span>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="fw-medium">Create Date</td>
-                                    <td id="c-date"><?php echo date('d M, Y', strtotime($model->created_time))?></td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-medium">Updated Date</td>
-                                    <td id="d-date"><?php echo date('d M, Y', strtotime($model->updated_time))?></td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -187,6 +169,8 @@ $baseUrl = Url::base();
             </div>
         </div>
         <!--end col-->
+        
+        </div>
     </div>
     <!--end row-->
 </div>

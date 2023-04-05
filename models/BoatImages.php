@@ -31,7 +31,7 @@ class BoatImages extends \yii\db\ActiveRecord
     {
         return [
             [['boat_id', 'uploaded_by'], 'integer'],
-            [['image_file'], 'string'],
+            [['image_file'], 'string', 'max'=>100],
             [['date'], 'safe'],
         ];
     }

@@ -16,6 +16,8 @@ use app\models\VerifyEmailForm;
 use app\models\PasswordResetRequestForm;
 use app\models\ResetPasswordForm;
 
+use app\models\Boat;
+
 class SiteController extends Controller
 {
     /**
@@ -72,11 +74,22 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $total = Boat::find()->count();
+        $active = Boat::find()->andWhere(['status_id'=>1])->count();
+        $inactive = Boat::find()->andWhere(['status_id'=>2])->count();
+        $maintain = Boat::find()->andWhere(['status_id'=>3])->count();
+        $newBoat = Boat::find()->orderBy(['created_time'=>SORT_DESC])->limit(5)->all();
         if (Yii::$app->user->isGuest) {
             return $this->redirect(['login']);
         }
 
-        return $this->render('index');
+        return $this->render('index', [
+            'total' => $total,
+            'active' => $active,
+            'inactive' => $inactive,
+            'maintain' => $maintain,
+            'newBoat' => $newBoat,
+        ]);
     }
 
     /**

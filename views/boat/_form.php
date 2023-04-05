@@ -3,13 +3,10 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap5\ActiveForm;
-
 /** @var yii\web\View $this */
 /** @var app\models\Boat $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
-<!-- dropzone css -->
-
 
 <div class="boat-form">
     <div class="row">
@@ -119,8 +116,8 @@ use yii\bootstrap5\ActiveForm;
                                     <div class="mb-3">
                                         <?= $form->field($model, 'status')->dropDownList($listBoatStatus, [
                                             'class' => 'form-select',
-                                            'prompt'=>'Select Status',
-                                            'id' => 'boat-dropdown'
+                                            'id' => 'boat-dropdown',
+                                            
                                         ]) ?>
 
                                         <?= $form->field($model, 'status_id')->hiddenInput(['id' => 'status-hidden'])->label(false) ?>
@@ -168,11 +165,12 @@ use yii\bootstrap5\ActiveForm;
                             </div>
                             <div>
                                 <h5 class="fs-13 mb-1">Boat Gallery</h5>
+
                                 <p class="text-muted">Add Boat Gallery Images.</p>
 
-                                <div class="dropzone">
+                                <div class="dropzone" id="my-dropzone">
                                     <div class="fallback">
-                                        <input name="file" type="file" multiple="multiple">
+                                        <?= $form->field($model, 'imageFiles[]')->fileInput(['multiple'=>true]) ?>
                                     </div>
                                     <div class="dz-message needsclick">
                                         <div class="mb-3">
@@ -183,10 +181,10 @@ use yii\bootstrap5\ActiveForm;
                                     </div>
                                 </div>
 
-                                <ul class="list-unstyled mb-0" id="dropzone-preview">
-                                    <li class="mt-2" id="dropzone-preview-list">
+                                <!-- <ul class="list-unstyled mb-0" id="dropzone-preview">
+                                    <li class="mt-2" id="dropzone-preview-list"> -->
                                         <!-- This is used as the file preview template -->
-                                        <div class="border rounded">
+                                        <!-- <div class="border rounded">
                                             <div class="d-flex p-2">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar-sm bg-light rounded">
@@ -206,7 +204,7 @@ use yii\bootstrap5\ActiveForm;
                                             </div>
                                         </div>
                                     </li>
-                                </ul>
+                                </ul> -->
                                 <!-- end dropzon-preview -->
                             </div>
                             
@@ -281,6 +279,7 @@ use yii\bootstrap5\ActiveForm;
     var choices = new Choices(myDropdown, {
         searchEnabled: false
     });
+    statusHidden.value = 1;
 
     myDropdown.addEventListener('change', function(event) {
         statusHidden.value = event.detail.value;
@@ -299,18 +298,43 @@ use yii\bootstrap5\ActiveForm;
         });
 
     // Dropzone
-    var dropzonePreviewNode = document.querySelector("#dropzone-preview-list");
-    dropzonePreviewNode.itemid = "";
-    if(dropzonePreviewNode){
-        var previewTemplate = dropzonePreviewNode.parentNode.innerHTML;
-        dropzonePreviewNode.parentNode.removeChild(dropzonePreviewNode);
-        var dropzone = new Dropzone(".dropzone", {
-            url: 'https://httpbin.org/post',
-            method: "post",
-            previewTemplate: previewTemplate,
-            previewsContainer: "#dropzone-preview",
-        });
-    }
+    // var dropzonePreviewNode = document.querySelector("#dropzone-preview-list");
+    // dropzonePreviewNode.itemid = "";
+    // if(dropzonePreviewNode){
+    //     var previewTemplate = dropzonePreviewNode.parentNode.innerHTML;
+    //     dropzonePreviewNode.parentNode.removeChild(dropzonePreviewNode);
+    //     var dropzone = new Dropzone(".dropzone", {
+    //         url: '<?php echo Url::to(['site/upload']) ?>',
+    //         method: "post",
+    //         previewTemplate: previewTemplate,
+    //         previewsContainer: "#dropzone-preview",
+    //         autoProcessQueue: false,
+    //         maxFilesize: 2, // Maximum file size in MB
+    //         acceptedFiles: 'image/*', // Only accept image files
+    //         addRemoveLinks: true,
+    //         success: function(file, response) {
+    //             // Append the uploaded file name to the hidden field
+    //             var uploadedFiles = $('#uploaded-files').val();
+    //             if (uploadedFiles) {
+    //                 uploadedFiles += ',' + response.filename;
+    //             } else {
+    //                 uploadedFiles = response.filename;
+    //             }
+    //             $('#uploaded-files').val(uploadedFiles);
+    //         },
+    //         removedfile: function(file) {
+    //             // Remove the file name from the hidden field when a file is removed
+    //             var uploadedFiles = $('#uploaded-files').val();
+    //             var fileName = file.name;
+    //             uploadedFiles = uploadedFiles.replace(fileName, '').replace(',,', ',');
+    //             $('#uploaded-files').val(uploadedFiles);
+    //             // Also remove the file preview from Dropzone
+    //             file.previewElement.remove();
+    //         }
+    //     });
+    // }
+
+    
     
 
     // Form Event
