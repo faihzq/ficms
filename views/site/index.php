@@ -180,14 +180,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="align-items-center mt-4 pt-2 justify-content-between d-flex">
-                                    <div class="flex-shrink-0">
-                                        <div class="text-muted">
-                                            Showing <span class="fw-semibold">5</span> of <span class="fw-semibold"><?php echo $total ?></span> Results
-                                        </div>
-                                    </div>
-                                    
-                                </div>
+                                
                             </div>
                         </div> <!-- .card-->
                     </div><!--end col-->
