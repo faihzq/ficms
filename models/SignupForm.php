@@ -14,6 +14,7 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $confirmPassword;
  
     /**
      * @inheritdoc
@@ -23,15 +24,15 @@ class SignupForm extends Model
         return [
             ['username', 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => '\app\models\User', 'message' => 'Nama pengguna ini telah diambil.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This email address has already been taken.'],
-            ['password', 'required'],
-            ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'Alamat e-mel ini telah diambil.'],
+            [['password', 'confirmPassword'], 'required'],
+            [['password', 'confirmPassword'], 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
         ];
     }
  

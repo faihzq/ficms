@@ -8,6 +8,7 @@ $config = [
     'name' => 'Boat Management Information System (BMIS)',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'language'=>'ms',
     // 'defaultRoute' => 'site/index',
     // 'defaultRoute' => 'velzon/index', // velzon example theme
     'aliases' => [
@@ -15,7 +16,6 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
-        
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'yHY-OvSxAtovH9B5YTsd_EyoekgCoh4C',
@@ -32,12 +32,7 @@ $config = [
                 // do something after the user logs in
                 Yii::info('User ' . Yii::$app->user->identity->fullname . ' logged in.', 'app');
             },
-            // 'on beforeLogin' => function ($event) {
-            //     Yii::$app->session->setFlash('success', 'You have been logged in successfully.');
-            // },
-            // 'on afterLogout' => function ($event) {
-            //     Yii::$app->session->setFlash('success', 'You have been logged out successfully.');
-            // },
+            
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

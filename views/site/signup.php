@@ -8,7 +8,6 @@ use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
 ?>
 <!DOCTYPE html>
-<!-- <html lang="<?= Yii::$app->language ?>"> -->
 <html lang="<?= Yii::$app->language ?>" data-layout="horizontal" data-topbar="dark" data-sidebar-size="lg" data-sidebar="light" data-sidebar-image="none" data-preloader="disable">
     <head>
         <meta charset="utf-8" />
@@ -16,19 +15,20 @@ use yii\bootstrap5\Html;
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesbrand" name="author" />
+        <?php $this->registerCsrfMetaTags() ?>
         <!-- App favicon -->
-        <link rel="shortcut icon" href="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/images/favicon.ico">
+        <link rel="shortcut icon" href="<?= \Yii::getAlias('@web');?>/assets/images/favicon.ico">
 
         <!-- Layout config Js -->
-        <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/js/layout.js"></script>
+        <script src="<?= \Yii::getAlias('@web');?>/js/layout.js"></script>
         <!-- Bootstrap Css -->
-        <link href="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?= \Yii::getAlias('@web');?>/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <!-- Icons Css -->
-        <link href="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?= \Yii::getAlias('@web');?>/css/icons.min.css" rel="stylesheet" type="text/css" />
         <!-- App Css-->
-        <link href="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?= \Yii::getAlias('@web');?>/css/app.min.css" rel="stylesheet" type="text/css" />
         <!-- custom Css-->
-        <link href="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/css/custom.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?= \Yii::getAlias('@web');?>/css/custom.min.css" rel="stylesheet" type="text/css" />
 
     </head>
 <body>
@@ -95,11 +95,23 @@ use yii\bootstrap5\Html;
                                         <div class="mb-3">
                                             <label class="form-label" for="password-input">Password</label>
                                             <div class="position-relative auth-pass-inputgroup">
-                                                
+                                                <input type="hidden" id="password-min-length" value="<?= Yii::$app->params['user.passwordMinLength'] ?>">
                                                 <?= $form->field($model, 'password')->passwordInput(['class'=>'form-control pe-5 password-input', 'onpaste'=>'return false', 'placeholder'=>'Enter password', 'pattern'=>'(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'])->label(false) ?>
                                                 <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
                                             </div>
                                         </div>
+
+                                        <div class="mb-3">
+                                                <label class="form-label" for="confirm-password-input">Confirm Password</label>
+                                                <div class="position-relative auth-pass-inputgroup mb-3">
+                                                    <?= $form->field($model, 'confirmPassword')->passwordInput(['class' => 'form-control pe-5 password-input', 'id'=>'confirm-password-input', 'onpaste' => 'return false', 'placeholder' => 'Confirm password', 'pattern' => '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}', 'required' => true])->label(false) ?>
+                                                    <?= Html::button('<i class="ri-eye-fill align-middle"></i>', [
+                                                        'class' => 'btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon',
+                                                        'type' => 'button',
+                                                        'id' => 'confirm-password-addon',
+                                                    ]) ?>
+                                                </div>
+                                            </div>
 
                                         <div class="mb-4">
                                             <p class="mb-0 fs-12 text-muted fst-italic">By registering you agree to the Velzon <a href="#" class="text-primary text-decoration-underline fst-normal fw-medium">Terms of Use</a></p>
@@ -156,20 +168,20 @@ use yii\bootstrap5\Html;
     </div>
 
     <!-- JAVASCRIPT -->
-    <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/libs/simplebar/simplebar.min.js"></script>
-    <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/libs/node-waves/waves.min.js"></script>
-    <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/libs/feather-icons/feather.min.js"></script>
-    <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+    <script src="<?= \Yii::getAlias('@web');?>/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= \Yii::getAlias('@web');?>/libs/simplebar/simplebar.min.js"></script>
+    <script src="<?= \Yii::getAlias('@web');?>/libs/node-waves/waves.min.js"></script>
+    <script src="<?= \Yii::getAlias('@web');?>/libs/feather-icons/feather.min.js"></script>
+    <script src="<?= \Yii::getAlias('@web');?>/js/pages/plugins/lord-icon-2.1.0.js"></script>
 
     <!-- particles js -->
-    <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/libs/particles.js/particles.js"></script>
+    <script src="<?= \Yii::getAlias('@web');?>/libs/particles.js/particles.js"></script>
     <!-- particles app js -->
-    <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/js/pages/particles.app.js"></script>
+    <script src="<?= \Yii::getAlias('@web');?>/js/pages/particles.app.js"></script>
     <!-- validation init -->
-    <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/js/pages/form-validation.init.js"></script>
+    <script src="<?= \Yii::getAlias('@web');?>/js/pages/form-validation.init.js"></script>
     <!-- password create init -->
-    <script src="<?= \Yii::getAlias('@web/theme/velzon');?>/assets/js/pages/passowrd-create.init.js"></script>
+    <script src="<?= \Yii::getAlias('@web');?>/js/pages/passowrd-create.init.js"></script>
 
 </body>
 

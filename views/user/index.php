@@ -7,9 +7,9 @@ use yii\helpers\Url;
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Users';
+$this->title = 'Pengguna';
 $this->params['breadcrumbs'][] = $this->title;
-$this->params['breadcrumbs'][] = 'List';
+$this->params['breadcrumbs'][] = 'Senarai';
 ?>
 
 <!--datatable css-->
@@ -18,8 +18,6 @@ $this->params['breadcrumbs'][] = 'List';
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" />
 
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
-<!-- Sweet Alert css-->
-<link href="<?= \Yii::getAlias('@web');?>/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
 
 <div class="user-index">
 
@@ -31,7 +29,7 @@ $this->params['breadcrumbs'][] = 'List';
                         <h5 class="card-title mb-0 flex-grow-1">All Users</h5>
                         <div class="flex-shrink-0">
                            <div class="d-flex flex-wrap gap-2">
-                                <?= Html::a('<i class="ri-add-line label-icon align-middle rounded-pill"></i> Create User', ['create'], ['class' => 'btn btn-label rounded-pill btn-danger btn-animation bg-gradient waves-effect waves-light']) ?>
+                                <?= Html::a('<i class="ri-add-line label-icon align-middle rounded-pill"></i> Daftar Pengguna', ['create'], ['class' => 'btn btn-label rounded-pill btn-danger btn-animation bg-gradient waves-effect waves-light']) ?>
                            </div>
                         </div>
                     </div>
@@ -41,13 +39,13 @@ $this->params['breadcrumbs'][] = 'List';
                         <thead class="table-light">
                             <tr>
                                 <th width="3%">No</th>
-                                <th>Name</th>
-                                <th>Designation</th>
-                                <th>Phone No</th>
-                                <th>Email</th>
-                                <th>Role</th>
+                                <th>Nama</th>
+                                <th>Jawatan</th>
+                                <th>No. Telefon</th>
+                                <th>E-mel</th>
+                                <th>Peranan</th>
                                 <th class="text-center">Status</th>
-                                <th class="text-center">Action</th>
+                                <th class="text-center">Tindakan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,13 +65,13 @@ $this->params['breadcrumbs'][] = 'List';
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-end">
                                             <li>
-                                                <a href="<?php echo Url::to(['user/view','id'=>$user->id]) ?>" title="" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a>
+                                                <a href="<?php echo Url::to(['user/view','id'=>$user->id]) ?>" title="" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> Lihat</a>
                                             </li>
                                             <li>
                                                 <a href="<?php echo Url::to(['user/update','id'=>$user->id]) ?>" title="" class="dropdown-item"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a>
                                             </li>
                                             <li>
-                                                <a href="<?php echo Url::to(['user/activate','id'=>$user->id]) ?>" title="" class="dropdown-item"><i class="ri-shut-down-fill align-bottom me-2 text-muted"></i><?php echo $user->status == 10? 'Deactivate':'Activate'?></a>
+                                                <a href="<?php echo Url::to(['user/activate','id'=>$user->id]) ?>" title="" class="dropdown-item"><i class="ri-shut-down-fill align-bottom me-2 text-muted"></i><?php echo $user->status == 10? 'Nyahaktifkan':'Aktifkan'?></a>
                                             </li>
                                             
                                         </ul>
@@ -95,9 +93,6 @@ $this->params['breadcrumbs'][] = 'List';
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-
-<!-- Sweet Alerts js -->
-<script src="<?= \Yii::getAlias('@web');?>/libs/sweetalert2/sweetalert2.min.js"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

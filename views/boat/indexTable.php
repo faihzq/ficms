@@ -7,9 +7,9 @@ use yii\helpers\Url;
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Users';
+$this->title = 'Bot';
 $this->params['breadcrumbs'][] = $this->title;
-$this->params['breadcrumbs'][] = 'List';
+$this->params['breadcrumbs'][] = 'Senarai';
 $baseUrl = Url::base();
 ?>
 
@@ -19,8 +19,6 @@ $baseUrl = Url::base();
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" />
 
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
-<!-- Sweet Alert css-->
-<link href="<?= \Yii::getAlias('@web');?>/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
 
 <div class="user-index">
 
@@ -29,10 +27,10 @@ $baseUrl = Url::base();
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex align-items-center">
-                        <h5 class="card-title mb-0 flex-grow-1">All Boats</h5>
+                        <h5 class="card-title mb-0 flex-grow-1">Senarai Bot</h5>
                         <div class="flex-shrink-0">
                            <div class="d-flex flex-wrap gap-2">
-                                <?= Html::a('<i class="ri-add-line label-icon align-middle rounded-pill"></i> Create Boat', ['create'], ['class' => 'btn btn-label rounded-pill btn-danger btn-animation bg-gradient waves-effect waves-light']) ?>
+                                <?= Html::a('<i class="ri-add-line label-icon align-middle rounded-pill"></i> Daftar Bot', ['create'], ['class' => 'btn btn-label rounded-pill btn-danger btn-animation bg-gradient waves-effect waves-light']) ?>
                            </div>
                         </div>
                     </div>
@@ -42,9 +40,9 @@ $baseUrl = Url::base();
                         <thead class="table-light">
                             <tr>
                                 <th width="3%">No</th>
-                                <th >Name</th>
+                                <th >Nama</th>
                                 <th class="text-center">Status</th>
-                                <th class="text-center">Action</th>
+                                <th class="text-center">Tindakan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -54,11 +52,16 @@ $baseUrl = Url::base();
 
                                 <td><div class="d-flex align-items-center">
                                         <div class="flex-shrink-0 me-2">
-                                            <?php if ($boat->image_file){ ?>
-                                                <img src="<?php echo $baseUrl.'/uploads/boatImages/'; echo $boat->image_file;?>" alt="" class="avatar-xs rounded-circle" />
-                                            <?php } else { ?>
-                                                <img src="<?= \Yii::getAlias('@web');?>/images/nft/img-01.jpg" alt="" class="avatar-xs rounded-circle" />
-                                            <?php } ?>
+                                            <div class="avatar-xs flex-shrink-0 me-3">
+                                                <?php if ($boat->image_file){ ?>
+                                                    <img src="<?php echo $baseUrl.'/uploads/boatImages/'; echo $boat->image_file;?>" alt="" class="avatar-xs rounded-circle" />
+                                                <?php } else { ?>
+                                                    <div class="avatar-title bg-soft-<?php echo $color= $boat->imageColor;?> text-<?php echo $color?> rounded-circle">
+                                                        <?php echo $boat->image ?>
+                                                    </div>
+                                                <?php } ?>
+                                            </div>
+                                            
                                         </div>
                                         <div class="flex-grow-1"><?php echo $boat->boat_name; ?></div>
                                     </div>
@@ -71,7 +74,7 @@ $baseUrl = Url::base();
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-end">
                                             <li>
-                                                <a href="<?php echo Url::to(['boat/view','id'=>$boat->id]) ?>" title="" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a>
+                                                <a href="<?php echo Url::to(['boat/view','id'=>$boat->id]) ?>" title="" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> Lihat</a>
                                             </li>
                                             <li>
                                                 <a href="<?php echo Url::to(['boat/update','id'=>$boat->id]) ?>" title="" class="dropdown-item"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a>
@@ -96,9 +99,6 @@ $baseUrl = Url::base();
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-
-<!-- Sweet Alerts js -->
-<script src="<?= \Yii::getAlias('@web');?>/libs/sweetalert2/sweetalert2.min.js"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

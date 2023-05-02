@@ -59,16 +59,16 @@ class Boat extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'boat_name' => 'Boat Name',
-            'boat_description' => 'Boat Description',
-            'length_overall' => 'Length Overall',
-            'length_over_waterline' => 'Length Over Waterline',
-            'beam_overall' => 'Beam Overall',
-            'draft' => 'Draft',
-            'power' => 'Power',
-            'propulsion' => 'Propulsion',
-            'speed' => 'Speed',
-            'boat_range' => 'Range',
+            'boat_name' => 'Nama Bot',
+            'boat_description' => 'Penerangan Bot',
+            'length_overall' => 'Panjang Keseluruhan',
+            'length_over_waterline' => 'Panjang Atas Paras Air',
+            'beam_overall' => 'Rasuk Keseluruhan',
+            'draft' => 'Draf',
+            'power' => 'Kuasa',
+            'propulsion' => 'Pendorongan',
+            'speed' => 'Kelajuan',
+            'boat_range' => 'Julat',
             'status_id' => 'Status',
             'updated_user_id' => 'Updated User ID',
             'created_time' => 'Created Time',
@@ -173,4 +173,71 @@ class Boat extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(),['id'=>'updated_user_id']);
     }
 
+    public function getTotalReport()
+    {
+        $result = ReportDamage::find()->where(['boat_id'=>$this->id])->andWhere(['status_id'=>2])->count();
+        if (!$result){
+            return '-';
+        } else {
+            return $result;
+        }
+    }
+
+    public function getTotalReportRepair()
+    {
+        $result = ReportDamage::find()->join('JOIN','report_survey', 'report_damage.id = report_survey.report_damage_id')->join('JOIN','report_repair', 'report_survey.id = report_repair.report_survey_id')->andWhere(['report_damage.boat_id' => $this->id, 'report_repair.status_id' => 2])->count();
+
+        if (!$result){
+            return '-';
+        }else {
+            return $result;
+        }
+    }
+
+    public function getTotalReportNotFixed()
+    {
+        $total = ReportDamage::find()->where(['boat_id'=>$this->id])->andWhere(['status_id'=>2])->count();
+        $fixed = ReportDamage::find()->join('JOIN','report_survey', 'report_damage.id = report_survey.report_damage_id')->join('JOIN','report_repair', 'report_survey.id = report_repair.report_survey_id')->andWhere(['report_damage.boat_id' => $this->id, 'report_repair.status_id' => 2])->count();
+        $result = $total - $fixed;
+        if (!$result){
+            return '-';
+        }else {
+            return $result;
+        }
+    }
+
+    public function getTotalReportNoWarranty()
+    {
+        $result = ReportDamage::find()->join('JOIN','report_survey', 'report_damage.id = report_survey.report_damage_id')->andWhere(['report_damage.boat_id' => $this->id, 'report_survey.status_id' => 2, 'report_survey.warranty_protection'=> 0])->count();
+        if (!$result){
+            return '-';
+        }else {
+            return $result;
+        }
+    }
+
+    public function getImage()
+    {
+        $avtar_title = explode(" ", $this->boat_name);
+        $letters = null;
+        if (count($avtar_title) >= 2) {
+            $first_letter = substr($avtar_title[0], 0, 1);
+            $second_letter = substr($avtar_title[1], 0, 1);
+            $letters = $first_letter . $second_letter;
+        } else {
+            $first_letter = substr($avtar_title[0], 0, 1);
+            $letters = $first_letter;
+        }
+
+        return $letters;
+    }
+
+    public function getImageColor()
+    {
+        $colors = array('primary', 'dark', 'success', 'info', 'secondary', 'danger');
+        $index = array_rand($colors);
+        $result = $colors[$index];
+
+        return $result;
+    }
 }

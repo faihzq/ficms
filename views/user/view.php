@@ -8,26 +8,23 @@ use yii\helpers\Url;
 /** @var app\models\User $model */
 
 $this->title = $model->fullname;
-$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Kemaskini', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-
-<!-- Sweet Alert css-->
-<link href="<?= \Yii::getAlias('@web');?>/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
 
 <div class="user-view">
     <div class="row">
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-body">
-                    <div class="card-title">Personal Details</div>
+                    <div class="card-title">Maklumat peribadi</div>
                     <hr>
                     <?= DetailView::widget([
                         'model' => $model,
                         'attributes' => [
                             [
-                                  'attribute' => 'Name',
+                                  'attribute' => 'Nama',
                                   'format' => 'raw',
                                    'value' => function ($model) {
                                      return  $model->firstname.' '.$model->lastname.' ('.$model->username.')';
@@ -36,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'designation',
                             'phone_no',
                             [
-                                  'attribute' => 'Role',
+                                  'attribute' => 'Peranan',
                                   'format' => 'raw',
                                    'value' => function ($model) {
                                      return  $model->userRole->name;
@@ -57,10 +54,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="card-footer">
                     
-                    <a href="<?php echo Yii::$app->request->referrer ?: Yii::$app->homeUrl ?>" title="Cancel" class="btn btn-label rounded-pill btn-warning btn-animation bg-gradient waves-effect waves-light"><i class="mdi mdi-keyboard-return label-icon align-middle rounded-pill"></i>  Cancel</a>
-                    <?= Html::a('<i class="mdi mdi-content-save label-icon align-middle rounded-pill"></i>Update', ['update', 'id' => $model->id], ['class' => 'btn btn-label rounded-pill btn-primary btn-animation bg-gradient waves-effect waves-light float-end']) ?>
+                    <a href="<?php echo Yii::$app->request->referrer ?: Yii::$app->homeUrl ?>" title="Cancel" class="btn btn-label rounded-pill btn-warning btn-animation bg-gradient waves-effect waves-light"><i class="mdi mdi-keyboard-return label-icon align-middle rounded-pill"></i>  Batal</a>
+                    <?= Html::a('<i class="mdi mdi-content-save label-icon align-middle rounded-pill"></i>Kemaskini', ['update', 'id' => $model->id], ['class' => 'btn btn-label rounded-pill btn-primary btn-animation bg-gradient waves-effect waves-light float-end']) ?>
                     <?php if (Yii::$app->user->identity->user_role_id==1 || ($model->id =! Yii::$app->user->identity->id)): ?>
-                        <button type="button" class="btn btn-label rounded-pill btn-danger btn-animation bg-gradient waves-effect waves-light" id="sa-delete" data-id="<?= $model->id ?>"><i class="mdi mdi-delete label-icon align-middle rounded-pill"></i>Delete</button>
+                        <button type="button" class="btn btn-label rounded-pill btn-danger btn-animation bg-gradient waves-effect waves-light" id="sa-delete" data-id="<?= $model->id ?>"><i class="mdi mdi-delete label-icon align-middle rounded-pill"></i>Padam</button>
                     <?php endif ?>
                     
                 </div>
@@ -80,22 +77,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </div>
 
-<!-- Sweet Alerts js -->
-<script src="<?= \Yii::getAlias('@web');?>/libs/sweetalert2/sweetalert2.min.js"></script>
-
 <script type="text/javascript">
     //Warning Message
     if (document.getElementById("sa-delete"))
         document.getElementById("sa-delete").addEventListener("click", function () {
             var id = $(this).data('id'); // get the ID from the data-id attribute
             Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
+                title: "Adakah anda pasti?",
+                text: "Anda tidak akan dapat mengembalikan akaun ini!",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonClass: 'btn btn-primary w-xs me-2 mt-2',
                 cancelButtonClass: 'btn btn-danger w-xs mt-2',
-                confirmButtonText: "Yes, delete it!",
+                confirmButtonText: "Ya, padam!",
                 buttonsStyling: false,
                 showCloseButton: true
             }).then(function (result) {
@@ -106,8 +100,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         success: function (data) {
                             //alert(data);
                             Swal.fire({
-                                title: 'Deleted!',
-                                text: 'This user has been deleted.',
+                                title: 'Dipadam!',
+                                text: 'Pengguna ini telah dipadamkan.',
                                 icon: 'success',
                                 confirmButtonClass: 'btn btn-primary w-xs mt-2',
                                 buttonsStyling: false
@@ -121,8 +115,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         error: function() {
                           // show a SweetAlert dialog with an error message
                           Swal.fire({
-                            title: 'Error!',
-                            text: 'An error occurred while deleting this user.',
+                            title: 'Ralat!',
+                            text: 'Ralat berlaku semasa memadamkan pengguna ini.',
                             icon: 'error',
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: 'OK'

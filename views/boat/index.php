@@ -9,9 +9,9 @@ use yii\grid\GridView;
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Boats';
+$this->title = 'Bot';
 $this->params['breadcrumbs'][] = $this->title;
-$this->params['breadcrumbs'][] = 'List';
+$this->params['breadcrumbs'][] = 'Senarai';
 $baseUrl = Url::base();
 ?>
 <!-- nouisliderribute css -->
@@ -23,17 +23,17 @@ $baseUrl = Url::base();
             <div class="card">
                 <div class="card-header border-0">
                     <div class="d-flex align-items-center">
-                        <h5 class="card-title mb-0 flex-grow-1">Boat List</h5>
+                        <h5 class="card-title mb-0 flex-grow-1">Senarai Bot</h5>
                         <div>
-                            <?= Html::a('Register Boat', ['create'], ['class' => 'btn btn-danger']) ?>
-                            <a class="btn btn-success" data-bs-toggle="collapse" href="#collapseExample"><i class="ri-filter-2-line align-bottom"></i> Filters</a>
+                            <?= Html::a('Daftar Bot', ['create'], ['class' => 'btn btn-danger']) ?>
+                            <a class="btn btn-success" data-bs-toggle="collapse" href="#collapseExample"><i class="ri-filter-2-line align-bottom"></i> Tapis</a>
                         </div>
                     </div>
                     <div class="collaps show" id="collapseExample">
                         <div class="row row-cols-xxl-5 row-cols-lg-3 row-cols-md-2 row-cols-1 mt-3 g-3">
                             <div class="col">
-                                <h6 class="text-uppercase fs-12 mb-2">Search</h6>
-                                <input type="text" class="form-control" placeholder="Search product name" autocomplete="off" id="searchProductList">
+                                <h6 class="text-uppercase fs-12 mb-2">Carian</h6>
+                                <input type="text" class="form-control" placeholder="Carian bot..." autocomplete="off" id="searchProductList">
                             </div>
                             <div class="col">
                                 <h6 class="text-uppercase fs-12 mb-2">Select Category</h6>

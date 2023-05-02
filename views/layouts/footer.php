@@ -2,11 +2,11 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6">
-                <script>document.write(new Date().getFullYear())</script> © Boat Management Information System.
+                <script>document.write(new Date().getFullYear())</script> © Fast Interceptor Craft Monitoring Systems (FICMS).
             </div>
             <div class="col-sm-6">
                 <div class="text-sm-end d-none d-sm-block">
-                    Design & Develop by Galtech (M) Sdn. Bhd.
+                    Direka & Dibangun oleh Galtech (M) Sdn. Bhd.
                 </div>
             </div>
         </div>

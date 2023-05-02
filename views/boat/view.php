@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /** @var app\models\Boat $model */
 
 $this->title = $model->boat_name;
-$this->params['breadcrumbs'][] = ['label' => 'Boats', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Bot', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 
@@ -31,7 +31,10 @@ $baseUrl = Url::base();
                                                 <?php if ($model->image_file){?>
                                                     <img src="<?php echo $baseUrl.'/uploads/boatImages/'; echo $model->image_file;?>" alt="" class="avatar-sm" />
                                                 <?php }else {?>
-                                                    <img src="<?= \Yii::getAlias('@web');?>/images/companies/img-4.png" alt="" class="avatar-sm" />
+                                                    
+                                                    <div class="avatar-title bg-soft-<?php echo $color= $model->imageColor;?> text-<?php echo $color?> rounded-circle">
+                                                        <?php echo $model->image ?>
+                                                    </div>
                                                 <?php } ?>
                                                 
                                             </div>
@@ -43,9 +46,9 @@ $baseUrl = Url::base();
                                         <div class="hstack gap-3 flex-wrap">
                                             <div class="text-muted"><i class=" ri-map-pin-user-line align-bottom me-1"></i><span id="ticket-client"><?php echo $model->updatedUser->fullname?></span></div>
                                             <div class="vr"></div>
-                                            <div class="text-muted">Created Date : <span class="fw-medium " id="create-date"><?php echo date('d M, Y', strtotime($model->created_time))?></span></div>
+                                            <div class="text-muted">Tarikh Dicipta : <span class="fw-medium " id="create-date"><?php echo date('d M, Y', strtotime($model->created_time))?></span></div>
                                             <div class="vr"></div>
-                                            <div class="text-muted">Updated Date : <span class="fw-medium" id="due-date"><?php echo date('d M, Y', strtotime($model->updated_time))?></span></div>
+                                            <div class="text-muted">Tarikh Kemaskini : <span class="fw-medium" id="due-date"><?php echo date('d M, Y', strtotime($model->updated_time))?></span></div>
                                             <div class="vr"></div>
                                             <div class="badge rounded-pill <?php echo $model->statusLabel?> fs-12" id="ticket-status"><?php echo $model->status->name?></div>
                                         </div>
@@ -72,7 +75,7 @@ $baseUrl = Url::base();
                 </div>
                 <!--end card-body-->
                 <div class="card-footer p-4 border-top-dashed">
-                    <h5 class="card-title mb-4">Gallery</h5>
+                    <h5 class="card-title mb-4">Galeri</h5>
 
                     <div class="px-3 mx-n3">
                         <div class="col-lg-12">
@@ -95,13 +98,13 @@ $baseUrl = Url::base();
                     
                     <div class="card-footer mt-3">
                         
-                            <a href="<?php echo Url::to(['boat/index']) ?>" title="Cancel" class="btn btn-label btn-warning btn-animation bg-gradient waves-effect waves-light rounded-pill"><i class="mdi mdi-keyboard-return label-icon align-middle rounded-pill"></i>  Cancel</a>
+                            <a href="<?php echo Url::to(['boat/index']) ?>" title="Cancel" class="btn btn-label btn-warning btn-animation bg-gradient waves-effect waves-light rounded-pill"><i class="mdi mdi-keyboard-return label-icon align-middle rounded-pill"></i>  Batal</a>
                             
-                            <?= Html::a('<i class="mdi mdi-content-save label-icon align-middle rounded-pill"></i>Update', ['update', 'id' => $model->id], ['class' => 'btn btn-label btn-primary rounded-pill btn-animation bg-gradient waves-effect waves-light float-end']) ?>
-                            <?= Html::a('<i class="mdi mdi-delete label-icon align-middle rounded-pill"></i>Delete', ['delete', 'id' => $model->id], [
+                            <?= Html::a('<i class="mdi mdi-content-save label-icon align-middle rounded-pill"></i>Kemaskini', ['update', 'id' => $model->id], ['class' => 'btn btn-label btn-primary rounded-pill btn-animation bg-gradient waves-effect waves-light float-end']) ?>
+                            <?= Html::a('<i class="mdi mdi-delete label-icon align-middle rounded-pill"></i>Padam', ['delete', 'id' => $model->id], [
                                 'class' => 'btn btn-label btn-danger rounded-pill btn-animation bg-gradient waves-effect waves-light',
                                 'data' => [
-                                    'confirm' => 'Are you sure you want to delete this item?',
+                                    'confirm' => 'Adakah anda pasti mahu memadamkan item ini?',
                                     'method' => 'post',
                                 ],
                             ]) ?>
@@ -117,46 +120,46 @@ $baseUrl = Url::base();
         <div class="col-xxl-3">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">General Info</h5>
+                    <h5 class="card-title mb-0">Maklumat umum</h5>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive table-card">
                         <table class="table table-borderless align-middle mb-0">
                             <tbody>
                                 <tr>
-                                    <td class="fw-medium">Length Overall</td>
+                                    <td class="fw-medium"><?php echo $model->getAttributeLabel('length_overall'); ?></td>
                                     <td><?php echo $model->length_overall?$model->length_overall.'m':'' ?></td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-medium">Length Over Waterline</td>
+                                    <td class="fw-medium"><?php echo $model->getAttributeLabel('length_over_waterline'); ?></td>
                                     <td><?php echo $model->length_over_waterline?$model->length_over_waterline.'m':'' ?></td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-medium">Beam Overall</td>
+                                    <td class="fw-medium"><?php echo $model->getAttributeLabel('beam_overall'); ?></td>
                                     <td><?php echo $model->beam_overall?$model->beam_overall.'m':'' ?></td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-medium">Draft</td>
+                                    <td class="fw-medium"><?php echo $model->getAttributeLabel('draft'); ?></td>
                                     <td><?php echo $model->draft?$model->draft.'m':'' ?></td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-medium">Power</td>
+                                    <td class="fw-medium"><?php echo $model->getAttributeLabel('power'); ?></td>
                                     <td><?php echo $model->power ?></td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-medium">Propulsion</td>
+                                    <td class="fw-medium"><?php echo $model->getAttributeLabel('propulsion'); ?></td>
                                     <td><?php echo $model->propulsion ?></td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-medium">Speed</td>
+                                    <td class="fw-medium"><?php echo $model->getAttributeLabel('speed'); ?></td>
                                     <td><?php echo $model->speed ?></td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-medium">Range</td>
+                                    <td class="fw-medium"><?php echo $model->getAttributeLabel('boat_range'); ?></td>
                                     <td><?php echo $model->boat_range ?></td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-medium">Status</td>
+                                    <td class="fw-medium"><?php echo $model->getAttributeLabel('status_id'); ?></td>
                                     <td>
                                         <span class="badge <?php echo $model->statusLabel?>"><?php echo $model->status->name?></span>
                                     </td>

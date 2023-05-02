@@ -53,10 +53,10 @@ use yii\bootstrap5\Html;
                         <div class="text-center mt-sm-5 mb-4 text-white-50">
                             <div>
                                 <a href="index.html" class="d-inline-block auth-logo">
-                                    <img src="<?= \Yii::getAlias('@web');?>/images/logo-light.png" alt="" height="20">
+                                    <img src="<?= \Yii::getAlias('@web');?>/images/logo-ficms-light.png" alt="" height="100">
                                 </a>
                             </div>
-                            <p class="mt-3 fs-15 fw-medium">Premium Admin & Dashboard Template</p>
+                            <p class="mt-3 fs-15 fw-medium">Fast Interceptor Craft Monitoring Systems (FICMS)</p>
                         </div>
                     </div>
                 </div>
@@ -68,8 +68,8 @@ use yii\bootstrap5\Html;
 
                             <div class="card-body p-4">
                                 <div class="text-center mt-2">
-                                    <h5 class="text-primary">Welcome Back !</h5>
-                                    <p class="text-muted">Sign in to continue to Velzon.</p>
+                                    <h5 class="text-primary">Selamat Datang !</h5>
+                                    <p class="text-muted">Log masuk untuk meneruskan ke FICMS.</p>
                                 </div>
                                 <div class="p-2 mt-4">
                                     <?php $form = ActiveForm::begin([
@@ -83,17 +83,17 @@ use yii\bootstrap5\Html;
                                     
 
                                     <div class="mb-3">
-                                        <?= $form->field($model, 'username')->textInput(['autofocus' => true,'placeholder'=>'Enter username/email']) ?>
+                                        <?= $form->field($model, 'username')->textInput(['autofocus' => true,'placeholder'=>'Masukkan nama pengguna/e-mel']) ?>
                                     </div>
 
                                     <div class="mb-3">
                                         <div class="float-end">
-                                            <?= Html::a('Forgot password?', ['site/request-password-reset'], ['class'=>'text-muted']) ?>
+                                            <?= Html::a('Terlupa kata laluan?', ['site/request-password-reset'], ['class'=>'text-muted']) ?>
                                             <!-- <a href="auth-pass-reset-basic.html" class="text-muted">Forgot password?</a> -->
                                         </div>
-                                        <label class="form-label" for="password-input">Password</label>
+                                        <label class="form-label" for="password-input">Kata Laluan</label>
                                         <div class="position-relative auth-pass-inputgroup mb-3">
-                                            <?= $form->field($model, 'password')->passwordInput(['placeholder'=>'Enter your password...', 'class'=>'form-control pe-5 password-input'])->label(false) ?>
+                                            <?= $form->field($model, 'password')->passwordInput(['placeholder'=>'Masukkan kata laluan anda...', 'class'=>'form-control pe-5 password-input'])->label(false) ?>
                                             <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
                                         </div>
                                     </div>
@@ -105,7 +105,7 @@ use yii\bootstrap5\Html;
                                     </div>
 
                                     <div class="mt-4">
-                                        <?= Html::submitButton('Sign In', ['class' => 'btn btn-success w-100', 'name' => 'login-button']) ?>
+                                        <?= Html::submitButton('Log Masuk', ['class' => 'btn btn-success w-100', 'name' => 'login-button']) ?>
                                     </div>
 
                                     <?php ActiveForm::end(); ?>
@@ -116,9 +116,7 @@ use yii\bootstrap5\Html;
                         </div>
                         <!-- end card -->
 
-                        <div class="mt-4 text-center">
-                            <p class="mb-0">Don't have an account ? <?= Html::a('Signup', ['site/signup'], ['class'=>'fw-semibold text-primary text-decoration-underline']) ?> </p>
-                        </div>
+                        
 
                     </div>
                 </div>
@@ -134,7 +132,7 @@ use yii\bootstrap5\Html;
                     <div class="col-lg-12">
                         <div class="text-center">
                             <p class="mb-0 text-muted">&copy;
-                                <?= date('Y') ?> BMIS. Design & Develop by Galtech (M) Sdn. Bhd.
+                                <?= date('Y') ?> FICMS. Reka bentuk & Dibangun by Galtech (M) Sdn. Bhd.
                             </p>
                         </div>
                         

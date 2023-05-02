@@ -17,6 +17,9 @@ use app\models\PasswordResetRequestForm;
 use app\models\ResetPasswordForm;
 
 use app\models\Boat;
+use app\models\ReportDamage;
+use app\models\ReportSurvey;
+use app\models\ReportRepair;
 
 class SiteController extends Controller
 {
@@ -28,10 +31,10 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['logout', 'signup'],
+                'only' => ['logout', 'signup', 'login'],
                 'rules' => [
                     [
-                        'actions' => ['signup'],
+                        'actions' => ['signup', 'login'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -74,21 +77,54 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        // all boat
+        $modelBoat = Boat::find()->all();
+
+        // status boat
         $total = Boat::find()->count();
         $active = Boat::find()->andWhere(['status_id'=>1])->count();
         $inactive = Boat::find()->andWhere(['status_id'=>2])->count();
         $maintain = Boat::find()->andWhere(['status_id'=>3])->count();
         $newBoat = Boat::find()->orderBy(['created_time'=>SORT_DESC])->limit(5)->all();
+
+        $activePercent = ($active / $total) * 100;
+        $maintainPercent = ($maintain / $total) * 100;
+        $inactivePercent = ($inactive / $total) * 100;
+
+        // pie chart report
+        $totalReport = ReportDamage::find()->andWhere(['status_id'=>2])->count(); // total report yg dah approved
+        $totalFixed = ReportRepair::find()->andWhere(['status_id'=>2])->count(); // report pembaikan yg dah approved
+        $totalNotFixed = $totalReport - $totalFixed; // report kerosakan yg dah approved tapi belum dibaiki
+        $totalNoWarranty = ReportSurvey::find()->andWhere(['status_id'=>2])->andWhere(['warranty_protection'=>0])->count(); // report tinjauan yg dah approved and no warranty
+
+        $fixedPercent = ($totalFixed / $totalReport) * 100;
+        $notFixedPercent = ($totalNotFixed / $totalReport) * 100;
+        $noWarrantyPercent = ($totalNoWarranty / $totalReport) * 100;
+
         if (Yii::$app->user->isGuest) {
             return $this->redirect(['login']);
         }
 
         return $this->render('index', [
+            'modelBoat' => $modelBoat,
             'total' => $total,
             'active' => $active,
             'inactive' => $inactive,
             'maintain' => $maintain,
             'newBoat' => $newBoat,
+
+            'activePercent' => $activePercent,
+            'inactivePercent' => $inactivePercent,
+            'maintainPercent' => $maintainPercent,
+
+            'totalReport' => $totalReport,
+            'totalFixed' => $totalFixed,
+            'totalNotFixed' => $totalNotFixed,
+            'totalNoWarranty' => $totalNoWarranty,
+
+            'fixedPercent' => $fixedPercent,
+            'notFixedPercent' => $notFixedPercent,
+            'noWarrantyPercent' => $noWarrantyPercent,
         ]);
     }
 
@@ -107,6 +143,7 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            Yii::$app->session->setFlash('success');
             return $this->goBack();
             // if ($viewToken) {
             //     return $this->redirect(['ticket/view','id'=>$viewToken]);

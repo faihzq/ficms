@@ -33,7 +33,10 @@ function validatePassword() {
 }
 
 //Password validation
-password.onchange = validatePassword;
+if (confirm_password.value){
+    password.onchange = validatePassword;
+}
+
 
 var myInput = document.getElementById("password-input");
 var letter = document.getElementById("pass-lower");

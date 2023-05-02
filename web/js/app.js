@@ -190,51 +190,14 @@ File: Main Js File
 			if (item.getAttribute("data-provider") == "flatpickr") {
 				var dateData = {};
 				var isFlatpickerVal = item.attributes;
+				// dateData.defaultDate = new Date();
+				dateData.dateFormat = "Y-m-d";
+				dateData.altInput = "true";
+				dateData.altFormat = "d F Y";
 				dateData.disableMobile = "true";
-				if (isFlatpickerVal["data-date-format"])
-					dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString();
 				if (isFlatpickerVal["data-enable-time"]) {
 					(dateData.enableTime = true),
-						(dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString() + " H:i");
-				}
-				if (isFlatpickerVal["data-altFormat"]) {
-					(dateData.altInput = true),
-						(dateData.altFormat = isFlatpickerVal["data-altFormat"].value.toString());
-				}
-				if (isFlatpickerVal["data-minDate"]) {
-					dateData.minDate = isFlatpickerVal["data-minDate"].value.toString();
-					dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString();
-				}
-				if (isFlatpickerVal["data-maxDate"]) {
-					dateData.maxDate = isFlatpickerVal["data-maxDate"].value.toString();
-					dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString();
-				}
-				if (isFlatpickerVal["data-deafult-date"]) {
-					dateData.defaultDate = isFlatpickerVal["data-deafult-date"].value.toString();
-					dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString();
-				}
-				if (isFlatpickerVal["data-multiple-date"]) {
-					dateData.mode = "multiple";
-					dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString();
-				}
-				if (isFlatpickerVal["data-range-date"]) {
-					dateData.mode = "range";
-					dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString();
-				}
-				if (isFlatpickerVal["data-inline-date"]) {
-					(dateData.inline = true),
-						(dateData.defaultDate = isFlatpickerVal["data-deafult-date"].value.toString());
-					dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString();
-				}
-				if (isFlatpickerVal["data-disable-date"]) {
-					var dates = [];
-					dates.push(isFlatpickerVal["data-disable-date"].value);
-					dateData.disable = dates.toString().split(",");
-				}
-				if (isFlatpickerVal["data-week-number"]) {
-					var dates = [];
-					dates.push(isFlatpickerVal["data-week-number"].value);
-					dateData.weekNumbers = true
+						(dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString() + " H:i:s");
 				}
 				flatpickr(item, dateData);
 			} else if (item.getAttribute("data-provider") == "timepickr") {

@@ -39,18 +39,18 @@ class User extends ActiveRecord implements IdentityInterface
 
             ['username', 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => '\app\models\User', 'message' => 'Nama pengguna ini telah diambil.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'Alamat e-mel ini telah diambil.'],
 
             [['password','password_repeat'], 'required','on'=>'create'],
             [['password','password_repeat'], 'string', 'min' => Yii::$app->params['user.passwordMinLength'],'on'=>'create'],
-            ['password_repeat', 'compare', 'compareAttribute'=>'password', 'message'=>"Passwords don't match",'on'=>'create'],
+            ['password_repeat', 'compare', 'compareAttribute'=>'password', 'message'=>"Kata laluan tidak sepadan",'on'=>'create'],
 
             [['firstname','user_role_id'], 'required'],
             [['username', 'firstname', 'lastname', 'designation', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
@@ -62,16 +62,16 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
            'id' => 'ID',
-           'username' => 'Username',
-           'firstname' => 'First Name',
-           'lastname' => 'Last Name',
-           'designation' => 'Designation',
-           'phone_no' => 'Phone No.',
-           'user_role_id' => 'User Role',
+           'username' => 'Nama Pengguna',
+           'firstname' => 'Nama Pertama',
+           'lastname' => 'Nama Terakhir',
+           'designation' => 'Jawatan',
+           'phone_no' => 'No. Telefon',
+           'user_role_id' => 'Peranan Pengguna',
            'auth_key' => 'Auth Key',
-           'password_hash' => 'Password Hash',
-           'password_reset_token' => 'Password Reset Token',
-           'email' => 'Email',
+           'password_hash' => 'Kata Laluan Hash',
+           'password_reset_token' => 'Token Tetapan Semula Kata Laluan',
+           'email' => 'E-mel',
            'status' => 'Status',
            'created_at' => 'Created At',
            'updated_at' => 'Updated At',
@@ -213,8 +213,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function getStatusName()
     {
         if ($this->status==10) {
-            $status = '<span class="badge badge-soft-success text-uppercase">Active</span>';
-        } else $status = '<span class="badge badge-soft-warning text-uppercase">Not Active</span>';
+            $status = '<span class="badge badge-soft-success text-uppercase">Aktif</span>';
+        } else $status = '<span class="badge badge-soft-warning text-uppercase">Tidak Aktif</span>';
 
         return $status;
     }

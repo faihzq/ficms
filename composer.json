@@ -19,7 +19,9 @@
         "yiisoft/yii2-bootstrap5": "~2.0.2",
         "yiisoft/yii2-symfonymailer": "~2.0.3",
         "enyo/dropzone": "^5.9",
-        "perminder-klair/yii2-dropzone": "dev-master"
+        "perminder-klair/yii2-dropzone": "dev-master",
+        "bower-asset/jquery": "^3.6",
+        "mpdf/mpdf": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
