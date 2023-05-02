@@ -18,13 +18,13 @@ use yii\bootstrap5\ActiveForm;
                     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
                     <div class="mb-3">
-                        <?= $form->field($model, 'boat_name')->textInput(['maxlength' => true, 'class'=>'form-control', 'placeholder'=>'Enter boat name']) ?>
+                        <?= $form->field($model, 'boat_name')->textInput(['maxlength' => true, 'class'=>'form-control', 'placeholder'=>'Isi nama bot']) ?>
                     </div>
                     <div>
                         <?php echo $form->field($model, 'boat_description')->textarea([
                             'id' => 'ckeditor-classic',
                             'class' => 'form-control',
-                            'placeholder' => 'Enter boat description',
+                            'placeholder' => 'Isi penerangan bot',
                         ])->label('Description'); ?>
                     </div>
                     
@@ -35,12 +35,12 @@ use yii\bootstrap5\ActiveForm;
                     <ul class="nav nav-tabs-custom card-header-tabs border-bottom-0" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" data-bs-toggle="tab" href="#addproduct-general-info" role="tab">
-                                General Info
+                                Maklumat Umum
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="tab" href="#addproduct-metadata" role="tab">
-                                Boat Image/Gallery
+                                Imej/Galeri
                             </a>
                         </li>
                     </ul>
@@ -59,7 +59,7 @@ use yii\bootstrap5\ActiveForm;
                                                                             <span class="input-group-text">meter</span>
                                                                         </div>{hint}{error}
                                                                     </div>',
-                                            ])->textInput(['class'=>'form-control', 'placeholder'=>'Enter length over waterline']) ?>
+                                            ])->textInput(['class'=>'form-control', 'placeholder'=>'Isi panjang keseluruhan']) ?>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-sm-6">
@@ -71,7 +71,7 @@ use yii\bootstrap5\ActiveForm;
                                                                             <span class="input-group-text">meter</span>
                                                                         </div>{hint}{error}
                                                                     </div>',
-                                            ])->textInput(['class'=>'form-control', 'placeholder'=>'Enter length over waterline']) ?>
+                                            ])->textInput(['class'=>'form-control', 'placeholder'=>'Isi panjang atas paras air']) ?>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-sm-6">
@@ -83,7 +83,7 @@ use yii\bootstrap5\ActiveForm;
                                                                             <span class="input-group-text">meter</span>
                                                                         </div>{hint}{error}
                                                                     </div>',
-                                            ])->textInput(['class'=>'form-control', 'placeholder'=>'Enter beam overall']) ?>
+                                            ])->textInput(['class'=>'form-control', 'placeholder'=>'isi rasuk keseluruhan']) ?>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-sm-6">
@@ -95,23 +95,23 @@ use yii\bootstrap5\ActiveForm;
                                                                             <span class="input-group-text">meter</span>
                                                                         </div>{hint}{error}
                                                                     </div>',
-                                            ])->textInput(['class'=>'form-control', 'placeholder'=>'Enter draft']) ?>
+                                            ])->textInput(['class'=>'form-control', 'placeholder'=>'Isi draf']) ?>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        <?= $form->field($model, 'power')->textInput(['maxlength' => true, 'class'=>'form-control', 'placeholder'=>'Enter power']) ?>
+                                        <?= $form->field($model, 'power')->textInput(['maxlength' => true, 'class'=>'form-control', 'placeholder'=>'Isi kuasa']) ?>
 
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        <?= $form->field($model, 'propulsion')->textInput(['maxlength' => true, 'class'=>'form-control', 'placeholder'=>'Enter propulsion']) ?>
+                                        <?= $form->field($model, 'propulsion')->textInput(['maxlength' => true, 'class'=>'form-control', 'placeholder'=>'Isi pendorongan']) ?>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        <?= $form->field($model, 'speed')->textInput(['maxlength' => true, 'class'=>'form-control', 'placeholder'=>'Enter speed']) ?>
+                                        <?= $form->field($model, 'speed')->textInput(['maxlength' => true, 'class'=>'form-control', 'placeholder'=>'Isi kelajuan']) ?>
                                     </div>
                                     <div class="mb-3">
                                         <?= $form->field($model, 'status')->dropDownList($listBoatStatus, [
@@ -125,7 +125,7 @@ use yii\bootstrap5\ActiveForm;
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        <?= $form->field($model, 'boat_range')->textarea(['rows' => 6, 'class'=>'form-control', 'placeholder'=>'Enter range']) ?>
+                                        <?= $form->field($model, 'boat_range')->textarea(['rows' => 6, 'class'=>'form-control', 'placeholder'=>'Isi julat']) ?>
                                     </div>
                                 </div>
                             </div>
@@ -136,8 +136,8 @@ use yii\bootstrap5\ActiveForm;
                         <div class="tab-pane" id="addproduct-metadata" role="tabpanel">
                             
                             <div class="mb-4">
-                                <h5 class="fs-13 mb-1">Boat Image</h5>
-                                <p class="text-muted">Add Boat Main Image.</p>
+                                <h5 class="fs-13 mb-1">Imej Bot</h5>
+                                <p class="text-muted">Tambah Imej Utama Bot.</p>
                                 <div class="text-center">
                                     <div class="position-relative d-inline-block">
                                         <div class="position-absolute top-100 start-100 translate-middle">
@@ -164,9 +164,9 @@ use yii\bootstrap5\ActiveForm;
                                 </div>
                             </div>
                             <div>
-                                <h5 class="fs-13 mb-1">Boat Gallery</h5>
+                                <h5 class="fs-13 mb-1">Galeri Bot</h5>
 
-                                <p class="text-muted">Add Boat Gallery Images.</p>
+                                <p class="text-muted">Tambah Imej Galeri Bot.</p>
 
                                 <div class="dropzone" id="my-dropzone">
                                     <div class="fallback">
@@ -177,7 +177,7 @@ use yii\bootstrap5\ActiveForm;
                                             <i class="display-4 text-muted ri-upload-cloud-2-fill"></i>
                                         </div>
 
-                                        <h5>Drop files here or click to upload.</h5>
+                                        <h5>Letakkan fail di sini atau klik untuk memuat naik.</h5>
                                     </div>
                                 </div>
 
@@ -215,8 +215,8 @@ use yii\bootstrap5\ActiveForm;
                 </div>
                 <div class="card-footer">
                     <div class="form-group">
-                        <a href="<?php echo Yii::$app->request->referrer ?: Yii::$app->homeUrl ?>" title="Cancel" class="btn btn-label btn-warning btn-animation bg-gradient waves-effect waves-light"><i class="mdi mdi-keyboard-return label-icon align-middle"></i>  Cancel</a>
-                        <?= Html::submitButton('<i class="mdi mdi-content-save-outline label-icon align-middle"></i> Submit', ['class' => 'btn btn-label btn-success btn-animation bg-gradient waves-effect waves-light float-end']) ?>
+                        <a href="<?php echo Yii::$app->request->referrer ?: Yii::$app->homeUrl ?>" title="Cancel" class="btn btn-label btn-warning btn-animation bg-gradient waves-effect waves-light"><i class="mdi mdi-keyboard-return label-icon align-middle"></i>  Batal</a>
+                        <?= Html::submitButton('<i class="mdi mdi-content-save-outline label-icon align-middle"></i> Hantar', ['class' => 'btn btn-label btn-success btn-animation bg-gradient waves-effect waves-light float-end']) ?>
                     </div>
                 </div>
                 <!-- end card body -->
@@ -226,7 +226,7 @@ use yii\bootstrap5\ActiveForm;
         <div class="col-lg-4">
             <div class="card" id="contact-view-detail">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Created By</h5>
+                    <h5 class="card-title mb-0">Dicipta Oleh</h5>
                 </div>
                 <div class="card-body text-center">
                     <div class="position-relative d-inline-block">
@@ -240,15 +240,15 @@ use yii\bootstrap5\ActiveForm;
                         <table class="table table-borderless mb-0">
                             <tbody>
                                 <tr>
-                                    <td class="fw-medium" scope="row">Designation</td>
+                                    <td class="fw-medium" scope="row">Jawatan</td>
                                     <td><?php echo Yii::$app->user->identity->designation ?></td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-medium" scope="row">Email</td>
+                                    <td class="fw-medium" scope="row">E-mel</td>
                                     <td><?php echo Yii::$app->user->identity->email ?></td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-medium" scope="row">Phone No</td>
+                                    <td class="fw-medium" scope="row">No. Tel</td>
                                     <td><?php echo Yii::$app->user->identity->phone_no ?></td>
                                 </tr>
                             </tbody>

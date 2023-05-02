@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use Yii;
 use app\models\Boat;
 use app\models\BoatStatus;
 use app\models\BoatImages;
