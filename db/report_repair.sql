@@ -1,0 +1,23 @@
+CREATE TABLE `report_repair` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `report_survey_id` int(11) NOT NULL,
+  `requestor_id` int(11) NOT NULL,
+  `status_id` int(11) NOT NULL,
+  `report_date` date NOT NULL,
+  `report_no` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `service_description` text COLLATE utf8_unicode_ci NOT NULL,
+  `tools_need` text COLLATE utf8_unicode_ci NOT NULL,
+  `warranty_expiration_date` date NOT NULL,
+  `engineer_sign` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `engineer_sign_time` datetime DEFAULT NULL,
+  `engineer_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `engineer_position` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `commander_sign` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `commander_sign_time` datetime DEFAULT NULL,
+  `commander_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `commander_position` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_time` datetime NOT NULL,
+  `updated_time` datetime NOT NULL,
+  `updated_user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+)
