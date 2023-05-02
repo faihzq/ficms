@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <!--end col-->
                                 <div class="col-sm-6">
                                     <div>
-                                        <button type="button" class="btn btn-primary w-100" onclick="SearchData();"> <i class="ri-equalizer-fill me-2 align-bottom"></i>Filters</button>
+                                        <button type="button" class="btn btn-primary w-100" onclick="SearchData();"> <i class="ri-equalizer-fill me-2 align-bottom"></i>Tapis</button>
                                     </div>
                                 </div>
                                 <!--end col-->
