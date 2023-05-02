@@ -5,7 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
-    'name' => 'Boat Management Information System (BMIS)',
+    'name' => 'Fast Interceptor Craft Monitoring Systems (FICMS)',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language'=>'ms',
