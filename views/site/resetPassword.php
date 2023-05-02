@@ -133,7 +133,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                         <div class="col-lg-12">
                             <div class="text-center">
                                 <p class="mb-0 text-muted">&copy;
-                                    <script>document.write(new Date().getFullYear())</script>&copy; FICMS. Direka dan dicipta <i class="mdi mdi-wrench text-danger"></i> oleh Galtech (M) Sdn. Bhd.
+                                    <script>document.write(new Date().getFullYear())</script>&copy; FICMS. Direka & dicipta <i class="mdi mdi-wrench text-danger"></i> oleh Galtech (M) Sdn. Bhd.
                                 </p>
                             </div>
                         </div>

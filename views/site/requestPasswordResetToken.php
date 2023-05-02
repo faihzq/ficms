@@ -92,7 +92,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                             <!-- end card -->
 
                             <div class="mt-4 text-center">
-                                <p class="mb-0">Wait, I remember my password... <a href="<?php echo Url::to(['site/login']) ?>" class="fw-semibold text-primary text-decoration-underline"> Click here </a> </p>
+                                <p class="mb-0">Tunggu, saya ingat kata laluan saya... <a href="<?php echo Url::to(['site/login']) ?>" class="fw-semibold text-primary text-decoration-underline"> Tekan di sini </a> </p>
                             </div>
 
                         </div>
@@ -110,7 +110,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                         <div class="col-lg-12">
                             <div class="text-center">
                                 <p class="mb-0 text-muted">
-                                    <script>document.write(new Date().getFullYear())</script>&copy; BMIS. Design & Develop <i class="mdi mdi-wrench text-danger"></i> by Galtech (M) Sdn. Bhd.
+                                    <script>document.write(new Date().getFullYear())</script>&copy; FICMS. Direka & Dicipta <i class="mdi mdi-wrench text-danger"></i> oleh Galtech (M) Sdn. Bhd.
                                 </p>
                             </div>
                         </div>
