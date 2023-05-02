@@ -132,7 +132,7 @@ use yii\bootstrap5\Html;
                     <div class="col-lg-12">
                         <div class="text-center">
                             <p class="mb-0 text-muted">&copy;
-                                <?= date('Y') ?> FICMS. Reka bentuk & Dibangun by Galtech (M) Sdn. Bhd.
+                                <?= date('Y') ?> FICMS. Direka & Dicipta <i class="mdi mdi-wrench text-danger"></i> oleh Galtech (M) Sdn. Bhd.
                             </p>
                         </div>
                         

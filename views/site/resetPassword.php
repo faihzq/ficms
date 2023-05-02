@@ -48,10 +48,10 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                             <div class="text-center mt-sm-5 mb-4 text-white-50">
                                 <div>
                                     <a href="/" class="d-inline-block auth-logo">
-                                        <img src="<?= \Yii::getAlias('@web');?>/images/logo-light.png" alt="" height="20">
+                                        <img src="<?= \Yii::getAlias('@web');?>/images/logo-ficms-light.png" alt="" height="100">
                                     </a>
                                 </div>
-                                <p class="mt-3 fs-15 fw-medium">Premium Admin & Dashboard Template</p>
+                                <p class="mt-3 fs-15 fw-medium">Fast Interceptor Craft Monitoring Systems (FICMS)</p>
                             </div>
                         </div>
                     </div>
@@ -63,30 +63,30 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
                                 <div class="card-body p-4">
                                     <div class="text-center mt-2">
-                                        <h5 class="text-primary">Create new password</h5>
-                                        <p class="text-muted">Your new password must be different from previous used password.</p>
+                                        <h5 class="text-primary">Cipta kata laluan baharu</h5>
+                                        <p class="text-muted">Kata laluan baharu anda mestilah berbeza daripada kata laluan yang digunakan sebelumnya.</p>
                                     </div>
 
                                     <div class="p-2">
                                         <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
                                             <div class="mb-3">
-                                                <label class="form-label" for="password-input">Password</label>
+                                                <label class="form-label" for="password-input">Kata Laluan</label>
                                                 <div class="position-relative auth-pass-inputgroup">
                                                     <input type="hidden" id="password-min-length" value="<?= Yii::$app->params['user.passwordMinLength'] ?>">
-                                                    <?= $form->field($model, 'password')->passwordInput(['class' => 'form-control pe-5 password-input', 'id'=>'password-input', 'placeholder' => 'Enter password', 'pattern' => '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}', 'required' => true])->label(false) ?>
+                                                    <?= $form->field($model, 'password')->passwordInput(['class' => 'form-control pe-5 password-input', 'id'=>'password-input', 'placeholder' => 'Isi kata laluan', 'pattern' => '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}', 'required' => true])->label(false) ?>
                                                     <?= Html::button('<i class="ri-eye-fill align-middle"></i>', [
                                                         'class' => 'btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon',
                                                         'type' => 'button',
                                                         'id' => 'password-addon',
                                                     ]) ?>
                                                 </div>
-                                                <div id="passwordInput" class="form-text">Must be at least <?php echo Yii::$app->params['user.passwordMinLength']?> characters.</div>
+                                                <div id="passwordInput" class="form-text">Mestilah sekurang-kurangnya <?php echo Yii::$app->params['user.passwordMinLength']?> karakter.</div>
                                             </div>
 
                                             <div class="mb-3">
-                                                <label class="form-label" for="confirm-password-input">Confirm Password</label>
+                                                <label class="form-label" for="confirm-password-input">Sahkan Kata Laluan</label>
                                                 <div class="position-relative auth-pass-inputgroup mb-3">
-                                                    <?= $form->field($model, 'confirmPassword')->passwordInput(['class' => 'form-control pe-5 password-input', 'id'=>'confirm-password-input', 'onpaste' => 'return false', 'placeholder' => 'Confirm password', 'pattern' => '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}', 'required' => true])->label(false) ?>
+                                                    <?= $form->field($model, 'confirmPassword')->passwordInput(['class' => 'form-control pe-5 password-input', 'id'=>'confirm-password-input', 'onpaste' => 'return false', 'placeholder' => 'Sahkan kata laluan', 'pattern' => '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}', 'required' => true])->label(false) ?>
                                                     <?= Html::button('<i class="ri-eye-fill align-middle"></i>', [
                                                         'class' => 'btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon',
                                                         'type' => 'button',
@@ -96,11 +96,11 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                                             </div>
 
                                             <div id="password-contain" class="p-3 bg-light mb-2 rounded">
-                                                <h5 class="fs-13">Password must contain:</h5>
-                                                <p id="pass-length" class="invalid fs-12 mb-2">Minimum <b><?php echo Yii::$app->params['user.passwordMinLength']?> characters</b></p>
-                                                <p id="pass-lower" class="invalid fs-12 mb-2">At least<b>lowercase</b> letter (a-z)</p>
-                                                <p id="pass-upper" class="invalid fs-12 mb-2">At least <b>uppercase</b> letter (A-Z)</p>
-                                                <p id="pass-number" class="invalid fs-12 mb-0">A least <b>number</b> (0-9)</p>
+                                                <h5 class="fs-13">Kata laluan mesti mengandungi:</h5>
+                                                <p id="pass-length" class="invalid fs-12 mb-2">Minimum <b><?php echo Yii::$app->params['user.passwordMinLength']?> karakter</b></p>
+                                                <p id="pass-lower" class="invalid fs-12 mb-2">Sekurang-kurangnya<b>lowercase</b> huruf (a-z)</p>
+                                                <p id="pass-upper" class="invalid fs-12 mb-2">Sekurang-kurangnya <b>uppercase</b> huruf (A-Z)</p>
+                                                <p id="pass-number" class="invalid fs-12 mb-0">Sekurang-kurangnya <b>nombor</b> (0-9)</p>
                                             </div>
 
                                             <div class="mt-4">
@@ -115,7 +115,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                             <!-- end card -->
 
                             <div class="mt-4 text-center">
-                                <p class="mb-0">Wait, I remember my password... <a href="<?php echo Url::to(['site/login']) ?>" class="fw-semibold text-primary text-decoration-underline"> Click here </a> </p>
+                                <p class="mb-0">Tunggu, saya ingat kata laluan saya... <a href="<?php echo Url::to(['site/login']) ?>" class="fw-semibold text-primary text-decoration-underline"> Tekan di sini </a> </p>
                             </div>
 
                         </div>
@@ -133,7 +133,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                         <div class="col-lg-12">
                             <div class="text-center">
                                 <p class="mb-0 text-muted">&copy;
-                                    <script>document.write(new Date().getFullYear())</script>&copy; BMIS. Design & Develop <i class="mdi mdi-wrench text-danger"></i> by Galtech (M) Sdn. Bhd.
+                                    <script>document.write(new Date().getFullYear())</script>&copy; FICMS. Direka dan dicipta <i class="mdi mdi-wrench text-danger"></i> oleh Galtech (M) Sdn. Bhd.
                                 </p>
                             </div>
                         </div>

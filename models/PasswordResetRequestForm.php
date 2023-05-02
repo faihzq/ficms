@@ -31,6 +31,15 @@ class PasswordResetRequestForm extends Model
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+           'email' => 'E-mel',
+           
+           
+       ];
+    }
+
     /**
      * Sends an email with a link, for resetting the password.
      *

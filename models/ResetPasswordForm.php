@@ -52,6 +52,15 @@ class ResetPasswordForm extends Model
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+           'password' => 'Kata Laluan',
+           'confirmPassword' => 'Ulang Kata Laluan',
+           
+       ];
+    }
+
     /**
      * Resets password.
      *

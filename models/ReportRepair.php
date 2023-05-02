@@ -61,7 +61,7 @@ class ReportRepair extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'report_survey_id' => 'No. Laporan Kajian Kerosakan DJ',
-            'requestor_id' => 'Requestor ID',
+            'requestor_id' => 'Requestor',
             'status_id' => 'Status',
             'report_date' => 'Tarikh',
             'report_no' => 'No. Laporan Pembetulan KDJ',
