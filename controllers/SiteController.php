@@ -97,9 +97,16 @@ class SiteController extends Controller
         $totalNotFixed = $totalReport - $totalFixed; // report kerosakan yg dah approved tapi belum dibaiki
         $totalNoWarranty = ReportSurvey::find()->andWhere(['status_id'=>2])->andWhere(['warranty_protection'=>0])->count(); // report tinjauan yg dah approved and no warranty
 
-        $fixedPercent = ($totalFixed / $totalReport) * 100;
-        $notFixedPercent = ($totalNotFixed / $totalReport) * 100;
-        $noWarrantyPercent = ($totalNoWarranty / $totalReport) * 100;
+        if ($totalReport){
+            $fixedPercent = ($totalFixed / $totalReport) * 100;
+            $notFixedPercent = ($totalNotFixed / $totalReport) * 100;
+            $noWarrantyPercent = ($totalNoWarranty / $totalReport) * 100;
+        } else {
+            $fixedPercent = 0;
+            $notFixedPercent = 0;
+            $noWarrantyPercent = 0;
+        }
+        
 
         if (Yii::$app->user->isGuest) {
             return $this->redirect(['login']);

@@ -70,7 +70,7 @@ $baseUrl = Url::base();
         <div class="col-xxl-9">
             <div class="card">
                 <div class="card-body p-4">
-                    <h5 class="card-title mb-3">Description</h5>
+                    <h5 class="card-title mb-3">Penerangan Bot</h5>
                     <p class="text-muted"><?php echo $model->boat_description?></p>
                 </div>
                 <!--end card-body-->
@@ -120,7 +120,7 @@ $baseUrl = Url::base();
         <div class="col-xxl-3">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Maklumat umum</h5>
+                    <h5 class="card-title mb-0">Maklumat Umum</h5>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive table-card">
