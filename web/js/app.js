@@ -321,7 +321,6 @@ File: Main Js File
 			});
 		}
 	}
-
 	/**
 	 * Generate two column menu
 	 */
@@ -329,7 +328,6 @@ File: Main Js File
 		var isTwoColumn = document.documentElement.getAttribute("data-layout");
 		var isValues = sessionStorage.getItem("defaultAttribute");
 		var defaultValues = JSON.parse(isValues);
-
 		if (defaultValues && (isTwoColumn == "twocolumn" || defaultValues["data-layout"] == "twocolumn")) {
 			if (document.querySelector(".navbar-menu")) {
 				document.querySelector(".navbar-menu").innerHTML = navbarMenuHTML;
@@ -353,8 +351,8 @@ File: Main Js File
 				a.classList.contains("nav-link") ? a.classList.replace("nav-link", "nav-icon") : "";
 				a.classList.remove("collapsed", "menu-link");
 			});
-			var currentPath = location.pathname == "/" ? "/" : location.pathname.substring(1);
-			currentPath = (currentPath == "/") ? "/" : currentPath.substring(currentPath.lastIndexOf("/") + 1);
+			var currentPath = location.pathname == "/" ? "/" : location.pathname.substring(0);
+			// currentPath = (currentPath == "/") ? "/" : currentPath.substring(currentPath.lastIndexOf("/") + 1);
 			if (currentPath) {
 				// navbar-nav
 				var a = document.getElementById("navbar-nav").querySelector('[href="' + currentPath + '"]');
@@ -384,8 +382,8 @@ File: Main Js File
 
 			// show submenu on sidebar menu click
 			Array.from(document.querySelector("#two-column-menu ul").querySelectorAll("li a")).forEach(function (element) {
-				var currentPath = location.pathname == "/" ? "/" : location.pathname.substring(1);
-				currentPath = (currentPath == "/") ? "/" : currentPath.substring(currentPath.lastIndexOf("/") + 1);
+				var currentPath = location.pathname == "/" ? "/" : location.pathname.substring(0);
+				// currentPath = (currentPath == "/") ? "/" : currentPath.substring(currentPath.lastIndexOf("/") + 1);
 				element.addEventListener("click", function (e) {
 					if (!(currentPath == "/" + element.getAttribute("href") && !element.getAttribute("data-bs-toggle")))
 						document.body.classList.contains("twocolumn-panel") ? document.body.classList.remove("twocolumn-panel") : "";
@@ -840,8 +838,8 @@ File: Main Js File
 	function initTwoColumnActiveMenu() {
 		feather.replace();
 		// two column sidebar active js
-		var currentPath = location.pathname == "/" ? "/" : location.pathname.substring(1);
-		currentPath = (currentPath == "/") ? "/" : currentPath.substring(currentPath.lastIndexOf("/") + 1);
+		var currentPath = location.pathname == "/" ? "/" : location.pathname.substring(0);
+		// currentPath = (currentPath == "/") ? "/" : currentPath.substring(currentPath.lastIndexOf("/") + 1);
 		if (currentPath) {
 			if (document.body.className == "twocolumn-panel") {
 				document.getElementById("two-column-menu").querySelector('[href="' + currentPath + '"]').classList.add("active");
@@ -879,8 +877,8 @@ File: Main Js File
 
 	// two-column sidebar active js
 	function initActiveMenu() {
-		var currentPath = location.pathname == "/" ? "/" : location.pathname.substring(1);
-		currentPath = (currentPath == "/") ? "/" : currentPath.substring(currentPath.lastIndexOf("/") + 1);
+		var currentPath = location.pathname == "/" ? "/" : location.pathname.substring(0);
+		// currentPath = (currentPath == "/") ? "/" : currentPath.substring(currentPath.lastIndexOf("/") + 1);
 		if (currentPath) {
 			// navbar-nav
 			var a = document.getElementById("navbar-nav").querySelector('[href="' + currentPath + '"]');
