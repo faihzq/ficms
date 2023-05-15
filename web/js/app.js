@@ -321,6 +321,7 @@ File: Main Js File
 			});
 		}
 	}
+
 	/**
 	 * Generate two column menu
 	 */
@@ -328,6 +329,7 @@ File: Main Js File
 		var isTwoColumn = document.documentElement.getAttribute("data-layout");
 		var isValues = sessionStorage.getItem("defaultAttribute");
 		var defaultValues = JSON.parse(isValues);
+
 		if (defaultValues && (isTwoColumn == "twocolumn" || defaultValues["data-layout"] == "twocolumn")) {
 			if (document.querySelector(".navbar-menu")) {
 				document.querySelector(".navbar-menu").innerHTML = navbarMenuHTML;
@@ -991,10 +993,10 @@ File: Main Js File
 						if (!emptyNotificationElem) {
 							elem.innerHTML += '<div class="empty-notification-elem">\
 							<div class="w-25 w-sm-50 pt-3 mx-auto">\
-								<img src="/bmis/web/images/svg/bell.svg" class="img-fluid" alt="user-pic">\
+								<img src="/ficms/web/images/svg/bell.svg" class="img-fluid" alt="user-pic">\
 							</div>\
 							<div class="text-center pb-5 mt-2">\
-								<h6 class="fs-18 fw-semibold lh-base">Hey! You have no any notifications </h6>\
+								<h6 class="fs-18 fw-semibold lh-base">Hey! Anda tidak mempunyai sebarang pemberitahuan </h6>\
 							</div>\
 						</div>'
 						}
