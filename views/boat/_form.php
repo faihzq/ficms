@@ -25,7 +25,7 @@ use yii\bootstrap5\ActiveForm;
                             'id' => 'ckeditor-classic',
                             'class' => 'form-control',
                             'placeholder' => 'Isi penerangan bot',
-                        ])->label('Description'); ?>
+                        ])->label('Penerangan Bot'); ?>
                     </div>
                     
                 </div>
@@ -83,7 +83,7 @@ use yii\bootstrap5\ActiveForm;
                                                                             <span class="input-group-text">meter</span>
                                                                         </div>{hint}{error}
                                                                     </div>',
-                                            ])->textInput(['class'=>'form-control', 'placeholder'=>'isi rasuk keseluruhan']) ?>
+                                            ])->textInput(['class'=>'form-control', 'placeholder'=>'Isi rasuk keseluruhan']) ?>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-sm-6">
@@ -120,7 +120,7 @@ use yii\bootstrap5\ActiveForm;
                                             
                                         ]) ?>
 
-                                        <?= $form->field($model, 'status_id')->hiddenInput(['id' => 'status-hidden'])->label(false) ?>
+                                        <?= $form->field($model, 'boat_status_id')->hiddenInput(['id' => 'status-hidden'])->label(false) ?>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">

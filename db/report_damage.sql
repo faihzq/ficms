@@ -6,7 +6,7 @@ CREATE TABLE `report_damage` (
   `requestor_id` int(11) NOT NULL,
   `damage_date` date NOT NULL,
   `status_id` int(11) NOT NULL,
-  `boat_location` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `boat_location_id` int(11) COLLATE utf8_unicode_ci NOT NULL,
   `sel_no` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `equipment_serial` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `equipment_location` varchar(200) COLLATE utf8_unicode_ci NOT NULL,

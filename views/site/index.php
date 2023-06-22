@@ -150,53 +150,54 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                     <!-- end col -->
                     <div class="col-xl-6">
-                        <div class="card card-height-100">
-                            <div class="card-header align-items-center d-flex">
-                                <h4 class="card-title mb-0 flex-grow-1">Bot Terbaru</h4>
-                                <div class="flex-shrink-0">
-                                    <a href="<?php echo Url::to(['boat/index']) ?>" class="btn btn-soft-primary btn-sm">Lihat Semua Bot <i class="ri-arrow-right-line align-bottom"></i></a>
-                                </div>
-                            </div><!-- end card header -->
-
+                        <div class="card">
                             <div class="card-body">
-                                <div class="table-responsive table-card">
-                                    <table class="table table-centered table-hover align-middle table-nowrap mb-0">
-                                        <tbody>
-                                            <?php foreach ($newBoat as $boat){ ?>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar-xs me-2 flex-shrink-0">
-                                                                <div class="avatar-title bg-soft-secondary rounded">
-                                                                    <?php if ($boat->image_file){ ?>
-                                                                        <img src="<?php echo $baseUrl.'/uploads/boatImages/'; echo $boat->image_file;?>" alt="" height="16" class="avatar-xs">
-                                                                    <?php } else { ?>
-                                                                        <div class="avatar-title bg-soft-<?php echo $color= $boat->imageColor;?> text-<?php echo $color?> ">
-                                                                            <?php echo $boat->image ?>
-                                                                        </div>
-                                                                    <?php } ?>
-                                                                </div>
-                                                            </div>
-                                                            <h6 class="mb-0"><?php echo $boat->boat_name ?></h6>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span class="badge <?php echo $boat->statusTable?> text-uppercase"><?php echo $boat->status->name; ?></span>
-                                                    </td>
-                                                    <td>
-                                                        <a href="<?php echo Url::to(['boat/view','id'=>$boat->id]) ?>" class="btn btn-link btn-sm">Lihat Selebihnya <i class="ri-arrow-right-line align-bottom"></i></a>
-                                                    </td>
-                                                </tr>
-                                            <?php } ?>
-                                            
-                                            
-                                        </tbody>
-                                    </table>
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar-sm flex-shrink-0">
+                                        <span class="avatar-title bg-light text-success rounded-circle fs-3">
+                                            <i class="ri-tools-fill align-middle"></i>
+                                        </span>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <p class="text-uppercase fw-medium fs-12 text-muted mb-1">Laporan Dibaiki</p>
+                                        <h4 class=" mb-0"><span class="counter-value" data-target="<?php echo $totalFixed ?>">0</span></h4>
+                                    </div>
+                                    
                                 </div>
-                                
-                            </div>
-                        </div> <!-- .card-->
+                            </div><!-- end card body -->
+                        </div><!-- end card -->
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar-sm flex-shrink-0">
+                                        <span class="avatar-title bg-light text-warning rounded-circle fs-3">
+                                            <i class="ri-file-excel-2-line align-middle"></i>
+                                        </span>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <p class="text-uppercase fw-medium fs-12 text-muted mb-1">Laporan Belum Dibaiki</p>
+                                        <h4 class=" mb-0"><span class="counter-value" data-target="<?php echo $totalNotFixed ?>">0</span></h4>
+                                    </div>
+                                    
+                                </div>
+                            </div><!-- end card body -->
+                        </div><!-- end card -->
 
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar-sm flex-shrink-0">
+                                        <span class="avatar-title bg-light text-primary rounded-circle fs-3">
+                                            <i class="ri-file-shield-line align-middle"></i>
+                                        </span>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <p class="text-uppercase fw-medium fs-12 text-muted mb-1">Laporan Bukan Dalam Jaminan</p>
+                                        <h4 class=" mb-0"><span class="counter-value" data-target="<?php echo $totalNoWarranty ?>">0</span></h4>
+                                    </div>
+                                </div>
+                            </div><!-- end card body -->
+                        </div><!-- end card -->
                     </div><!--end col-->
                     <div class="col=col-xl-12">
                         <div class="card" id="summary">
@@ -354,7 +355,7 @@ $this->params['breadcrumbs'][] = $this->title;
     var options = {
         series: [<?php echo $totalNotFixed ?>, <?php echo $totalFixed ?>, <?php echo $totalNoWarranty ?>],
         chart: {
-            height: 300,
+            height: 280,
             type: 'pie',
         },
         labels: ['Belum Dibaiki', 'Dibaiki', 'Bukan Dalam Jaminan'],

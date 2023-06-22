@@ -38,7 +38,8 @@ class AppAsset extends AssetBundle
         'libs/sweetalert2/sweetalert2.min.js',
         'js/pages/plugins/lord-icon-2.1.0.js',
         'js/plugins.js',
-        'js/app.js'
+        'js/app.js',
+        'js/ajax-modal-popup.js',
         
     ];
     public $depends = [

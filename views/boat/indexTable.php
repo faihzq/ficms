@@ -66,7 +66,7 @@ $baseUrl = Url::base();
                                         <div class="flex-grow-1"><?php echo $boat->boat_name; ?></div>
                                     </div>
                                 </td>
-                                <td class="text-center"><span class="badge <?php echo $boat->statusTable?> text-uppercase"><?php echo $boat->status->name; ?></span></td>
+                                <td class="text-center"><span class="badge <?php echo $boat->status->StatusLabel?> text-uppercase"><?php echo $boat->status->name; ?></span></td>
                                 <td class="text-center">
                                     <div class="dropdown">
                                         <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">

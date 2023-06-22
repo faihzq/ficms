@@ -61,9 +61,9 @@
 
     
     <ol type="1">
-        <li>No. Lapor DJ : <?php echo $model->report_no ?></li>
+        <li>No. Laporan : <?php echo $model->report_no ?></li>
         <li>Tarikh Kerosakan : <?php echo date('d F Y', strtotime($model->damage_date)) ?></li>
-        <li>Lokasi FIC terkini : <?php echo $model->boat_location ?></li>
+        <li>Lokasi FIC terkini : <?php echo $model->location->name ?></li>
         <li>Butir-butir Peralatan :
             <ol type="a">
                 <li>No SEL/ESWBS : <?php echo $model->sel_no ?></li>
@@ -72,11 +72,11 @@
                 <li>Running Hours : <?php echo $model->equipment_location ?></li>
             </ol>
         </li>
-        <li style="margin-bottom: 100px;">Keterangan Kerosakan DJ (Sila sertakan Lampiran/Gambar sekiranya ruang tidak mencukupi): <br><?php echo $model->damage_information ?>
+        <li style="margin-bottom: 100px;">Keterangan Kerosakan (Sila sertakan Lampiran/Gambar sekiranya ruang tidak mencukupi): <br><?php echo nl2br($model->damage_information) ?>
         </li>
-        <li style="margin-bottom: 100px;">Pegawai/anggota yang boleh dihubungi :
+        <li>Pegawai/anggota yang boleh dihubungi :
             <ol>
-                <li>No/Pangkat/nama : <?php echo $model->contact_officer_name ?></li>
+                <li>No/Pangkat/nama : <?php echo nl2br($model->contact_officer_name) ?></li>
                 <li>No Tel : <?php echo $model->contact_officer_tel ?></li>
             </ol>
         </li>
@@ -91,24 +91,43 @@
 
 <div class="indent-main">
     <div style="width:40%; float:left;margin-right: 40px;">
-        <table style="border-top:  1px dashed black;" cellpadding="5px" autosize="1" width="100%">
-            <thead>
-                <tr>
-                    <th>Tandatangan Komander FIC</th>
-                </tr>
-            </thead>
-            <tbody>
-               <tr>
-                    <td>Nama: <?php echo $model->commander_name?$model->commander_name:'' ?></td>
-                </tr>
-                <tr>
-                    <td>Jawatan: <?php echo $model->commander_position?$model->commander_position:'' ?></td>
-                </tr>
-                <tr>
-                    <td>Tarikh: <?php echo $model->sign_time?date('d F Y', strtotime($model->sign_time)):'' ?></td>
-                </tr>
-            </tbody>
-        </table>
+        <?php if ($model->status_id == 2){ ?>
+            <img src="<?= \Yii::getAlias('@web');?>/uploads/reportDamage/sign/<?= $model->commander_sign_pic ?>" alt="">
+            <table cellpadding="5px" autosize="1" width="100%">
+                <tbody>
+                    <tr>
+                        <th>Tandatangan Komander FIC</th>
+                    </tr>
+                   <tr>
+                        <td>Nama: <?php echo $model->commander_name?$model->commander_name:'' ?></td>
+                    </tr>
+                    <tr>
+                        <td>Jawatan: <?php echo $model->commander_position?$model->commander_position:'' ?></td>
+                    </tr>
+                    <tr>
+                        <td>Tarikh: <?php echo $model->sign_time?date('d F Y', strtotime($model->sign_time)):'' ?></td>
+                    </tr>
+                </tbody>
+            </table>
+        <?php } else { ?>
+            <table style="border-top:  1px dashed black;margin-top: 100px;" cellpadding="5px" autosize="1" width="100%">
+                <tbody>
+                    <tr>
+                        <th>Tandatangan Komander FIC</th>
+                    </tr>
+                   <tr>
+                        <td>Nama: <?php echo $model->commander_name?$model->commander_name:'' ?></td>
+                    </tr>
+                    <tr>
+                        <td>Jawatan: <?php echo $model->commander_position?$model->commander_position:'' ?></td>
+                    </tr>
+                    <tr>
+                        <td>Tarikh: <?php echo $model->sign_time?date('d F Y', strtotime($model->sign_time)):'' ?></td>
+                    </tr>
+                </tbody>
+            </table>
+        <?php } ?>
+        
     </div>
 </div>
 

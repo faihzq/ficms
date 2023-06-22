@@ -7,6 +7,7 @@ use Mpdf\Mpdf;
 use app\models\ReportSurvey;
 use app\models\ReportDamage;
 use app\models\ReportStatus;
+use app\models\BoatStatus;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -89,6 +90,7 @@ class ReportSurveyController extends Controller
         $time = date_default_timezone_get() ;
         $time = date('Y-m-d H:i:s');
         $date = date('Y-m-d');
+        $runNoDate = date('Ym');
 
         $model = new ReportSurvey();
 
@@ -96,7 +98,13 @@ class ReportSurveyController extends Controller
         $model->report_date = $date;
         $model->survey_date = $date;
 
+        $counter = ReportSurvey::find()->count();
+        $prefix = str_pad($counter+1, 2, '0', STR_PAD_LEFT);
+        $runningNo = 'T/'.$runNoDate.'/'.$prefix;
+        $model->report_no = $runningNo;
+
         $listReportDamage = ArrayHelper::map(ReportDamage::find()->where(['IN', 'status_id', [2]])->all(), 'id', 'report_no');
+        $listBoatStatus = ArrayHelper::map(BoatStatus::find()->all(), 'id', 'name');
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
@@ -120,6 +128,7 @@ class ReportSurveyController extends Controller
         return $this->render('create', [
             'model' => $model,
             'listReportDamage' => $listReportDamage,
+            'listBoatStatus' => $listBoatStatus,
         ]);
     }
 
@@ -141,6 +150,7 @@ class ReportSurveyController extends Controller
         $model = $this->findModel($id);
 
         $listReportDamage = ArrayHelper::map(ReportDamage::find()->where(['IN', 'status_id', [2]])->all(), 'id', 'report_no');
+        $listBoatStatus = ArrayHelper::map(BoatStatus::find()->all(), 'id', 'name');
 
         if ($this->request->isPost && $model->load($this->request->post())) {
             // set updated time
@@ -155,6 +165,7 @@ class ReportSurveyController extends Controller
         return $this->render('update', [
             'model' => $model,
             'listReportDamage' => $listReportDamage,
+            'listBoatStatus' => $listBoatStatus,
         ]);
     }
 
@@ -180,6 +191,8 @@ class ReportSurveyController extends Controller
                 // set updated time
                 $model->updated_time = $time;
                 $model->updated_user_id = Yii::$app->user->identity->id;
+
+                $model->engineer_sign_pic = $model->base64_to_png_eng();
                 
             } else {
                 $model->commander_sign= Yii::$app->request->post('ReportSurvey')['commander_sign'];
@@ -188,6 +201,8 @@ class ReportSurveyController extends Controller
                 $model->updated_user_id = Yii::$app->user->identity->id;
                 // set status lulus
                 $model->status_id = 2;
+
+                $model->commander_sign_pic = $model->base64_to_png_com();
             }
             
 

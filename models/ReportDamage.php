@@ -42,14 +42,14 @@ class ReportDamage extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['boat_id', 'report_date', 'report_no', 'requestor_id', 'damage_date', 'status_id', 'boat_location', 'sel_no', 'equipment_serial', 'equipment_location', 'running_hours', 'damage_information', 'contact_officer_name', 'contact_officer_tel', 'created_time', 'updated_time', 'updated_user_id'], 'required'],
-            [['boat_id', 'requestor_id', 'status_id', 'updated_user_id'], 'integer'],
+            [['boat_id', 'report_date', 'report_no', 'requestor_id', 'damage_date', 'status_id', 'boat_location_id', 'sel_no', 'equipment_serial', 'equipment_location', 'running_hours', 'damage_information', 'contact_officer_name', 'contact_officer_tel', 'created_time', 'updated_time', 'updated_user_id'], 'required'],
+            [['boat_id', 'requestor_id', 'status_id', 'updated_user_id', 'boat_location_id'], 'integer'],
             [['report_date', 'damage_date', 'created_time', 'updated_time', 'commander_sign', 'sign_time'], 'safe'],
-            [['damage_information'], 'string'],
+            [['damage_information', 'contact_officer_name'], 'string'],
             [['report_no', 'sel_no', 'equipment_serial', 'contract_no'], 'string', 'max' => 50],
-            [['boat_location', 'equipment_location'], 'string', 'max' => 200],
-            [['running_hours', 'commander_name', 'commander_rank', 'commander_position'], 'string', 'max' => 100],
-            [['contact_officer_name'], 'string', 'max' => 150],
+            [['equipment_location', 'commander_sign_pic'], 'string', 'max' => 200],
+            [['commander_name', 'commander_rank', 'commander_position'], 'string', 'max' => 100],
+            [['running_hours'], 'number'],
             [['contact_officer_tel'], 'string', 'max' => 20],
             [['support_doc_1','support_doc_2','support_doc_3'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
         ];
@@ -64,16 +64,16 @@ class ReportDamage extends \yii\db\ActiveRecord
             'id' => 'ID',
             'boat_id' => 'Hull No/FIC No.',
             'report_date' => 'Tarikh',
-            'report_no' => 'No. Lapor DJ',
+            'report_no' => 'No. Laporan',
             'requestor_id' => 'Requestor',
             'damage_date' => 'Tarikh Kerosakan',
             'status_id' => 'Status',
-            'boat_location' => 'Lokasi FIC Terkini',
+            'boat_location_id' => 'Lokasi FIC Terkini',
             'sel_no' => 'No SEL/ESWBS',
             'equipment_serial' => 'No Siri Peralatan',
-            'equipment_location' => 'Loaksi Peralatan',
-            'running_hours' => 'Running Hours',
-            'damage_information' => 'Keterangan Kerosakan DJ',
+            'equipment_location' => 'Lokasi Peralatan',
+            'running_hours' => 'Jam berjalan',
+            'damage_information' => 'Keterangan Kerosakan',
             'sign_time' => 'Tarikh',
             'commander_name' => 'Nama',
             'commander_rank' => 'Pangkat',
@@ -104,6 +104,22 @@ class ReportDamage extends \yii\db\ActiveRecord
         }
     }
 
+    public function base64_to_png() {
+        date_default_timezone_set('Asia/Kuala_Lumpur');
+        $time = date_default_timezone_get() ;
+        $signDate = date('Ymd_His');
+
+        $filename = $this->commander_name.'-'.$signDate.'.png';
+        $path = 'uploads/reportDamage/sign/';
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+        $location = $path.$filename;
+        file_put_contents($location, file_get_contents($this->commander_sign));
+
+        return $filename; 
+    }
+
     public function getRequestor()
     {
         return $this->hasOne(User::className(),['id'=>'requestor_id']);
@@ -119,21 +135,8 @@ class ReportDamage extends \yii\db\ActiveRecord
         return $this->hasOne(ReportStatus::className(),['id'=>'status_id']);
     }
 
-    public function getStatusLabel()
+    public function getLocation()
     {
-        switch ($this->status_id) {
-            case 1:
-                $statusLabel = 'success';
-                break;
-            case 2:
-                $statusLabel = 'primary';
-                break;
-            
-            default:
-                $statusLabel = 'info';
-                break;
-        }
-
-        return $statusLabel;
+        return $this->hasOne(BoatLocation::className(),['id'=>'boat_location_id']);
     }
 }

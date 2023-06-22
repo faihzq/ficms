@@ -11,7 +11,7 @@ CREATE TABLE `boat` (
   `speed` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `boat_range` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `image_file` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `status_id` int(11) DEFAULT NULL,
+  `boat_status_id` int(11) DEFAULT NULL,
   `updated_user_id` int(11) DEFAULT NULL,
   `created_time` datetime DEFAULT NULL,
   `updated_time` datetime DEFAULT NULL,

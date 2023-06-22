@@ -1,6 +1,6 @@
 <?php
 
-use app\models\ReportDamage;
+use app\models\BoatLocation;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -9,21 +9,21 @@ use yii\grid\GridView;
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Borang Pelaporan Kerosakan Dalam Jaminan';
+$this->title = 'Boat Locations';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="report-damage-index">
+<div class="boat-location-index">
     <div class="row">
         <div class="col-lg-12">
             <div class="card" id="reportList">
                 <div class="card-header border border-dashed border-start-0 border-end-0 border-top-0">
                     <div class="row align-items-center gy-3">
                         <div class="col-sm">
-                            <h5 class="card-title mb-0">Senarai Laporan</h5>
+                            <h5 class="card-title mb-0">Senarai Lokasi</h5>
                         </div>
                         <div class="col-sm-auto">
                             <div class="d-flex gap-1 flex-wrap">
-                                <?= Html::a('<i class="ri-add-line label-icon align-middle"></i> Laporan Baru', ['create'], ['class' => 'btn btn-label btn-success rounded-pills btn-animation bg-gradient waves-effect waves-light']) ?>
+                                <?= Html::a('<i class="ri-add-line label-icon align-middle"></i> Lokasi Baru', ['create'], ['class' => 'btn btn-label btn-success rounded-pills btn-animation bg-gradient waves-effect waves-light']) ?>
                             </div>
                         </div>
                     </div>
@@ -32,26 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="row g-3">
                         <div class="col-xl-6">
                             <div class="col-lg-6 search-box">
-                                <input type="text" class="form-control search" placeholder="Carian laporan...">
+                                <input type="text" class="form-control search" placeholder="Carian lokasi...">
                                 <i class="ri-search-line search-icon"></i>
-                            </div>
-                        </div>
-                        <div class="col-xl-2">
-                        </div>
-                        <div class="col-xl-4">
-                            <div class="row g-3">
-                                <div class="col-sm-6">
-                                    <div>
-                                        <?= Html::dropDownList('name', null, $listStatus, ['id'=>'idStatus', 'data-choices'=>'', 'data-choices-search-false'=>'']); ?>
-                                    </div>
-                                </div>
-                                <!--end col-->
-                                <div class="col-sm-6">
-                                    <div>
-                                        <button type="button" class="btn btn-primary w-100" onclick="SearchData();"> <i class="ri-equalizer-fill me-2 align-bottom"></i>Tapis</button>
-                                    </div>
-                                </div>
-                                <!--end col-->
                             </div>
                         </div>
                         
@@ -64,28 +46,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <thead class="table-light">
                                     <tr>
                                         <th class="sort" data-sort="no" scope="col">No</th>
-                                        <th class="sort" data-sort="boat_id" scope="col">Hull No/FIC No.
-                                        </th>
-                                        <th scope="col">Tarikh</th>
-                                        <th class="sort" data-sort="report_no" scope="col">No Laporan</th>
-                                        <th class="sort" data-sort="requestor" scope="col">Requestor
-                                        </th>
-                                        <th class="sort" data-sort="status" scope="col">Status
+                                        <th class="sort" data-sort="nama" scope="col">Nama
                                         </th>
                                         <th scope="col">Tindakan</th>
                                     </tr>
                                 </thead>
                                 <tbody class="list">
-                                    <?php $no=1;foreach($model as $report): ?>
+                                    <?php $no=1;foreach($model as $location): ?>
                                     <tr>
                                         <td class="no"><?php echo $no ?>
                                         </td>
-                                        <td class="boat_id"><?php echo $report->boat->boat_name ?>
+                                        <td class="boat_id"><?php echo $location->name ?>
                                         </td>
-                                        <td class="tarikh"><?php echo date('d F Y', strtotime($report->report_date)) ?></td>
-                                        <td class="report_no"><?php echo $report->report_no ?></td>
-                                        <td class="requestor"><?php echo $report->requestor->fullname ?></td>
-                                        <td class="status"><span class="badge badge-soft-<?php echo $report->status->statusLabel?> text-uppercase"><?php echo $report->status->name ?></td>
                                         <td>
                                             <ul class="list-inline hstack gap-2 mb-0">
                                                 <li class="list-inline-item">
@@ -94,10 +66,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             <i class="ri-more-fill align-middle"></i>
                                                         </button>
                                                         <ul class="dropdown-menu dropdown-menu-end">
-                                                            <li><a class="dropdown-item view-item-btn" href="<?php echo Url::to(['report-damage/view','id'=>$report->id]) ?>"><i class="ri-eye-fill align-bottom me-2 text-muted"></i>
+                                                            <li><a class="dropdown-item view-item-btn" href="<?php echo Url::to(['boat-location/view','id'=>$location->id]) ?>"><i class="ri-eye-fill align-bottom me-2 text-muted"></i>
                                                                     Lihat</a></li>
-                                                            <?php if (Yii::$app->user->identity->user_role_id == 1 || $Yii::$app->user->identity->id == $report->requestor_id): ?>
-                                                            <li><a class="dropdown-item edit-item-btn" href="<?php echo Url::to(['report-damage/update','id'=>$report->id]) ?>"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
+                                                            <?php if (Yii::$app->user->identity->user_role_id == 1 || $Yii::$app->user->identity->id == $location->requestor_id): ?>
+                                                            <li><a class="dropdown-item edit-item-btn" href="<?php echo Url::to(['boat-location/update','id'=>$location->id]) ?>"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
                                                                     Edit</a></li>
                                                             <?php endif ?>
                                                         </ul>
@@ -160,11 +132,7 @@ $this->params['breadcrumbs'][] = $this->title;
     var options = {
         valueNames: [
             "no",
-            "boat_id",
-            "tarikh",
-            "report_no",
-            "requestor",
-            "status"
+            "nama",
         ],
         page: perPage,
         pagination: true,
@@ -218,28 +186,5 @@ $this->params['breadcrumbs'][] = $this->title;
         document.querySelector(".pagination.listjs-pagination").querySelector(".active").previousSibling.children[0].click(): '': '';
     });
 
-    function SearchData() {
-
-      var isstatus = document.getElementById("idStatus").value;
-
-      contactList.filter(function (data) {
-        matchData = new DOMParser().parseFromString(data.values().status, 'text/html');
-        var status = matchData.body.firstElementChild.innerHTML;
-        var statusFilter = false;
-
-        if (status == 'Semua' || isstatus == 'Semua') {
-          statusFilter = true;
-        } else {
-          statusFilter = status == isstatus;
-        }
-
-        if (statusFilter) {
-          return statusFilter
-        } else if (statusFilter == "") {
-          return statusFilter
-        }
-      });
-      contactList.update();
-    }
 
 </script>

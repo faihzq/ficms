@@ -38,21 +38,7 @@
                         <i class="bx bxs-dashboard"></i> <span data-key="t-dashboards">Dashboard</span>
                     </a>
                 </li> <!-- end Dashboard Menu -->
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarBoats" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarBoats">
-                        <i class="bx bxs-ship"></i> <span data-key="t-boat">Bot</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarBoats">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="<?php echo Url::to(['boat/create']) ?>" class="nav-link" data-key="t-boatCreate"> Daftar Bot </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="<?php echo Url::to(['boat/index']) ?>" class="nav-link" data-key="t-boatList"> Senarai Bot </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li> <!-- end Boat Menu -->
+                
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarReport" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarReport">
                         <i class="bx bxs-report"></i> <span data-key="t-report">Laporan</span>
@@ -60,7 +46,7 @@
                     <div class="collapse menu-dropdown" id="sidebarReport">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="#sidebarLaporan" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLaporan" data-key="t-level-1.2"> Borang Pelaporan Kerosakan DJ
+                                <a href="#sidebarLaporan" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLaporan" data-key="t-level-1.2"> Borang Pelaporan Kerosakan
                                 </a>
                                 <div class="collapse menu-dropdown" id="sidebarLaporan">
                                     <ul class="nav nav-sm flex-column">
@@ -72,7 +58,7 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a href="#sidebarSurvey" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarSurvey" data-key="t-level-1.2"> Laporan Tinjauan Kerosakan DJ
+                                <a href="#sidebarSurvey" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarSurvey" data-key="t-level-1.2"> Laporan Tinjauan Kerosakan
                                 </a>
                                 <div class="collapse menu-dropdown" id="sidebarSurvey">
                                     <ul class="nav nav-sm flex-column">
@@ -84,7 +70,7 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a href="#sidebarRepair" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarRepair" data-key="t-level-1.2"> Laporan Pembaikan Kerosakan DJ
+                                <a href="#sidebarRepair" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarRepair" data-key="t-level-1.2"> Laporan Pembaikan Kerosakan
                                 </a>
                                 <div class="collapse menu-dropdown" id="sidebarRepair">
                                     <ul class="nav nav-sm flex-column">
@@ -104,6 +90,28 @@
                         <i class="bx bx-user-circle"></i> <span data-key="t-users">Pengguna</span>
                     </a>
                 </li> <!-- end Dashboard Menu -->
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarBoats" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarBoats">
+                        <i class="bx bxs-ship"></i> <span data-key="t-boat">Bot</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarBoats">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="<?php echo Url::to(['boat/create']) ?>" class="nav-link"> Daftar Bot </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?php echo Url::to(['boat/index']) ?>" class="nav-link" data-key="t-boatList"> Senarai Bot </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li> <!-- end Boat Menu -->
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="<?php echo Url::to(['boat-location/index']) ?>">
+                        <i class="bx bx-location-plus"></i> <span data-key="t-users">Lokasi FIC</span>
+                    </a>
+                </li> <!-- end Dashboard Menu -->
+
+
 
             </ul>
         </div>

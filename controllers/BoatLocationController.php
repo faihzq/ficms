@@ -2,18 +2,16 @@
 
 namespace app\controllers;
 use Yii;
-use app\models\User;
-use app\models\UserRole;
+use app\models\BoatLocation;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\helpers\ArrayHelper;
 
 /**
- * UserController implements the CRUD actions for User model.
+ * BoatLocationController implements the CRUD actions for BoatLocation model.
  */
-class UserController extends Controller
+class BoatLocationController extends Controller
 {
     /**
      * @inheritDoc
@@ -34,76 +32,44 @@ class UserController extends Controller
     }
 
     /**
-     * Lists all User models.
+     * Lists all BoatLocation models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => User::find(),
-            /*
-            'pagination' => [
-                'pageSize' => 50
-            ],
-            'sort' => [
-                'defaultOrder' => [
-                    'id' => SORT_DESC,
-                ]
-            ],
-            */
-        ]);
-
-        $model = User::find()->all();
-
-        Yii::$app->session->setFlash('contactFormSubmitted');
+        $model = BoatLocation::find()->all();
 
         return $this->render('index', [
             'model' => $model,
-            'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single User model.
+     * Displays a single BoatLocation model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-        $model = $this->findModel($id);
-
         return $this->render('view', [
-            'model' => $model,
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new User model.
+     * Creates a new BoatLocation model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new User();
-        $model->scenario = 'create';
-
-        if (Yii::$app->user->identity->user_role_id==1){
-            $listRole = ArrayHelper::map(UserRole::find()->all(), 'id', 'name');
-        }else {
-            $listRole = ArrayHelper::map(UserRole::find()->where(['!=','id',1])->all(), 'id', 'name');
-        }
+        $model = new BoatLocation();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post())) {
-                $model->attributes = Yii::$app->request->post();
-                $model->setPassword(Yii::$app->request->post('User')['password']);
-                $model->generateEmailVerificationToken();
-                if ($model->save() && $model->sendEmail($model)){
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
-                
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -111,12 +77,11 @@ class UserController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'listRole' => $listRole,
         ]);
     }
 
     /**
-     * Updates an existing User model.
+     * Updates an existing BoatLocation model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -126,24 +91,32 @@ class UserController extends Controller
     {
         $model = $this->findModel($id);
 
-        if (Yii::$app->user->identity->user_role_id==1){
-            $listRole = ArrayHelper::map(UserRole::find()->all(), 'id', 'name');
-        }else {
-            $listRole = ArrayHelper::map(UserRole::find()->where(['!=','id',1])->all(), 'id', 'name');
-        }
-
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
-            'listRole' => $listRole,
+        ]);
+    }
+
+    public function actionRegister()
+    {
+        $model = new BoatLocation();
+
+        if ($model->load(Yii::$app->request->post()) ) {
+            if ($model->save()){
+                return $this->redirect(['report-damage/create']);
+            }
+        }
+
+        return $this->renderAjax('_boat_location_form', [
+            'model' => $model,
         ]);
     }
 
     /**
-     * Deletes an existing User model.
+     * Deletes an existing BoatLocation model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -153,32 +126,19 @@ class UserController extends Controller
     {
         $this->findModel($id)->delete();
 
-        // return $this->redirect(['index']);
-    }
-
-    public function actionActivate($id)
-    {
-        $model = $this->findModel($id);
-        if ($model->status == 10){
-            $model->status = 9;
-        } else {
-            $model->status = 10;
-        }
-        $model->save(false);
-
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the User model based on its primary key value.
+     * Finds the BoatLocation model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return User the loaded model
+     * @return BoatLocation the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = User::findOne(['id' => $id])) !== null) {
+        if (($model = BoatLocation::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

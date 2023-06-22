@@ -8,7 +8,7 @@ use diggindata\signaturepad\SignaturePadWidget;
 /** @var app\models\ReportDamage $model */
 
 $this->title = $model->report_no;
-$this->params['breadcrumbs'][] = ['label' => 'Laporan Tinjauan Kerosakan DJ', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Laporan Tinjauan Kerosakan', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-lg-7">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title mb-0"><?php echo $section==1?'Tandatangan Jurutera Kerosakan DJ':'Tandatangan Komander FIC'?></h5>
+                    <h5 class="card-title mb-0"><?php echo $section==1?'Tandatangan Jurutera Kerosakan':'Tandatangan Komander FIC'?></h5>
                 </div>
                 <div class="card-body">
                     
@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php if ($section == 1){ ?>
                                     <div class="col-lg-12 mb-3">
                                         <div class="text-center">
-                                        <p>Tandatangan Jurutera Kerosakan DJ: <button type="button" class="btn btn-sm btn-light" id="clear">Clear</button></p>
+                                        <p>Tandatangan Jurutera Kerosakan: <button type="button" class="btn btn-sm btn-light" id="clear">Clear</button></p>
                                         <div id="sign"></div>
                                         <?= $form->field($model, 'engineer_sign')->hiddenInput(['id' => 'signature_data'])->label(false); ?>
                                     </div>
@@ -104,7 +104,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <script>
     var sign = $('#sign').signature({ 
     change: function(event, ui) { 
-        $('#signature_data').val(sign.signature('toJSON'));
+        $('#signature_data').val(sign.signature('toDataURL'));
         },
     guideline:true,
     thickness: 2

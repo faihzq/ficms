@@ -46,13 +46,13 @@ class ReportSurvey extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['report_damage_id', 'requestor_id', 'status_id', 'report_date', 'report_no', 'survey_date', 'damage_description', 'probable_cause', 'warranty_protection', 'suggested_correction', 'tools_need', 'created_time', 'updated_user_id', 'updated_time'], 'required'],
-            [['report_damage_id', 'requestor_id', 'status_id', 'warranty_protection', 'updated_user_id'], 'integer'],
+            [['report_damage_id', 'requestor_id', 'status_id', 'report_date', 'report_no', 'survey_date', 'damage_description', 'probable_cause', 'boat_status_id', 'warranty_protection', 'suggested_correction', 'tools_need', 'created_time', 'updated_user_id', 'updated_time'], 'required'],
+            [['report_damage_id', 'requestor_id', 'status_id', 'boat_status_id', 'warranty_protection', 'updated_user_id'], 'integer'],
             [['report_date', 'survey_date', 'engineer_sign_time', 'commander_sign_time', 'created_time', 'updated_time'], 'safe'],
-            [['damage_description', 'nowarranty_protection_reason', 'suggested_correction', 'tools_need', 'engineer_sign', 'commander_sign'], 'string'],
+            [['damage_description', 'nowarranty_protection_reason', 'suggested_correction', 'tools_need', 'engineer_sign', 'commander_sign', 'probable_cause'], 'string'],
             [['report_no'], 'string', 'max' => 50],
-            [['probable_cause'], 'string', 'max' => 200],
             [['engineer_name', 'engineer_position', 'commander_name', 'commander_position'], 'string', 'max' => 100],
+            [['engineer_sign_pic', 'commander_sign_pic'], 'string', 'max' => 200],
         ];
     }
 
@@ -63,12 +63,13 @@ class ReportSurvey extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'report_damage_id' => 'Rujukan No. Laporan Kerosakan DJ',
+            'report_damage_id' => 'Rujukan No. Laporan Kerosakan',
             'report_date' => 'Tarikh',
-            'report_no' => 'No. Laporan Kajian DJ',
+            'report_no' => 'No. Laporan Kajian',
             'survey_date' => 'Tarikh Kajian',
             'damage_description' => 'Keterangan Kerosakan',
             'probable_cause' => 'Sebab Kemungkinan',
+            'boat_status_id' => 'Status Bot',
             'warranty_protection' => 'Jaminan Perlindungan',
             'nowarranty_protection_reason' => 'Sebab jika TIDAK',
             'suggested_correction' => 'Cadangan Pembetulan',
@@ -102,22 +103,9 @@ class ReportSurvey extends \yii\db\ActiveRecord
         return $this->hasOne(ReportStatus::className(),['id'=>'status_id']);
     }
 
-    public function getStatusLabel()
+    public function getStatusBoat()
     {
-        switch ($this->status_id) {
-            case 1:
-                $statusLabel = 'success';
-                break;
-            case 2:
-                $statusLabel = 'primary';
-                break;
-            
-            default:
-                $statusLabel = 'info';
-                break;
-        }
-
-        return $statusLabel;
+        return $this->hasOne(BoatStatus::className(),['id'=>'boat_status_id']);
     }
 
     public function getWarrantyProtection()
@@ -136,5 +124,39 @@ class ReportSurvey extends \yii\db\ActiveRecord
         }
 
         return $label;
+    }
+
+    public function base64_to_png_eng() {
+        date_default_timezone_set('Asia/Kuala_Lumpur');
+        $time = date_default_timezone_get() ;
+        $signDate = date('Ymd_His');
+    
+        $filename = $this->engineer_name.'-'.$signDate.'.png';
+        $path = 'uploads/reportSurvey/sign/';
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+
+        $location = $path.$filename;
+        file_put_contents($location, file_get_contents($this->engineer_sign));
+
+        return $filename; 
+    }
+
+    public function base64_to_png_com() {
+        date_default_timezone_set('Asia/Kuala_Lumpur');
+        $time = date_default_timezone_get() ;
+        $signDate = date('Ymd_His');
+    
+        $filename = $this->commander_name.'-'.$signDate.'.png';
+        $path = 'uploads/reportSurvey/sign/';
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+
+        $location = $path.$filename;
+        file_put_contents($location, file_get_contents($this->commander_sign));
+
+        return $filename; 
     }
 }

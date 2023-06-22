@@ -50,7 +50,7 @@ $baseUrl = Url::base();
                                             <div class="vr"></div>
                                             <div class="text-muted">Tarikh Kemaskini : <span class="fw-medium" id="due-date"><?php echo date('d M, Y', strtotime($model->updated_time))?></span></div>
                                             <div class="vr"></div>
-                                            <div class="badge rounded-pill <?php echo $model->statusLabel?> fs-12" id="ticket-status"><?php echo $model->status->name?></div>
+                                            <div class="badge rounded-pill <?php echo $model->status->statusLabel?> fs-12" id="ticket-status"><?php echo $model->status->name?></div>
                                         </div>
                                     </div>
                                     <!--end col-->
@@ -161,7 +161,7 @@ $baseUrl = Url::base();
                                 <tr>
                                     <td class="fw-medium"><?php echo $model->getAttributeLabel('status_id'); ?></td>
                                     <td>
-                                        <span class="badge <?php echo $model->statusLabel?>"><?php echo $model->status->name?></span>
+                                        <span class="badge <?php echo $model->status->statusLabel?>"><?php echo $model->status->name?></span>
                                     </td>
                                 </tr>
                             </tbody>

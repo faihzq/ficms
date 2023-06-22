@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = 'Senarai';
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex align-items-center">
-                        <h5 class="card-title mb-0 flex-grow-1">All Users</h5>
+                        <h5 class="card-title mb-0 flex-grow-1">Senarai Pengguna</h5>
                         <div class="flex-shrink-0">
                            <div class="d-flex flex-wrap gap-2">
                                 <?= Html::a('<i class="ri-add-line label-icon align-middle rounded-pill"></i> Daftar Pengguna', ['create'], ['class' => 'btn btn-label rounded-pill btn-danger btn-animation bg-gradient waves-effect waves-light']) ?>
@@ -97,7 +97,11 @@ $this->params['breadcrumbs'][] = 'Senarai';
 <script>
     document.addEventListener('DOMContentLoaded', function () {
       let table = new DataTable('#alternative-pagination', {
-          "pagingType": "full_numbers"
+          "pagingType": "full_numbers",
+          language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/ms.json',
+            },
+          
         });
     });
 </script>

@@ -41,4 +41,22 @@ class ReportStatus extends \yii\db\ActiveRecord
             'name' => 'Name',
         ];
     }
+
+    public function getStatusLabel()
+    {
+        switch ($this->id) {
+            case 1:
+                $statusLabel = 'success';
+                break;
+            case 2:
+                $statusLabel = 'primary';
+                break;
+            
+            default:
+                $statusLabel = 'dark';
+                break;
+        }
+
+        return $statusLabel;
+    }
 }

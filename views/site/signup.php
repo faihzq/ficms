@@ -156,10 +156,9 @@ use yii\bootstrap5\Html;
                     <div class="col-lg-12">
                         <div class="text-center">
                             <p class="mb-0 text-muted">&copy;
-                                <?= date('Y') ?> BMIS. Design & Develop by Galtech (M) Sdn. Bhd.
+                                <script>document.write(new Date().getFullYear())</script>&copy; FICMS. Direka & bangun <i class="mdi mdi-wrench text-danger"></i> oleh Galtech (M) Sdn. Bhd.
                             </p>
                         </div>
-                        
                     </div>
                 </div>
             </div>

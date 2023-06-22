@@ -44,7 +44,7 @@ $warrantyOptions = [
                     <div class="row">
                         <div class="col-md-6">
                             
-                            <?= $form->field($model, 'report_no')->textInput(['maxlength' => true]) ?>
+                            <?= $form->field($model, 'report_no')->textInput(['maxlength' => true, 'disabled'=>true]) ?>
                             
                         </div>
                         <div class="col-md-6">
@@ -67,12 +67,15 @@ $warrantyOptions = [
                         </div>
                         <div class="col-md-6">
                                 
-                            <?= $form->field($model, 'probable_cause')->textInput(['maxlength' => true]) ?>
+                            <?= $form->field($model, 'probable_cause')->textarea(['rows' => 6]) ?>
                             
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6" id="warranty-dropdown">
+                        <div class="col-md-3">
+                            <?= $form->field($model, 'boat_status_id')->dropDownList($listBoatStatus, ['data-choices' => '', 'data-choices-search-false'=>'', 'data-choices-sorting-false'=>'']) ?>
+                        </div>
+                        <div class="col-md-3" id="warranty-dropdown">
                             <?= $form->field($model, 'warranty_protection')->dropDownList($warrantyOptions, ['data-choices' => '', 'data-choices-search-false'=>'', 'data-choices-sorting-false'=>'']) ?>
                         </div>
                         <div class="col-md-6" id="warranty-reason">
@@ -101,7 +104,7 @@ $warrantyOptions = [
         <div class="col-lg-3">
             <div class="card" id="contact-view-detail">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Requestor</h5>
+                    <h5 class="card-title mb-0">Disediakan Oleh</h5>
                 </div>
                 <div class="card-body text-center">
                     <div class="position-relative d-inline-block">

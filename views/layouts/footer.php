@@ -6,7 +6,7 @@
             </div>
             <div class="col-sm-6">
                 <div class="text-sm-end d-none d-sm-block">
-                    Direka & Dibangun oleh Galtech (M) Sdn. Bhd.
+                    Direka & bangun oleh Galtech (M) Sdn. Bhd.
                 </div>
             </div>
         </div>

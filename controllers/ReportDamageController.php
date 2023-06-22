@@ -7,6 +7,7 @@ use Mpdf\Mpdf;
 use app\models\ReportDamage;
 use app\models\ReportStatus;
 use app\models\Boat;
+use app\models\BoatLocation;
 
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -88,15 +89,22 @@ class ReportDamageController extends Controller
         $time = date_default_timezone_get() ;
         $time = date('Y-m-d H:i:s');
         $date = date('Y-m-d');
+        $runNoDate = date('Ym');
 
         $model = new ReportDamage();
 
         // list boat dropdown
-        $listBoat = ArrayHelper::map(Boat::find()->where(['IN', 'status_id', [1]])->all(), 'id', 'boat_name');
+        $listBoat = ArrayHelper::map(Boat::find()->where(['IN', 'boat_status_id', [1]])->all(), 'id', 'boat_name');
+        $listLocation = ArrayHelper::map(BoatLocation::find()->all(), 'id', 'name');
 
         // initial report & damage date
         $model->report_date = $date;
         $model->damage_date = $date;
+
+        $counter = ReportDamage::find()->count();
+        $prefix = str_pad($counter+1, 2, '0', STR_PAD_LEFT);
+        $runningNo = 'P/'.$runNoDate.'/'.$prefix;
+        $model->report_no = $runningNo;
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
@@ -132,6 +140,7 @@ class ReportDamageController extends Controller
         return $this->render('create', [
             'model' => $model,
             'listBoat' => $listBoat,
+            'listLocation' => $listLocation,
         ]);
     }
 
@@ -153,7 +162,8 @@ class ReportDamageController extends Controller
         $model = $this->findModel($id);
 
         // list boat dropdown
-        $listBoat = ArrayHelper::map(Boat::find()->where(['IN', 'status_id', [1]])->all(), 'id', 'boat_name');
+        $listBoat = ArrayHelper::map(Boat::find()->where(['IN', 'boat_status_id', [1]])->all(), 'id', 'boat_name');
+        $listLocation = ArrayHelper::map(BoatLocation::find()->all(), 'id', 'name');
 
         if ($this->request->isPost && $model->load($this->request->post())) {
 
@@ -179,6 +189,7 @@ class ReportDamageController extends Controller
         return $this->render('update', [
             'model' => $model,
             'listBoat' => $listBoat,
+            'listLocation' => $listLocation,
         ]);
     }
 
@@ -189,6 +200,7 @@ class ReportDamageController extends Controller
         $time = date_default_timezone_get() ;
         $time = date('Y-m-d H:i:s');
         $date = date('Y-m-d');
+        $signDate = date('Ymd_His');
 
         $model= $this->findModel($id);
 
@@ -202,8 +214,10 @@ class ReportDamageController extends Controller
             // set status lulus
             $model->status_id = 2;
 
-            if ($model->save(false)){
+            $model->commander_sign_pic = $model->base64_to_png();
 
+            if ($model->save(false)){
+                
                 // Yii::$app->session->setFlash('success');
 
                 return $this->redirect(['view', 'id' => $model->id]);

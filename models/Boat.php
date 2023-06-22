@@ -17,7 +17,7 @@ use yii\web\UploadedFile;
  * @property string|null $propulsion
  * @property string|null $speed
  * @property string|null $boat_range
- * @property int|null $status_id
+ * @property int $status_id
  * @property int|null $updated_user_id
  * @property string|null $created_time
  * @property string|null $updated_time
@@ -40,11 +40,11 @@ class Boat extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            ['boat_name', 'required'],
+            [['boat_name', 'boat_status_id'], 'required'],
             [['length_overall', 'length_over_waterline', 'beam_overall', 'draft'], 'number'],
             [['boat_range'], 'string'],
-            [['status_id','updated_user_id'], 'integer'],
-            [['status_id','created_time', 'updated_time'], 'safe'],
+            [['boat_status_id','updated_user_id'], 'integer'],
+            [['created_time', 'updated_time'], 'safe'],
             [['boat_description', 'image_file'], 'string'],
             [['boat_name', 'power', 'propulsion', 'speed'], 'string', 'max' => 100],
             [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
@@ -69,7 +69,7 @@ class Boat extends \yii\db\ActiveRecord
             'propulsion' => 'Pendorongan',
             'speed' => 'Kelajuan',
             'boat_range' => 'Julat',
-            'status_id' => 'Status',
+            'boat_status_id' => 'Status',
             'updated_user_id' => 'Updated User ID',
             'created_time' => 'Created Time',
             'updated_time' => 'Updated Time',
@@ -123,49 +123,7 @@ class Boat extends \yii\db\ActiveRecord
 
     public function getStatus()
     {
-        return $this->hasOne(BoatStatus::className(),['id'=>'status_id']);
-    }
-
-    public function getStatusLabel()
-    {
-        switch ($this->status_id) {
-            case 1:
-                $statusLabel = 'bg-success';
-                break;
-            case 2:
-                $statusLabel = 'bg-dark';
-                break;
-            case 3:
-                $statusLabel = 'bg-warning';
-                break;
-            
-            default:
-                $statusLabel = 'bg-info';
-                break;
-        }
-
-        return $statusLabel;
-    }
-
-    public function getStatusTable()
-    {
-        switch ($this->status_id) {
-            case 1:
-                $statusLabel = 'badge-soft-success';
-                break;
-            case 2:
-                $statusLabel = 'badge-soft-dark';
-                break;
-            case 3:
-                $statusLabel = 'badge-soft-warning';
-                break;
-            
-            default:
-                $statusLabel = 'badge-soft-info';
-                break;
-        }
-
-        return $statusLabel;
+        return $this->hasOne(BoatStatus::className(),['id'=>'boat_status_id']);
     }
 
     public function getUpdatedUser()

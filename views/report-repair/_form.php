@@ -41,7 +41,7 @@ use yii\bootstrap5\ActiveForm;
                     <div class="row">
                         <div class="col-md-6">
                             
-                            <?= $form->field($model, 'report_no')->textInput(['maxlength' => true]) ?>
+                            <?= $form->field($model, 'report_no')->textInput(['maxlength' => true, 'disabled'=>true]) ?>
                             
                         </div>
                         
@@ -87,7 +87,7 @@ use yii\bootstrap5\ActiveForm;
         <div class="col-lg-3">
             <div class="card" id="contact-view-detail">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Requestor</h5>
+                    <h5 class="card-title mb-0">Disediakan Oleh</h5>
                 </div>
                 <div class="card-body text-center">
                     <div class="position-relative d-inline-block">

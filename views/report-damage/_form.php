@@ -36,7 +36,7 @@ $baseUrl = Url::base();
                     <div class="row">
                         <div class="col-md-4">
                             
-                            <?= $form->field($model, 'report_no')->textInput(['maxlength' => true]) ?>
+                            <?= $form->field($model, 'report_no')->textInput(['maxlength' => true, 'disabled'=>true]) ?>
                             
                         </div>
                         <div class="col-md-4">
@@ -51,8 +51,9 @@ $baseUrl = Url::base();
                         </div>
                         <div class="col-md-4">
                             
-                            <?= $form->field($model, 'boat_location')->textInput(['maxlength' => true]) ?>
-                            
+                            <?= $form->field($model, 'boat_location_id')->dropDownList($listLocation, ['data-choices' => '']) ?>
+                            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addLocationModal">Daftar Lokasi</button> -->
+                            <?= Html::button('Daftar Lokasi', ['value' => Url::to(['boat-location/register']), 'title' => 'Daftar Lokasi', 'class' => 'showModalButton btn btn-success']); ?>
                         </div>
                     </div>
                     <p class="text-muted fs-5 mt-3">Butir-butir peralatan:</p>
@@ -76,8 +77,15 @@ $baseUrl = Url::base();
                         
                         </div>
                         <div class="col-md-4">
-                            
-                            <?= $form->field($model, 'running_hours')->textInput(['maxlength' => true]) ?>
+                                                    
+                            <?= $form->field($model, 'running_hours', [
+                                'template' => '{label}<div class="input-group">
+                                                        {input}
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">jam</span>
+                                                        </div>{hint}{error}
+                                                    </div>',
+                            ])->textInput(['maxlength'=>true]) ?>
                             
                         </div>
                         
@@ -139,7 +147,7 @@ $baseUrl = Url::base();
                         <div class="tab-pane" id="addproduct-metadata" role="tabpanel">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <?= $form->field($model, 'contact_officer_name')->textInput(['maxlength' => true]) ?>
+                                    <?= $form->field($model, 'contact_officer_name')->textArea(['rows' => 6]) ?>
                                 </div>
                                 <div class="col-lg-6">
                                     <?= $form->field($model, 'contact_officer_tel')->textInput(['maxlength' => true]) ?>
@@ -164,7 +172,7 @@ $baseUrl = Url::base();
         <div class="col-lg-3">
             <div class="card" id="contact-view-detail">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Requestor</h5>
+                    <h5 class="card-title mb-0">Dilaporkan Oleh</h5>
                 </div>
                 <div class="card-body text-center">
                     <div class="position-relative d-inline-block">
@@ -198,8 +206,11 @@ $baseUrl = Url::base();
             
             <?php ActiveForm::end(); ?>
         </div>
+        
     </div>
 </div>
+<script src="<?= \Yii::getAlias('@web');?>/libs/cleave.js/cleave.min.js"></script>
+<script src="<?= \Yii::getAlias('@web');?>/libs/cleave.js/addons/cleave-phone.ms.js"></script>
 
 <script>
     function removeFile(id,filename){
@@ -233,4 +244,22 @@ $baseUrl = Url::base();
 
         return false;
     }
+
+    var cleaveBlocks = new Cleave('#reportdamage-contact_officer_tel', {
+        phone: true,
+    });
+    
 </script>
+
+<?php
+yii\bootstrap5\Modal::begin([
+    'headerOptions' => ['id' => 'modalHeader'],
+    'id' => 'modal',
+    'size' => 'modal-lg',
+    //keeps from closing modal with esc key or by clicking out of the modal.
+    // user must click cancel or X to close
+    'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE]
+]);
+echo "<div id='modalContent'><div style='text-align:center'><img src='".\Yii::getAlias('@web')."/images/ajax-loader.gif'></div></div>";
+yii\bootstrap5\Modal::end();
+?>

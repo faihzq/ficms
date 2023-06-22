@@ -8,7 +8,7 @@ use diggindata\signaturepad\SignaturePadWidget;
 /** @var app\models\ReportDamage $model */
 
 $this->title = $model->report_no;
-$this->params['breadcrumbs'][] = ['label' => 'Borang Pelaporan Kerosakan DJ', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Borang Pelaporan Kerosakan', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -80,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <script>
     var sign = $('#sign').signature({ 
     change: function(event, ui) { 
-        $('#signature_data').val(sign.signature('toJSON'));
+        $('#signature_data').val(sign.signature('toDataURL'));
         },
     guideline:true,
     thickness: 2

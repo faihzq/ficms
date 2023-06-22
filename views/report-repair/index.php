@@ -9,7 +9,7 @@ use yii\grid\GridView;
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Laporan Pembaikan Kerosakan DJ';
+$this->title = 'Laporan Pembaikan Kerosakan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="report-repair-index">
@@ -67,9 +67,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <th class="sort" data-sort="no" scope="col">No</th>
                                         <th class="sort" data-sort="report_no" scope="col">No Laporan</th>
                                         <th scope="col">Tarikh</th>
-                                        <th class="sort" data-sort="report_damage_id" scope="col">Rujukan No. Laporan Kerosakan DJ
+                                        <th class="sort" data-sort="report_damage_id" scope="col">Rujukan No. Laporan Kerosakan
                                         </th>
-                                        <th class="sort" data-sort="report_survey_id" scope="col">Rujukan No. Laporan Kajian DJ
+                                        <th class="sort" data-sort="report_survey_id" scope="col">Rujukan No. Laporan Kajian
                                         </th>
                                         <th class="sort" data-sort="requestor" scope="col">Requestor
                                         </th>
@@ -89,7 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </td>
                                         <td class="report_survey_id"><?php echo $report->reportSurvey->report_no ?></td>
                                         <td class="requestor"><?php echo $report->requestor->fullname ?></td>
-                                        <td class="status"><span class="badge badge-soft-<?php echo $report->statusLabel?> text-uppercase"><?php echo $report->status->name ?></td>
+                                        <td class="status"><span class="badge badge-soft-<?php echo $report->status->statusLabel?> text-uppercase"><?php echo $report->status->name ?></td>
                                         <td>
                                             <ul class="list-inline hstack gap-2 mb-0">
                                                 <li class="list-inline-item">
@@ -159,7 +159,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <script src="<?= \Yii::getAlias('@web');?>/libs/sweetalert2/sweetalert2.min.js"></script>
 
 <script type="text/javascript">
-    var perPage = 3;
+    var perPage = 10;
 
     //Table
     var options = {

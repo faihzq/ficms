@@ -50,6 +50,7 @@ class ReportRepair extends \yii\db\ActiveRecord
             [['service_description', 'tools_need', 'engineer_sign', 'commander_sign'], 'string'],
             [['report_no'], 'string', 'max' => 50],
             [['engineer_name', 'engineer_position', 'commander_name', 'commander_position'], 'string', 'max' => 100],
+            [['engineer_sign_pic', 'commander_sign_pic'], 'string', 'max' => 100],
         ];
     }
 
@@ -60,12 +61,12 @@ class ReportRepair extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'report_survey_id' => 'No. Laporan Kajian Kerosakan DJ',
+            'report_survey_id' => 'No. Laporan Kajian Kerosakan',
             'requestor_id' => 'Requestor',
             'status_id' => 'Status',
             'report_date' => 'Tarikh',
-            'report_no' => 'No. Laporan Pembetulan KDJ',
-            'service_description' => 'Keterangan Perkhidmatan KDJ',
+            'report_no' => 'No. Laporan Pembetulan Kajian',
+            'service_description' => 'Keterangan Perkhidmatan Kajian',
             'tools_need' => 'Alat Ganti, Alat Sokongan dan Peralatan Pengujian yang digunakan',
             'warranty_expiration_date' => 'Tarikh Tamat Tempoh Jaminan',
             'engineer_sign' => 'Tandatangan',
@@ -118,22 +119,38 @@ class ReportRepair extends \yii\db\ActiveRecord
         return $result;
     }
 
-    public function getStatusLabel()
-    {
-        switch ($this->status_id) {
-            case 1:
-                $statusLabel = 'success';
-                break;
-            case 2:
-                $statusLabel = 'primary';
-                break;
-            
-            default:
-                $statusLabel = 'info';
-                break;
+    public function base64_to_png_eng() {
+        date_default_timezone_set('Asia/Kuala_Lumpur');
+        $time = date_default_timezone_get() ;
+        $signDate = date('Ymd_His');
+    
+        $filename = $this->engineer_name.'-'.$signDate.'.png';
+        $path = 'uploads/reportRepair/sign/';
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
         }
 
-        return $statusLabel;
+        $location = $path.$filename;
+        file_put_contents($location, file_get_contents($this->engineer_sign));
+
+        return $filename; 
+    }
+
+    public function base64_to_png_com() {
+        date_default_timezone_set('Asia/Kuala_Lumpur');
+        $time = date_default_timezone_get() ;
+        $signDate = date('Ymd_His');
+    
+        $filename = $this->commander_name.'-'.$signDate.'.png';
+        $path = 'uploads/reportRepair/sign/';
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+
+        $location = $path.$filename;
+        file_put_contents($location, file_get_contents($this->commander_sign));
+
+        return $filename; 
     }
 
 }

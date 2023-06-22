@@ -40,4 +40,25 @@ class BoatStatus extends \yii\db\ActiveRecord
             'name' => 'Name',
         ];
     }
+
+    public function getStatusLabel()
+    {
+        switch ($this->id) {
+            case 1:
+                $statusLabel = 'bg-success';
+                break;
+            case 2:
+                $statusLabel = 'bg-dark';
+                break;
+            case 3:
+                $statusLabel = 'bg-warning';
+                break;
+            
+            default:
+                $statusLabel = 'bg-info';
+                break;
+        }
+
+        return $statusLabel;
+    }
 }

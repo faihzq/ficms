@@ -82,14 +82,14 @@ class SiteController extends Controller
 
         // status boat
         $total = Boat::find()->count();
-        $active = Boat::find()->andWhere(['status_id'=>1])->count();
-        $inactive = Boat::find()->andWhere(['status_id'=>2])->count();
-        $maintain = Boat::find()->andWhere(['status_id'=>3])->count();
+        $active = Boat::find()->andWhere(['boat_status_id'=>1])->count();
+        $inactive = Boat::find()->andWhere(['boat_status_id'=>2])->count();
+        $maintain = Boat::find()->andWhere(['boat_status_id'=>3])->count();
         $newBoat = Boat::find()->orderBy(['created_time'=>SORT_DESC])->limit(5)->all();
 
-        $activePercent = ($active / $total) * 100;
-        $maintainPercent = ($maintain / $total) * 100;
-        $inactivePercent = ($inactive / $total) * 100;
+        $activePercent = round((($active / $total) * 100), 0); 
+        $maintainPercent = round((($maintain / $total) * 100), 0); 
+        $inactivePercent = round((($inactive / $total) * 100), 0); 
 
         // pie chart report
         $totalReport = ReportDamage::find()->andWhere(['status_id'=>2])->count(); // total report yg dah approved

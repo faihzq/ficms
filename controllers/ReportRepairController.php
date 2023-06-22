@@ -101,12 +101,18 @@ class ReportRepairController extends Controller
         $time = date('Y-m-d H:i:s');
         $date = date('Y-m-d');
         $datePlusOne = date('Y-m-d', strtotime($date . ' +1 day'));
+        $runNoDate = date('Ym');
 
         $model = new ReportRepair();
 
         // initial report & damage date
         $model->report_date = $date;
         $model->warranty_expiration_date = $datePlusOne;
+
+        $counter = ReportRepair::find()->count();
+        $prefix = str_pad($counter+1, 2, '0', STR_PAD_LEFT);
+        $runningNo = 'B/'.$runNoDate.'/'.$prefix;
+        $model->report_no = $runningNo;
 
         $listReportSurvey = ArrayHelper::map(ReportSurvey::find()->where(['IN', 'status_id', [2]])->all(), 'id', 'report_no');
 
@@ -192,6 +198,8 @@ class ReportRepairController extends Controller
                 // set updated time
                 $model->updated_time = $time;
                 $model->updated_user_id = Yii::$app->user->identity->id;
+
+                $model->engineer_sign_pic = $model->base64_to_png_eng();
                 
             } else {
                 $model->commander_sign= Yii::$app->request->post('ReportRepair')['commander_sign'];
@@ -200,6 +208,8 @@ class ReportRepairController extends Controller
                 $model->updated_user_id = Yii::$app->user->identity->id;
                 // set status lulus
                 $model->status_id = 2;
+
+                $model->commander_sign_pic = $model->base64_to_png_com();
             }
             
 

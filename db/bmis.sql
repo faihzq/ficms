@@ -11,12 +11,12 @@ CREATE TABLE `boat` (
   `speed` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `boat_range` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `image_file` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `status_id` int(11) DEFAULT NULL,
+  `boat_status_id` int(11) DEFAULT NULL,
   `updated_user_id` int(11) DEFAULT NULL,
   `created_time` datetime DEFAULT NULL,
   `updated_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+);
 
 CREATE TABLE `boat_images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -25,13 +25,13 @@ CREATE TABLE `boat_images` (
   `uploaded_by` int(11) DEFAULT NULL,
   `date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+);
 
 CREATE TABLE `boat_status` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+);
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -53,10 +53,10 @@ CREATE TABLE `user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+);
 
 CREATE TABLE `user_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+);

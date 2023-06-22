@@ -9,7 +9,7 @@ use yii\grid\GridView;
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Laporan Tinjauan Kerosakan DJ';
+$this->title = 'Laporan Tinjauan Kerosakan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="report-survey-index">
@@ -86,7 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <td class="report_damage_id"><?php echo $report->reportDamage->report_no ?>
                                         </td>
                                         <td class="requestor"><?php echo $report->requestor->fullname ?></td>
-                                        <td class="status"><span class="badge badge-soft-<?php echo $report->statusLabel?> text-uppercase"><?php echo $report->status->name ?></td>
+                                        <td class="status"><span class="badge badge-soft-<?php echo $report->status->statusLabel?> text-uppercase"><?php echo $report->status->name ?></td>
                                         <td>
                                             <ul class="list-inline hstack gap-2 mb-0">
                                                 <li class="list-inline-item">
@@ -155,7 +155,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <script src="<?= \Yii::getAlias('@web');?>/libs/sweetalert2/sweetalert2.min.js"></script>
 
 <script type="text/javascript">
-    var perPage = 3;
+    var perPage = 10;
 
     //Table
     var options = {
