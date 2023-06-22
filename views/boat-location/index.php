@@ -66,11 +66,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             <i class="ri-more-fill align-middle"></i>
                                                         </button>
                                                         <ul class="dropdown-menu dropdown-menu-end">
-                                                            <li><a class="dropdown-item view-item-btn" href="<?php echo Url::to(['boat-location/view','id'=>$location->id]) ?>"><i class="ri-eye-fill align-bottom me-2 text-muted"></i>
-                                                                    Lihat</a></li>
                                                             <?php if (Yii::$app->user->identity->user_role_id == 1 || $Yii::$app->user->identity->id == $location->requestor_id): ?>
                                                             <li><a class="dropdown-item edit-item-btn" href="<?php echo Url::to(['boat-location/update','id'=>$location->id]) ?>"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
                                                                     Edit</a></li>
+                                                            <li><?= Html::a('Padam', ['delete', 'id' => $location->id], [
+                                                                        'class' => 'dropdown-item edit-item-btn',
+                                                                        'data' => [
+                                                                            'confirm' => 'Are you sure you want to delete this item?',
+                                                                            'method' => 'post',
+                                                                        ],
+                                                                    ]) ?></li>        
+                                                                    
                                                             <?php endif ?>
                                                         </ul>
                                                     </div>

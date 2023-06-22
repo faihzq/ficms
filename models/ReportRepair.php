@@ -50,7 +50,7 @@ class ReportRepair extends \yii\db\ActiveRecord
             [['service_description', 'tools_need', 'engineer_sign', 'commander_sign'], 'string'],
             [['report_no'], 'string', 'max' => 50],
             [['engineer_name', 'engineer_position', 'commander_name', 'commander_position'], 'string', 'max' => 100],
-            [['engineer_sign_pic', 'commander_sign_pic'], 'string', 'max' => 100],
+            [['engineer_sign_pic', 'commander_sign_pic'], 'string', 'max' => 200],
         ];
     }
 
