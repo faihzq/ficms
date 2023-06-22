@@ -38,7 +38,7 @@ class BoatLocationController extends Controller
      */
     public function actionIndex()
     {
-        $model = BoatLocation::find()->all();
+        $model = BoatLocation::find()->andWhere(['status'=>1])->all();
 
         return $this->render('index', [
             'model' => $model,
@@ -124,7 +124,9 @@ class BoatLocationController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->status = 0;
+        $model->save(false);
 
         return $this->redirect(['index']);
     }

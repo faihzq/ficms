@@ -95,7 +95,7 @@ class ReportDamageController extends Controller
 
         // list boat dropdown
         $listBoat = ArrayHelper::map(Boat::find()->where(['IN', 'boat_status_id', [1]])->all(), 'id', 'boat_name');
-        $listLocation = ArrayHelper::map(BoatLocation::find()->all(), 'id', 'name');
+        $listLocation = ArrayHelper::map(BoatLocation::find()->andWhere(['status'=>1])->all(), 'id', 'name');
 
         // initial report & damage date
         $model->report_date = $date;
@@ -163,7 +163,7 @@ class ReportDamageController extends Controller
 
         // list boat dropdown
         $listBoat = ArrayHelper::map(Boat::find()->where(['IN', 'boat_status_id', [1]])->all(), 'id', 'boat_name');
-        $listLocation = ArrayHelper::map(BoatLocation::find()->all(), 'id', 'name');
+        $listLocation = ArrayHelper::map(BoatLocation::find()->andWhere(['status'=>1])->all(), 'id', 'name');
 
         if ($this->request->isPost && $model->load($this->request->post())) {
 

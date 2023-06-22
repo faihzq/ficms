@@ -72,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             <li><?= Html::a('Padam', ['delete', 'id' => $location->id], [
                                                                         'class' => 'dropdown-item edit-item-btn',
                                                                         'data' => [
-                                                                            'confirm' => 'Are you sure you want to delete this item?',
+                                                                            'confirm' => 'Adakah anda pasti mahu memadamkan lokasi ini?',
                                                                             'method' => 'post',
                                                                         ],
                                                                     ]) ?></li>        
