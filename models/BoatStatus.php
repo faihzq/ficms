@@ -50,9 +50,6 @@ class BoatStatus extends \yii\db\ActiveRecord
             case 2:
                 $statusLabel = 'bg-dark';
                 break;
-            case 3:
-                $statusLabel = 'bg-warning';
-                break;
             
             default:
                 $statusLabel = 'bg-info';

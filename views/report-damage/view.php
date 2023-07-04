@@ -82,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </tr>
                                 <tr>
                                     <th scope="row"><?php echo $model->getAttributeLabel('running_hours'); ?></th>
-                                    <td><?php echo $model->running_hours ?></td>
+                                    <td><?php echo $model->running_hours.' jam' ?></td>
                                 </tr>
                                 <tr>
                                     <th scope="row"><?php echo $model->getAttributeLabel('damage_information'); ?></th>
@@ -135,7 +135,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </div>
                                     <div class="flex-shrink-0 ms-2">
                                         <div class="d-flex gap-1">
-                                            <a href="<?= Url::to(['report-damage/download','filename'=>$model->$file]) ?>" class="btn btn-icon text-muted btn-sm fs-18"><i class="ri-download-2-line"></i></a>
+                                            <a href="<?= Url::to(['report-damage/download','filename'=>$model->$file]) ?>" class="btn btn-icon text-muted fs-18"><i class="ri-download-2-line"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -186,34 +186,81 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php endif; ?>
 
             <div class="card">
+                <div class="card-header">
+                    <div class="d-sm-flex align-items-center">
+                        <h5 class="card-title flex-grow-1 mb-0">Aktiviti Terkini</h5>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="profile-timeline">
+                        <div class="accordion accordion-flush" id="accordionFlushExample">
+                            <?php foreach($modelReportStatusLog as $log): ?>
+                            <div class="accordion-item border-0">
+                                <div class="accordion-header" id="headingOne">
+                                    <a class="accordion-button p-2 shadow-none" data-bs-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0 avatar-xs">
+                                                <div class="avatar-title bg-<?= $log->status->statusLabel?> rounded-circle">
+                                                    <i class="<?= $log->status->statusIcon?>"></i>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-3">
+                                                <h6 class="fs-14 mb-0"><?= $log->status->name ?> - <span class="fw-normal"><?= date('d M Y, h:iA', strtotime($log->updated_time)) ?></span></h6>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body ms-2 ps-5 pt-0">
+                                        <h6 class="mb-1"><?= $log->updatedUser->fullname ?></h6>
+                                        <p class="text-muted"><?= $log->updatedUser->userRole->name ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php endforeach ?>
+                        </div>
+                        <!--end accordion-->
+                    </div>
+                </div>
+            </div>
+            <!--end card-->
+
+            <div class="card">
                 <div class="card-body">
                     <div class="form-group">
                         <div class="row">
                             <?php if ($model->status_id == 2){ ?>
+                                
                                 <div class="col-sm-6">
-                                    <?= Html::a('<i class="mdi mdi-content-save label-icon align-middle rounded-pill"></i>Kemaskini', ['update', 'id' => $model->id], ['class' => 'btn btn-sm btn-label rounded-pill btn-primary btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2 disabled']) ?>
+                                    <?= Html::a('<i class="mdi mdi-content-save label-icon align-middle rounded-pill"></i>Kemaskini', ['update', 'id' => $model->id], ['class' => 'btn btn-label rounded-pill btn-primary btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2 disabled']) ?>
                                 </div>
+                                
                                 <div class="col-sm-6">
-                                    <?= Html::a('<i class="mdi mdi-file-sign label-icon align-middle rounded-pill"></i>Tandatangan Komander', ['sign', 'id' => $model->id], ['class' => 'btn btn-sm btn-label rounded-pill btn-success btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2 disabled']) ?>
+                                    <?= Html::a('<i class="mdi mdi-file-sign label-icon align-middle rounded-pill"></i>Tandatangan Komander', ['sign', 'id' => $model->id], ['class' => 'btn btn-label rounded-pill btn-success btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2 disabled']) ?>
                                 </div>
                             <?php } else { ?>
+                                <?php if (Yii::$app->user->identity->user_role_id == 1 || Yii::$app->user->identity->id == $model->requestor_id): ?>
                                 <div class="col-sm-6">
-                                    <?= Html::a('<i class="mdi mdi-content-save label-icon align-middle rounded-pill"></i>Kemaskini', ['update', 'id' => $model->id], ['class' => 'btn btn-sm btn-label rounded-pill btn-primary btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2']) ?>
+                                    <?= Html::a('<i class="mdi mdi-content-save label-icon align-middle rounded-pill"></i>Kemaskini', ['update', 'id' => $model->id], ['class' => 'btn btn-label rounded-pill btn-primary btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2']) ?>
                                 </div>
+                                <?php endif; ?>
+                                <?php if (Yii::$app->user->identity->user_role_id == 1): ?>
                                 <div class="col-sm-6">
-                                    <?= Html::a('<i class="mdi mdi-file-sign label-icon align-middle rounded-pill"></i>Tandatangan Komander', ['sign', 'id' => $model->id], ['class' => 'btn btn-sm btn-label rounded-pill btn-success btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2']) ?>
+                                    <?= Html::a('<i class="mdi mdi-file-sign label-icon align-middle rounded-pill"></i>Tandatangan Komander', ['sign', 'id' => $model->id], ['class' => 'btn btn-label rounded-pill btn-success btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2']) ?>
                                 </div>
+                                <?php endif; ?>
                             <?php } ?>
                             
                         </div>
                         <div class="col-lg-12">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <?= Html::a('<i class="mdi mdi-format-list-bulleted label-icon align-middle rounded-pill"></i>Senarai Laporan', ['index', 'id' => $model->id], ['class' => 'btn btn-sm btn-label rounded-pill btn-warning btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2']) ?>
+                                    <?= Html::a('<i class="mdi mdi-format-list-bulleted label-icon align-middle rounded-pill"></i>Senarai Laporan', ['index', 'id' => $model->id], ['class' => 'btn btn-label rounded-pill btn-warning btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2']) ?>
                                 </div>
+                                <?php if (Yii::$app->user->identity->user_role_id == 1){?>
                                 <div class="col-lg-6">
                                     <?= Html::a('<i class="mdi mdi-delete label-icon align-middle rounded-pill"></i>Padam', ['delete', 'id' => $model->id], [
-                                        'class' => 'btn btn-sm btn-label rounded-pill btn-danger btn-animation bg-gradient waves-effect waves-light d-grid gap-2',
+                                        'class' => 'btn btn-label rounded-pill btn-danger btn-animation bg-gradient waves-effect waves-light d-grid gap-2',
                                         'data' => [
                                             'confirm' => 'Adakah anda pasti mahu memadamkan item ini?',
                                             'method' => 'post',
@@ -221,16 +268,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                         ],
                                     ]) ?>
                                 </div>
+                                <?php } ?>
                             </div>
                         </div>
-                        <?php if (Yii::$app->user->identity->user_role_id == 1){?>
                             <div class="col-sm-12">
-                                <?= Html::a('<i class="mdi mdi-printer label-icon align-middle rounded-pill"></i>Cetak', ['pdf', 'id' => $model->id], ['class' => 'btn btn-sm btn-label rounded-pill btn-secondary btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2', 'target' => '_blank']) ?>
-                                
-                                
-                                
+                                <?= Html::a('<i class="mdi mdi-printer label-icon align-middle rounded-pill"></i>Cetak', ['pdf', 'id' => $model->id], ['class' => 'btn btn-label rounded-pill btn-secondary btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2', 'target' => '_blank']) ?>
                             </div>
-                        <?php } ?>
+                        
                     </div>
                 </div>
             </div>

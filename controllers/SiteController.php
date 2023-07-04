@@ -9,6 +9,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 use app\models\LoginForm;
 use app\models\SignupForm;
 use app\models\ContactForm;
@@ -79,23 +80,36 @@ class SiteController extends Controller
     {
         // all boat
         $modelBoat = Boat::find()->all();
+        $boatName = array();
+        $totalBoatReport = array();
+        $totalBoatReportFix = array();
+        $totalBoatReportNotFix = array();
+        $totalBoatReportNoWarranty = array();
+        foreach ($modelBoat as $boat){
+            $boatName[] = $boat->boat_name;
+            $totalBoatReport[] = ReportDamage::find()->where(['status_id'=>2])->andWhere(['boat_id'=>$boat->id])->count();
+            $totalBoatReportFix[] = ReportRepair::find()->select('reportDamage.boat_id')->joinWith('reportSurvey')->joinWith('reportSurvey.reportDamage')->where(['report_repair.status_id' => 4,'report_damage.boat_id' => $boat->id])->count();
+            $totalBoatReportNotFix[] = ReportRepair::find()->select('reportDamage.boat_id')->joinWith('reportSurvey')->joinWith('reportSurvey.reportDamage')->where(['report_repair.status_id' => 3,'report_damage.boat_id' => $boat->id])->count();
+            $totalBoatReportNoWarranty[] = ReportSurvey::find()->joinWith('reportDamage')->where(['report_survey.status_id' => 3,'report_survey.warranty_protection' => 0,'report_damage.boat_id' => $boat->id])->count();
+        }
 
         // status boat
         $total = Boat::find()->count();
         $active = Boat::find()->andWhere(['boat_status_id'=>1])->count();
         $inactive = Boat::find()->andWhere(['boat_status_id'=>2])->count();
-        $maintain = Boat::find()->andWhere(['boat_status_id'=>3])->count();
-        $newBoat = Boat::find()->orderBy(['created_time'=>SORT_DESC])->limit(5)->all();
 
         $activePercent = round((($active / $total) * 100), 0); 
-        $maintainPercent = round((($maintain / $total) * 100), 0); 
         $inactivePercent = round((($inactive / $total) * 100), 0); 
 
         // pie chart report
+        $totalDamage = ReportDamage::find()->count();
+        $totalSurvey = ReportSurvey::find()->count();
+        $totalRepair = ReportRepair::find()->count();
+        $totalAllReport = $totalDamage + $totalSurvey + $totalRepair;
         $totalReport = ReportDamage::find()->andWhere(['status_id'=>2])->count(); // total report yg dah approved
-        $totalFixed = ReportRepair::find()->andWhere(['status_id'=>2])->count(); // report pembaikan yg dah approved
-        $totalNotFixed = $totalReport - $totalFixed; // report kerosakan yg dah approved tapi belum dibaiki
-        $totalNoWarranty = ReportSurvey::find()->andWhere(['status_id'=>2])->andWhere(['warranty_protection'=>0])->count(); // report tinjauan yg dah approved and no warranty
+        $totalFixed = ReportRepair::find()->andWhere(['status_id'=>4])->count(); // report pembaikan yg dah approved
+        $totalNotFixed = ReportRepair::find()->andWhere(['status_id'=>3])->count();; // report kerosakan yg dah approved tapi belum dibaiki
+        $totalNoWarranty = ReportSurvey::find()->andWhere(['status_id'=>3])->andWhere(['warranty_protection'=>0])->count(); // report tinjauan yg dah approved and no warranty
 
         if ($totalReport){
             $fixedPercent = ($totalFixed / $totalReport) * 100;
@@ -114,15 +128,19 @@ class SiteController extends Controller
 
         return $this->render('index', [
             'modelBoat' => $modelBoat,
+            'boatName' => json_encode($boatName),
+            'totalBoatReport' => json_encode($totalBoatReport),
+            'totalBoatReportFix' => json_encode($totalBoatReportFix),
+            'totalBoatReportNotFix' => json_encode($totalBoatReportNotFix),
+            'totalBoatReportNoWarranty' => json_encode($totalBoatReportNoWarranty),
             'total' => $total,
             'active' => $active,
             'inactive' => $inactive,
-            'maintain' => $maintain,
-            'newBoat' => $newBoat,
 
             'activePercent' => $activePercent,
             'inactivePercent' => $inactivePercent,
-            'maintainPercent' => $maintainPercent,
+
+            'totalAllReport' => $totalAllReport,
 
             'totalReport' => $totalReport,
             'totalFixed' => $totalFixed,

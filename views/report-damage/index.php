@@ -21,11 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="col-sm">
                             <h5 class="card-title mb-0">Senarai Laporan</h5>
                         </div>
-                        <div class="col-sm-auto">
-                            <div class="d-flex gap-1 flex-wrap">
-                                <?= Html::a('<i class="ri-add-line label-icon align-middle"></i> Laporan Baru', ['create'], ['class' => 'btn btn-label btn-success rounded-pills btn-animation bg-gradient waves-effect waves-light']) ?>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="card-header">
@@ -96,7 +91,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         <ul class="dropdown-menu dropdown-menu-end">
                                                             <li><a class="dropdown-item view-item-btn" href="<?php echo Url::to(['report-damage/view','id'=>$report->id]) ?>"><i class="ri-eye-fill align-bottom me-2 text-muted"></i>
                                                                     Lihat</a></li>
-                                                            <?php if (Yii::$app->user->identity->user_role_id == 1 || $Yii::$app->user->identity->id == $report->requestor_id): ?>
+                                                            <li><a class="dropdown-item view-item-btn" target="_blank" href="<?php echo Url::to(['report-damage/pdf','id'=>$report->id]) ?>"><i class="mdi mdi-printer align-bottom me-2 text-muted"></i>
+                                                                    Cetak</a></li>
+                                                            <?php if (Yii::$app->user->identity->user_role_id == 1 || Yii::$app->user->identity->id == $report->requestor_id): ?>
                                                             <li><a class="dropdown-item edit-item-btn" href="<?php echo Url::to(['report-damage/update','id'=>$report->id]) ?>"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
                                                                     Edit</a></li>
                                                             <?php endif ?>

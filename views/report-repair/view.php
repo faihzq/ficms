@@ -118,7 +118,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
             <!--end card-->
-            <?php if ($model->status_id == 2): ?>
+            <?php if ($model->status_id == 4): ?>
             <div class="card">
                 <div class="card-header align-items-center d-flex border-bottom-dashed">
                     <h4 class="card-title mb-0 flex-grow-1">Tandatangan Komander</h4>
@@ -153,12 +153,53 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php endif; ?>
             <?php endif; ?>
             <!--end card-->
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-sm-flex align-items-center">
+                        <h5 class="card-title flex-grow-1 mb-0">Aktiviti Terkini</h5>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="profile-timeline">
+                        <div class="accordion accordion-flush" id="accordionFlushExample">
+                            <?php foreach($modelReportStatusLog as $log): ?>
+                            <div class="accordion-item border-0">
+                                <div class="accordion-header" id="headingOne">
+                                    <a class="accordion-button p-2 shadow-none" data-bs-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0 avatar-xs">
+                                                <div class="avatar-title bg-<?= $log->status->statusLabel?> rounded-circle">
+                                                    <i class="<?= $log->status->statusIcon?>"></i>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-3">
+                                                <h6 class="fs-14 mb-0"><?= $log->status->name ?> - <span class="fw-normal"><?= date('d M Y, h:iA', strtotime($log->updated_time)) ?></span></h6>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body ms-2 ps-5 pt-0">
+                                        <h6 class="mb-1"><?= $log->updatedUser->fullname ?></h6>
+                                        <p class="text-muted"><?= $log->updatedUser->userRole->name ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php endforeach ?>
+                        </div>
+                        <!--end accordion-->
+                    </div>
+                </div>
+            </div>
+            <!--end card-->
+            
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">
                         <div class="row">
                             <?php $model->engineer_sign?$signName='Tandatangan Komander':$signName='Tandatangan Jurutera'; ?>
-                            <?php if ($model->status_id == 2){ ?>
+                            <?php if ($model->status_id == 4){ ?>
                                 <div class="col-sm-6">
                                     <?= Html::a('<i class="mdi mdi-content-save label-icon align-middle rounded-pill"></i>Kemaskini', ['update', 'id' => $model->id], ['class' => 'btn btn-sm btn-label rounded-pill btn-primary btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2 disabled']) ?>
                                 </div>

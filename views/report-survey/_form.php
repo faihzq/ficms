@@ -25,7 +25,7 @@ $warrantyOptions = [
                 <div class="card-body">
                    <div class="row">
                         <div class="col-md-4">
-                            <?= $form->field($model, 'report_damage_id')->dropDownList($listReportDamage, ['data-choices' => '']) ?>
+                            <?= $form->field($model, 'report_damage_id')->dropDownList($listReportDamage, ['data-choices' => '', 'disabled'=>true]) ?>
                         </div>
                         <div class="col-md-4">
                             <?= Html::label('Hull No/FIC No', 'boat_name') ?>        
@@ -37,7 +37,7 @@ $warrantyOptions = [
                                                 <span class="input-group-text"><i class="ri-calendar-2-line"></i></span>
                                                     {input}{hint}{error}
                                                 </div>',
-                            ])->textInput(['data-provider' => 'flatpickr']) ?>
+                            ])->textInput(['data-provider' => 'flatpickr', 'disabled'=>true]) ?>
                         </div>      
                     </div>
                     <hr>

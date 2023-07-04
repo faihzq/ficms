@@ -51,7 +51,7 @@ class ReportDamage extends \yii\db\ActiveRecord
             [['commander_name', 'commander_rank', 'commander_position'], 'string', 'max' => 100],
             [['running_hours'], 'number'],
             [['contact_officer_tel'], 'string', 'max' => 20],
-            [['support_doc_1','support_doc_2','support_doc_3'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
+            [['support_doc_1','support_doc_2','support_doc_3'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, pdf'],
         ];
     }
 
@@ -85,6 +85,17 @@ class ReportDamage extends \yii\db\ActiveRecord
             'updated_time' => 'Updated Time',
             'updated_user_id' => 'Updated User ID',
         ];
+    }
+
+    public static function getTaskCounter()
+    {
+        if (Yii::$app->user->identity->user_role_id == 1){
+            $model = ReportDamage::find()->where(['=', 'status_id', 1])->count();
+        } else {
+            $model = ReportDamage::find()->count();
+        }
+
+        return $model;
     }
 
     public function upload($i)

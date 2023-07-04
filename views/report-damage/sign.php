@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             <span class="input-group-text"><i class="ri-calendar-2-line"></i></span>
                                                                 {input}{hint}{error}
                                                             </div>',
-                                        ])->textInput([ 'data-provider' => 'flatpickr','data-date-format'=>'']) ?>
+                                        ])->textInput([ 'data-provider' => 'flatpickr','data-date-format'=>'', 'disabled'=>true]) ?>
                                     </div>
                                     <div class="col-lg-6">
                                         <?= $form->field($model, 'commander_rank')->textInput(['maxlength' => true]) ?>

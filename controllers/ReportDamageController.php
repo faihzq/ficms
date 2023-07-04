@@ -8,6 +8,9 @@ use app\models\ReportDamage;
 use app\models\ReportStatus;
 use app\models\Boat;
 use app\models\BoatLocation;
+use app\models\SignatureLog;
+use app\models\ReportSurvey;
+use app\models\ReportStatusLog;
 
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -53,10 +56,10 @@ class ReportDamageController extends Controller
         $listStatus['Semua'] = 'Semua';
 
         // Define the desired order of the status names
-        $statusOrder = ['Semua', 'Baru', 'Lulus'];
+        // $statusOrder = ['Semua', 'Baru', 'Untuk Tindakan GMI', 'Dalam Tindakan GMI', 'Selesai'];
 
         // Reorder the list of status names based on the desired order
-        $listStatus = array_replace(array_flip($statusOrder), $listStatus);
+        // $listStatus = array_replace(array_flip($statusOrder), $listStatus);
 
         return $this->render('index', [
             'model' => $model,
@@ -72,8 +75,10 @@ class ReportDamageController extends Controller
      */
     public function actionView($id)
     {
+        $modelReportStatusLog = ReportStatusLog::find()->where(['report_id'=>$id])->andWhere(['report_type_id'=>1])->orderBy(['updated_time'=>SORT_DESC])->all();
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'modelReportStatusLog' => $modelReportStatusLog
         ]);
     }
 
@@ -106,6 +111,8 @@ class ReportDamageController extends Controller
         $runningNo = 'P/'.$runNoDate.'/'.$prefix;
         $model->report_no = $runningNo;
 
+        $model->contract_no = "KP/PERO/2A/T100/2020/DE";
+
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
 
@@ -129,6 +136,15 @@ class ReportDamageController extends Controller
                 $model->status_id = 1;
 
                 if ($model->save()){
+
+                    $modelReportStatusLog = new ReportStatusLog();
+                    $modelReportStatusLog->report_id = $model->id;
+                    $modelReportStatusLog->report_status_id = $model->status_id;
+                    $modelReportStatusLog->report_type_id = 1;
+                    $modelReportStatusLog->updated_user_id = $model->requestor_id;
+                    $modelReportStatusLog->updated_time = $model->updated_time;
+                    $modelReportStatusLog->save();
+
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
                 
@@ -193,6 +209,26 @@ class ReportDamageController extends Controller
         ]);
     }
 
+    public function actionTask()
+    {
+        $model = ReportDamage::find()->where(['=', 'status_id', 1])->all();
+        $listStatus = ArrayHelper::map(ReportStatus::find()->all(), 'name', 'name');
+
+        // Add a new item to the array
+        $listStatus['Semua'] = 'Semua';
+
+        // Define the desired order of the status names
+        // $statusOrder = ['Semua', 'Baru', 'Untuk Tindakan GMI', 'Dalam Tindakan GMI', 'Selesai'];
+
+        // Reorder the list of status names based on the desired order
+        // $listStatus = array_replace(array_flip($statusOrder), $listStatus);
+
+        return $this->render('index', [
+            'model' => $model,
+            'listStatus' => $listStatus,
+        ]);
+    }
+
     public function actionSign($id)
     {
         //set time and date
@@ -201,6 +237,7 @@ class ReportDamageController extends Controller
         $time = date('Y-m-d H:i:s');
         $date = date('Y-m-d');
         $signDate = date('Ymd_His');
+        $runNoDate = date('Ym');
 
         $model= $this->findModel($id);
 
@@ -217,6 +254,40 @@ class ReportDamageController extends Controller
             $model->commander_sign_pic = $model->base64_to_png();
 
             if ($model->save(false)){
+
+                $modelReportStatusLog = new ReportStatusLog();
+                $modelReportStatusLog->report_id = $model->id;
+                $modelReportStatusLog->report_status_id = $model->status_id;
+                $modelReportStatusLog->report_type_id = 1;
+                $modelReportStatusLog->updated_user_id = $model->requestor_id;
+                $modelReportStatusLog->updated_time = $model->updated_time;
+                $modelReportStatusLog->save();
+
+                $modelSignatureLog = new SignatureLog();
+                $modelSignatureLog->user_id = Yii::$app->user->identity->id;
+                $modelSignatureLog->report_id = $model->id;
+                $modelSignatureLog->report_type = 1;
+                $modelSignatureLog->updated_time = $time;
+                $modelSignatureLog->save();
+
+                $modelSurvey = new ReportSurvey();
+                $modelSurvey->report_damage_id = $model->id;
+                $modelSurvey->requestor_id = $model->requestor_id;
+                $modelSurvey->status_id = 2;
+                $modelSurvey->report_date = $date;
+
+                $counter = ReportSurvey::find()->count();
+                $prefix = str_pad($counter+1, 2, '0', STR_PAD_LEFT);
+                $runningNo = 'T/'.$runNoDate.'/'.$prefix;
+                $modelSurvey->report_no = $runningNo;
+                $modelSurvey->survey_date = $date;
+                $modelSurvey->boat_status_id = 1;
+                $modelSurvey->created_time = $time;
+                $modelSurvey->updated_time = $time;
+                $modelSurvey->updated_user_id = $model->requestor_id;
+                $modelSurvey->save(false);
+
+
                 
                 // Yii::$app->session->setFlash('success');
 

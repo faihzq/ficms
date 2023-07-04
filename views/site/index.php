@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="col-xl-12">
                         <div class="d-flex flex-column h-100">
                             <div class="row">
-                                <div class="col-xl-3 col-md-6">
+                                <div class="col-xl-4 col-md-6">
                                     <div class="card card-animate overflow-hidden">
                                         <div class="position-absolute start-0" style="z-index: 0;">
                                             <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" width="200" height="120">
@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </div><!-- end card body -->
                                     </div><!-- end card -->
                                 </div><!--end col-->
-                                <div class="col-xl-3 col-md-6">
+                                <div class="col-xl-4 col-md-6">
                                     <!-- card -->
                                     <div class="card card-animate overflow-hidden">
                                         <div class="position-absolute start-0" style="z-index: 0;">
@@ -80,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </div><!-- end card body -->
                                     </div><!-- end card -->
                                 </div><!-- end col -->
-                                <div class="col-xl-3 col-md-6">
+                                <div class="col-xl-4 col-md-6">
                                     <!-- card -->
                                     <div class="card card-animate overflow-hidden">
                                         <div class="position-absolute start-0" style="z-index: 0;">
@@ -107,33 +107,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </div><!-- end card body -->
                                     </div><!-- end card -->
                                 </div><!-- end col -->
-                                <div class="col-xl-3 col-md-6">
-                                    <!-- card -->
-                                    <div class="card card-animate overflow-hidden">
-                                        <div class="position-absolute start-0" style="z-index: 0;">
-                                            <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" width="200" height="120">
-                                                <style>
-                                                    .s0 {
-                                                        opacity: .05;
-                                                        fill: var(--vz-secondary)
-                                                    }
-                                                </style>
-                                                <path id="Shape 8" class="s0" d="m189.5-25.8c0 0 20.1 46.2-26.7 71.4 0 0-60 15.4-62.3 65.3-2.2 49.8-50.6 59.3-57.8 61.5-7.2 2.3-60.8 0-60.8 0l-11.9-199.4z" />
-                                            </svg>
-                                        </div>
-                                        <div class="card-body" style="z-index:1 ;">
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-grow-1 overflow-hidden">
-                                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-3"> Bot Penyelenggaraan</p>
-                                                    <h4 class="fs-22 fw-bold ff-secondary mb-0"><span class="counter-value" data-target="<?php echo $maintain ?>">0</span></h4>
-                                                </div>
-                                                <div class="flex-shrink-0">
-                                                    <div id="maintain_chart" data-colors='["--vz-danger"]' class="apex-charts" dir="ltr"></div>
-                                                </div>
-                                            </div>
-                                        </div><!-- end card body -->
-                                    </div><!-- end card -->
-                                </div><!-- end col -->
+                                
                             </div><!--end row-->
                         </div>
                     </div><!--end col-->
@@ -144,135 +118,98 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div><!-- end card header -->
 
                             <div class="card-body">
-                                <div id="simple_pie_chart" data-colors='["--vz-primary", "--vz-success", "--vz-warning", "--vz-danger", "--vz-info"]' class="apex-charts" dir="ltr"></div>
+                                <div id="simple_pie_chart" data-colors='["--vz-warning", "--vz-success", "--vz-danger"]' class="apex-charts" dir="ltr"></div>
                             </div><!-- end card-body -->
                         </div><!-- end card -->
                     </div>
                     <!-- end col -->
                     <div class="col-xl-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar-sm flex-shrink-0">
-                                        <span class="avatar-title bg-light text-success rounded-circle fs-3">
-                                            <i class="ri-tools-fill align-middle"></i>
-                                        </span>
+                        <a href="<?= Url::to(['report-repair/index']) ?>">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-sm flex-shrink-0">
+                                            <span class="avatar-title bg-light text-success rounded-circle fs-3">
+                                                <i class="ri-tools-fill align-middle"></i>
+                                            </span>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <p class="text-uppercase fw-medium fs-12 text-muted mb-1">Dibaiki</p>
+                                            <h4 class=" mb-0"><span class="counter-value" data-target="<?php echo $totalFixed ?>">0</span></h4>
+                                        </div>
+                                        
                                     </div>
-                                    <div class="flex-grow-1 ms-3">
-                                        <p class="text-uppercase fw-medium fs-12 text-muted mb-1">Laporan Dibaiki</p>
-                                        <h4 class=" mb-0"><span class="counter-value" data-target="<?php echo $totalFixed ?>">0</span></h4>
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </a>
+
+                        <a href="<?= Url::to(['report-repair/index']) ?>">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-sm flex-shrink-0">
+                                            <span class="avatar-title bg-light text-warning rounded-circle fs-3">
+                                                <i class="ri-file-excel-2-line align-middle"></i>
+                                            </span>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <p class="text-uppercase fw-medium fs-12 text-muted mb-1">Belum Dibaiki</p>
+                                            <h4 class=" mb-0"><span class="counter-value" data-target="<?php echo $totalNotFixed ?>">0</span></h4>
+                                        </div>
+                                        
                                     </div>
-                                    
-                                </div>
-                            </div><!-- end card body -->
-                        </div><!-- end card -->
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar-sm flex-shrink-0">
-                                        <span class="avatar-title bg-light text-warning rounded-circle fs-3">
-                                            <i class="ri-file-excel-2-line align-middle"></i>
-                                        </span>
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </a>
+
+                        <a href="<?= Url::to(['report-survey/index']) ?>">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-sm flex-shrink-0">
+                                            <span class="avatar-title bg-light text-danger rounded-circle fs-3">
+                                                <i class="ri-file-shield-line align-middle"></i>
+                                            </span>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <p class="text-uppercase fw-medium fs-12 text-muted mb-1">Bukan Dalam Jaminan</p>
+                                            <h4 class=" mb-0"><span class="counter-value" data-target="<?php echo $totalNoWarranty ?>">0</span></h4>
+                                        </div>
                                     </div>
-                                    <div class="flex-grow-1 ms-3">
-                                        <p class="text-uppercase fw-medium fs-12 text-muted mb-1">Laporan Belum Dibaiki</p>
-                                        <h4 class=" mb-0"><span class="counter-value" data-target="<?php echo $totalNotFixed ?>">0</span></h4>
-                                    </div>
-                                    
-                                </div>
-                            </div><!-- end card body -->
-                        </div><!-- end card -->
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </a>
 
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
                                     <div class="avatar-sm flex-shrink-0">
-                                        <span class="avatar-title bg-light text-primary rounded-circle fs-3">
-                                            <i class="ri-file-shield-line align-middle"></i>
+                                        <span class="avatar-title bg-light text-dark rounded-circle fs-3">
+                                            <i class="ri-survey-fill align-middle"></i>
                                         </span>
                                     </div>
                                     <div class="flex-grow-1 ms-3">
-                                        <p class="text-uppercase fw-medium fs-12 text-muted mb-1">Laporan Bukan Dalam Jaminan</p>
-                                        <h4 class=" mb-0"><span class="counter-value" data-target="<?php echo $totalNoWarranty ?>">0</span></h4>
+                                        <p class="text-uppercase fw-medium fs-12 text-muted mb-1">Jumlah Laporan</p>
+                                        <h4 class=" mb-0"><span class="counter-value" data-target="<?php echo $totalAllReport ?>">0</span></h4>
                                     </div>
                                 </div>
                             </div><!-- end card body -->
                         </div><!-- end card -->
                     </div><!--end col-->
                     <div class="col=col-xl-12">
-                        <div class="card" id="summary">
-                            <div class="card-header">
-                                <div class="row g-4 align-items-center">
-                                    <div class="col-sm-auto">
-                                        <div>
-                                            <h4 class="card-title mb-0 flex-grow-1">Ringkasan Laporan Mengikut Bot</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="card">
+                            <div class="card-header border-0 align-items-center d-flex">
+                                <h4 class="card-title mb-0 flex-grow-1">Ringkasan Laporan Mengikut Bot</h4>
+                            </div><!-- end card header -->
 
-                            <div class="card-body">
-                                <div class="table-responsive table-card">
-                                    <table class="table table-borderless table-centered align-middle table-nowrap mb-0">
-                                        <thead class="text-muted table-light">
-                                            <tr>
-                                                <th scope="col">Nama Bot</th>
-                                                <th scope="col">Laporan Diterima</th>
-                                                <th scope="col">Pembaikan Telah Dilaksanakan</th>
-                                                <th scope="col">Belum Dilaksanakan</th>
-                                                <th scope="col">Bukan Dalam Jaminan</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="list">
-                                            <?php foreach ($modelBoat as $boat): ?>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-
-                                                            <div class="flex-shrink-0 me-2">
-                                                                <div class="avatar-xs flex-shrink-0 me-3">
-                                                                    <?php if ($boat->image_file){ ?>
-                                                                        <img src="<?php echo $baseUrl.'/uploads/boatImages/'; echo $boat->image_file;?>" alt="" class="avatar-xs rounded-circle" />
-                                                                    <?php } else { ?>
-                                                                        <div class="avatar-title bg-soft-<?php echo $color= $boat->imageColor;?> text-<?php echo $color?> rounded-circle">
-                                                                            <?php echo $boat->image ?>
-                                                                        </div>
-                                                                    <?php } ?>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <a href="<?php echo Url::to(['boat/view','id'=>$boat->id]) ?>" class="fw-medium link-primary"><?php echo $boat->boat_name ?></a>
-                                                        </div>
-                                                    </td>
-                                                    <td><?php echo $boat->totalReport ?></td>
-                                                    <td>
-                                                        <?php echo $boat->totalReportRepair ?>
-                                                    </td>
-                                                    <td><?php echo $boat->totalReportNotFixed ?></td>
-                                                    <td>
-                                                        <?php echo $boat->totalReportNoWarranty ?>
-                                                    </td>
-                                                </tr><!-- end tr -->
-                                            <?php endforeach; ?>
-                                            
-                                        </tbody><!-- end tbody -->
-                                    </table><!-- end table -->
-                                    
+                            <div class="card-body p-0 pb-2">
+                                <div>
+                                    <div id="projects-overview-chart" data-colors='["--vz-primary", "--vz-success", "--vz-warning", "--vz-danger"]' class="apex-charts" dir="ltr"></div>
                                 </div>
-                                <div class="d-flex justify-content-end mt-3">
-                                    <div class="pagination-wrap hstack gap-2">
-                                        <a class="page-item pagination-prev disabled" href="#">
-                                            Sebelum
-                                        </a>
-                                        <ul class="pagination listjs-pagination mb-0"></ul>
-                                        <a class="page-item pagination-next" href="#">
-                                            Seterusnya
-                                        </a>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div> <!-- .card-->
+                            </div><!-- end card body -->
+                            
+                        </div><!-- end card -->
+                        
                     </div>
                 </div><!--end row-->
             </div>
@@ -292,29 +229,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 <script>
-    var perPage = 8;
-
-    //Table
-    var options = {
-        valueNames: [
-            
-        ],
-        page: perPage,
-        pagination: true,
-        plugins: [
-            ListPagination({
-                left: 2,
-                right: 2
-            })
-        ],
-        
-    };
-
-    // Init list
-    var contactList = new List("summary", options).on("updated", function (list) {
-        
-    });
-
+    
     // get colors array from the string
     function getChartColorsArray(chartId) {
         if (document.getElementById(chartId) !== null) {
@@ -355,7 +270,7 @@ $this->params['breadcrumbs'][] = $this->title;
     var options = {
         series: [<?php echo $totalNotFixed ?>, <?php echo $totalFixed ?>, <?php echo $totalNoWarranty ?>],
         chart: {
-            height: 280,
+            height: 340,
             type: 'pie',
         },
         labels: ['Belum Dibaiki', 'Dibaiki', 'Bukan Dalam Jaminan'],
@@ -512,51 +427,108 @@ $this->params['breadcrumbs'][] = $this->title;
         chart.render();
     }
 
-    //  interview_chart
-    var chartRadialbarBasicColors = getChartColorsArray("maintain_chart");
-    if (chartRadialbarBasicColors) {
+    // Projects Overview
+    var linechartcustomerColors = getChartColorsArray("projects-overview-chart");
+    if (linechartcustomerColors) {
         var options = {
-            series: [<?php echo $maintainPercent ?>],
+            series: [{
+                name: 'Laporan Diterima',
+                type: 'area',
+                data: <?php echo $totalBoatReport ?>
+            }, {
+                name: 'Pembaikan Telah Dilaksanakan',
+                type: 'bar',
+                data: <?php echo $totalBoatReportFix ?>
+            }, {
+                name: 'Belum Dilaksanakan',
+                type: 'bar',
+                data: <?php echo $totalBoatReportNotFix ?>
+            }, {
+                name: 'Bukan Dalam Jaminan',
+                type: 'bar',
+                data: <?php echo $totalBoatReportNoWarranty ?>
+            }],
             chart: {
-                type: 'radialBar',
-                width: 105,
-                sparkline: {
-                    enabled: true
+                height: 374,
+                type: 'line',
+                toolbar: {
+                    show: false,
                 }
             },
-            dataLabels: {
-                enabled: false
+            stroke: {
+                curve: 'smooth',
+                dashArray: [0, 3, 3, 0],
+                width: [0, 1, 1, 0],
             },
-            plotOptions: {
-                radialBar: {
-                    hollow: {
-                        margin: 0,
-                        size: '70%'
-                    },
-                    track: {
-                        margin: 1
-                    },
-                    dataLabels: {
+            fill: {
+                opacity: [0.1, 1, 1, 1]
+            },
+            markers: {
+                size: [0, 4, 4, 0],
+                strokeWidth: 2,
+                hover: {
+                    size: 4,
+                }
+            },
+            xaxis: {
+                categories: <?php echo $boatName ?>,
+                axisTicks: {
+                    show: false
+                },
+                axisBorder: {
+                    show: true
+                }
+            },
+            grid: {
+                show: true,
+                xaxis: {
+                    lines: {
                         show: true,
-                        name: {
-                            show: false
-                        },
-                        value: {
-                            show: true,
-                            fontSize: '16px',
-                            fontWeight: 600,
-                            offsetY: 8,
-                            
-                        }
                     }
                 },
+                yaxis: {
+                    lines: {
+                        show: false,
+                    }
+                },
+                padding: {
+                    top: 0,
+                    right: -2,
+                    bottom: 15,
+                    left: 10
+                },
             },
-            colors: chartRadialbarBasicColors
+            legend: {
+                show: true,
+                horizontalAlign: 'center',
+                offsetX: 0,
+                offsetY: -5,
+                markers: {
+                    width: 9,
+                    height: 9,
+                    radius: 6,
+                },
+                itemMargin: {
+                    horizontal: 10,
+                    vertical: 0
+                },
+            },
+            plotOptions: {
+                bar: {
+                    columnWidth: '30%',
+                    barHeight: '70%'
+                }
+            },
+            colors: linechartcustomerColors,
+            tooltip: {
+                shared: true,
+                
+            }
         };
-
-        var chart = new ApexCharts(document.querySelector("#maintain_chart"), options);
+        var chart = new ApexCharts(document.querySelector("#projects-overview-chart"), options);
         chart.render();
     }
+
 </script>
 
 <?php if (Yii::$app->session->hasFlash('success')): ?>

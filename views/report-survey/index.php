@@ -22,11 +22,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="col-sm">
                             <h5 class="card-title mb-0">Senarai Laporan</h5>
                         </div>
-                        <div class="col-sm-auto">
-                            <div class="d-flex gap-1 flex-wrap">
-                                <?= Html::a('<i class="ri-add-line label-icon align-middle"></i> Laporan Baru', ['create'], ['class' => 'btn btn-label btn-success rounded-pills btn-animation bg-gradient waves-effect waves-light']) ?>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="card-header">
@@ -69,6 +64,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <th scope="col">Tarikh</th>
                                         <th class="sort" data-sort="report_damage_id" scope="col">Rujukan No. Laporan Kerosakan DJ
                                         </th>
+                                        <th class="sort" data-sort="warranty" scope="col">Jaminan Perlindungan
+                                        </th>
                                         <th class="sort" data-sort="requestor" scope="col">Requestor
                                         </th>
                                         <th class="sort" data-sort="status" scope="col">Status
@@ -85,6 +82,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <td class="tarikh"><?php echo date('d F Y', strtotime($report->report_date)) ?></td>
                                         <td class="report_damage_id"><?php echo $report->reportDamage->report_no ?>
                                         </td>
+                                        <td class="warranty"><?php echo $report->warrantyProtection ?>
+                                        </td>
                                         <td class="requestor"><?php echo $report->requestor->fullname ?></td>
                                         <td class="status"><span class="badge badge-soft-<?php echo $report->status->statusLabel?> text-uppercase"><?php echo $report->status->name ?></td>
                                         <td>
@@ -96,8 +95,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         </button>
                                                         <ul class="dropdown-menu dropdown-menu-end">
                                                             <li><a class="dropdown-item view-item-btn" href="<?php echo Url::to(['report-survey/view','id'=>$report->id]) ?>"><i class="ri-eye-fill align-bottom me-2 text-muted"></i>
-                                                                    View</a></li>
-                                                            <?php if (Yii::$app->user->identity->user_role_id == 1 || $Yii::$app->user->identity->id == $report->requestor_id): ?>
+                                                                    Lihat</a></li>
+                                                            <li><a class="dropdown-item view-item-btn" target="_blank" href="<?php echo Url::to(['report-survey/pdf','id'=>$report->id]) ?>"><i class="mdi mdi-printer align-bottom me-2 text-muted"></i>
+                                                                    Cetak</a></li>
+                                                            <?php if (Yii::$app->user->identity->user_role_id == 1 || Yii::$app->user->identity->id == $report->requestor_id): ?>
                                                             <li><a class="dropdown-item edit-item-btn" href="<?php echo Url::to(['report-survey/update','id'=>$report->id]) ?>"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
                                                                     Edit</a></li>
                                                             <?php endif ?>
@@ -164,6 +165,7 @@ $this->params['breadcrumbs'][] = $this->title;
             "report_no",
             "tarikh",
             "report_damage_id",
+            "warranty",
             "requestor",
             "status"
         ],

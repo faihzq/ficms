@@ -8,6 +8,9 @@ use app\models\ReportSurvey;
 use app\models\ReportDamage;
 use app\models\ReportStatus;
 use app\models\BoatStatus;
+use app\models\SignatureLog;
+use app\models\ReportRepair;
+use app\models\ReportStatusLog;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -51,10 +54,10 @@ class ReportSurveyController extends Controller
         $listStatus['Semua'] = 'Semua';
 
         // Define the desired order of the status names
-        $statusOrder = ['Semua', 'Baru', 'Lulus'];
+        // $statusOrder = ['Semua', 'Baru', 'Lulus'];
 
         // Reorder the list of status names based on the desired order
-        $listStatus = array_replace(array_flip($statusOrder), $listStatus);
+        // $listStatus = array_replace(array_flip($statusOrder), $listStatus);
 
         // Remove the flipped array from the resulting array
         // unset($listStatus['Semua']);
@@ -73,8 +76,10 @@ class ReportSurveyController extends Controller
      */
     public function actionView($id)
     {
+        $modelReportStatusLog = ReportStatusLog::find()->where(['report_id'=>$id])->andWhere(['report_type_id'=>2])->orderBy(['updated_time'=>SORT_DESC])->all();
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'modelReportStatusLog' => $modelReportStatusLog
         ]);
     }
 
@@ -114,7 +119,7 @@ class ReportSurveyController extends Controller
                 // set requestor
                 $model->requestor_id = Yii::$app->user->identity->id;
                 //set status new
-                $model->status_id = 1;
+                $model->status_id = 2;
 
                 if ($model->save()){
                     return $this->redirect(['view', 'id' => $model->id]);
@@ -157,6 +162,14 @@ class ReportSurveyController extends Controller
             $model->updated_time = $time;
 
             if ($model->save()){
+
+                $modelReportStatusLog = new ReportStatusLog();
+                $modelReportStatusLog->report_id = $model->id;
+                $modelReportStatusLog->report_status_id = $model->status_id;
+                $modelReportStatusLog->report_type_id = 2;
+                $modelReportStatusLog->updated_user_id = $model->requestor_id;
+                $modelReportStatusLog->updated_time = $model->updated_time;
+                $modelReportStatusLog->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
             
@@ -169,6 +182,32 @@ class ReportSurveyController extends Controller
         ]);
     }
 
+    public function actionTask()
+    {
+        if (Yii::$app->user->identity->user_role_id == 1){
+            $model = ReportSurvey::find()->where(['=', 'status_id', 2])->andWhere(['=', 'engineer_sign_status_id', 0])->all();
+        } else if (Yii::$app->user->identity->user_role_id == 3 || Yii::$app->user->identity->user_role_id == 2){
+            $model = ReportSurvey::find()->where(['=', 'status_id', 2])->all();
+        } else {
+            $model = ReportSurvey::find()->where(['=', 'status_id', 2])->andWhere(['=', 'engineer_sign_status_id', 1])->andWhere(['=', 'commander_sign_status_id', 0])->all();
+        }
+        $listStatus = ArrayHelper::map(ReportStatus::find()->all(), 'name', 'name');
+
+        // Add a new item to the array
+        $listStatus['Semua'] = 'Semua';
+
+        // Define the desired order of the status names
+        // $statusOrder = ['Semua', 'Baru', 'Untuk Tindakan GMI', 'Dalam Tindakan GMI', 'Selesai'];
+
+        // Reorder the list of status names based on the desired order
+        // $listStatus = array_replace(array_flip($statusOrder), $listStatus);
+
+        return $this->render('index', [
+            'model' => $model,
+            'listStatus' => $listStatus,
+        ]);
+    }
+
     public function actionSign($id, $section)
     {
         //set time and date
@@ -176,6 +215,7 @@ class ReportSurveyController extends Controller
         $time = date_default_timezone_get() ;
         $time = date('Y-m-d H:i:s');
         $date = date('Y-m-d');
+        $runNoDate = date('Ym');
 
         $model= $this->findModel($id);
         if ($section == 1){
@@ -191,6 +231,7 @@ class ReportSurveyController extends Controller
                 // set updated time
                 $model->updated_time = $time;
                 $model->updated_user_id = Yii::$app->user->identity->id;
+                $model->engineer_sign_status_id = 1;
 
                 $model->engineer_sign_pic = $model->base64_to_png_eng();
                 
@@ -199,8 +240,9 @@ class ReportSurveyController extends Controller
                 // set updated time
                 $model->updated_time = $time;
                 $model->updated_user_id = Yii::$app->user->identity->id;
+                $model->commander_sign_status_id = 1;
                 // set status lulus
-                $model->status_id = 2;
+                $model->status_id = 3;
 
                 $model->commander_sign_pic = $model->base64_to_png_com();
             }
@@ -208,6 +250,38 @@ class ReportSurveyController extends Controller
 
             if ($model->save(false)){
 
+                $modelReportStatusLog = new ReportStatusLog();
+                $modelReportStatusLog->report_id = $model->id;
+                $modelReportStatusLog->report_status_id = $model->status_id;
+                $modelReportStatusLog->report_type_id = 2;
+                $modelReportStatusLog->updated_user_id = $model->requestor_id;
+                $modelReportStatusLog->updated_time = $model->updated_time;
+                $modelReportStatusLog->save();
+
+                $modelSignatureLog = new SignatureLog();
+                $modelSignatureLog->user_id = Yii::$app->user->identity->id;
+                $modelSignatureLog->report_id = $model->id;
+                $modelSignatureLog->report_type = 2;
+                $modelSignatureLog->updated_time = $time;
+                $modelSignatureLog->save();
+
+                if ($model->status_id == 3){
+                    $modelRepair = new ReportRepair();
+                    $modelRepair->report_survey_id = $model->id;
+                    $modelRepair->requestor_id = $model->requestor_id;
+                    $modelRepair->status_id = 3;
+                    $modelRepair->report_date = $date;
+
+                    $counter = ReportRepair::find()->count();
+                    $prefix = str_pad($counter+1, 2, '0', STR_PAD_LEFT);
+                    $runningNo = 'B/'.$runNoDate.'/'.$prefix;
+                    $modelRepair->report_no = $runningNo;
+                    $modelRepair->warranty_expiration_date = $date;
+                    $modelRepair->created_time = $time;
+                    $modelRepair->updated_time = $time;
+                    $modelRepair->updated_user_id = $model->requestor_id;
+                    $modelRepair->save(false);
+                }
                 // Yii::$app->session->setFlash('success');
 
                 return $this->redirect(['view', 'id' => $model->id]);

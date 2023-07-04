@@ -45,7 +45,7 @@ class ReportRepair extends \yii\db\ActiveRecord
     {
         return [
             [['report_survey_id', 'requestor_id', 'status_id', 'report_date', 'report_no', 'service_description', 'tools_need', 'warranty_expiration_date', 'created_time', 'updated_time', 'updated_user_id'], 'required'],
-            [['report_survey_id', 'requestor_id', 'status_id', 'updated_user_id'], 'integer'],
+            [['report_survey_id', 'requestor_id', 'status_id', 'updated_user_id', 'engineer_sign_status_id', 'commander_sign_status_id'], 'integer'],
             [['report_date', 'warranty_expiration_date', 'engineer_sign_time', 'commander_sign_time', 'created_time', 'updated_time'], 'safe'],
             [['service_description', 'tools_need', 'engineer_sign', 'commander_sign'], 'string'],
             [['report_no'], 'string', 'max' => 50],
@@ -81,6 +81,17 @@ class ReportRepair extends \yii\db\ActiveRecord
             'updated_time' => 'Updated Time',
             'updated_user_id' => 'Updated User ID',
         ];
+    }
+
+    public static function getTaskCounter()
+    {
+        if (Yii::$app->user->identity->user_role_id == 1){
+            $model = ReportRepair::find()->where(['=', 'status_id', 3])->andWhere(['=', 'engineer_sign_status_id', 0])->count();
+        } else {
+            $model = ReportRepair::find()->where(['=', 'status_id', 3])->andWhere(['=', 'engineer_sign_status_id', 1])->andWhere(['=', 'commander_sign_status_id', 0])->count();
+        }
+
+        return $model;
     }
 
     public function getReportSurvey()

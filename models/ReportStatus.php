@@ -51,12 +51,42 @@ class ReportStatus extends \yii\db\ActiveRecord
             case 2:
                 $statusLabel = 'primary';
                 break;
+            case 3:
+                $statusLabel = 'dark';
+                break;
+            case 4:
+                $statusLabel = 'secondary';
+                break;
             
             default:
-                $statusLabel = 'dark';
+                $statusLabel = 'info';
                 break;
         }
 
         return $statusLabel;
+    }
+
+    public function getStatusIcon()
+    {
+        switch ($this->id) {
+            case 1:
+                $statusIcon = ' ri-information-line';
+                break;
+            case 2:
+                $statusIcon = 'ri-calendar-check-fill';
+                break;
+            case 3:
+                $statusIcon = 'ri-pen-nib-fill';
+                break;
+            case 4:
+                $statusIcon = 'ri-file-add-line';
+                break;
+            
+            default:
+                $statusIcon = 'info';
+                break;
+        }
+
+        return $statusIcon;
     }
 }

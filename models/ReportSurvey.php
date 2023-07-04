@@ -47,7 +47,7 @@ class ReportSurvey extends \yii\db\ActiveRecord
     {
         return [
             [['report_damage_id', 'requestor_id', 'status_id', 'report_date', 'report_no', 'survey_date', 'damage_description', 'probable_cause', 'boat_status_id', 'warranty_protection', 'suggested_correction', 'tools_need', 'created_time', 'updated_user_id', 'updated_time'], 'required'],
-            [['report_damage_id', 'requestor_id', 'status_id', 'boat_status_id', 'warranty_protection', 'updated_user_id'], 'integer'],
+            [['report_damage_id', 'requestor_id', 'status_id', 'boat_status_id', 'warranty_protection', 'updated_user_id', 'engineer_sign_status_id', 'commander_sign_status_id'], 'integer'],
             [['report_date', 'survey_date', 'engineer_sign_time', 'commander_sign_time', 'created_time', 'updated_time'], 'safe'],
             [['damage_description', 'nowarranty_protection_reason', 'suggested_correction', 'tools_need', 'engineer_sign', 'commander_sign', 'probable_cause'], 'string'],
             [['report_no'], 'string', 'max' => 50],
@@ -88,6 +88,19 @@ class ReportSurvey extends \yii\db\ActiveRecord
         ];
     }
 
+    public static function getTaskCounter()
+    {
+        if (Yii::$app->user->identity->user_role_id == 1){
+            $model = ReportSurvey::find()->where(['=', 'status_id', 2])->andWhere(['=', 'engineer_sign_status_id', 0])->count();
+        } else if (Yii::$app->user->identity->user_role_id == 3 || Yii::$app->user->identity->user_role_id == 2){
+            $model = ReportSurvey::find()->where(['=', 'status_id', 2])->count();
+        } else {
+            $model = ReportSurvey::find()->where(['=', 'status_id', 2])->andWhere(['=', 'engineer_sign_status_id', 1])->andWhere(['=', 'commander_sign_status_id', 0])->count();
+        }
+
+        return $model;
+    }
+
     public function getReportDamage()
     {
         return $this->hasOne(ReportDamage::className(),['id'=>'report_damage_id']);
@@ -115,7 +128,7 @@ class ReportSurvey extends \yii\db\ActiveRecord
                 $label = 'Tidak';
                 break;
             case 1:
-                $label = 'ya';
+                $label = 'Ya';
                 break;
             
             default:

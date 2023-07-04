@@ -17,7 +17,7 @@ $baseUrl = Url::base();
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
-                            <?= $form->field($model, 'contract_no')->textInput(['maxlength' => true]) ?>
+                            <?= $form->field($model, 'contract_no')->textInput(['maxlength' => true, 'disabled'=>true]) ?>
                         </div>
                         <div class="col-md-4">           
                             <?= $form->field($model, 'boat_id')->dropDownList($listBoat, ['data-choices' => '']) ?>
@@ -28,7 +28,7 @@ $baseUrl = Url::base();
                                                 <span class="input-group-text"><i class="ri-calendar-2-line"></i></span>
                                                     {input}{hint}{error}
                                                 </div>',
-                            ])->textInput(['data-provider' => 'flatpickr']) ?>
+                            ])->textInput(['data-provider' => 'flatpickr', 'disabled'=>true]) ?>
                         </div>      
                     </div>
                     <hr>

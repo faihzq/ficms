@@ -18,7 +18,7 @@ use yii\bootstrap5\ActiveForm;
                     <?php $form = ActiveForm::begin(); ?>
                    <div class="row">
                         <div class="col-md-3">
-                            <?= $form->field($model, 'report_survey_id')->dropDownList($listReportSurvey, ['data-choices' => '']) ?>
+                            <?= $form->field($model, 'report_survey_id')->dropDownList($listReportSurvey, ['data-choices' => '', 'disabled'=>true]) ?>
                         </div>
                         <div class="col-md-3">
                             <?= Html::label('No. Laporan Kerosakan', 'report_damage') ?>        
@@ -34,7 +34,7 @@ use yii\bootstrap5\ActiveForm;
                                                 <span class="input-group-text"><i class="ri-calendar-2-line"></i></span>
                                                     {input}{hint}{error}
                                                 </div>',
-                            ])->textInput(['data-provider' => 'flatpickr']) ?>
+                            ])->textInput(['data-provider' => 'flatpickr', 'disabled'=>true]) ?>
                         </div>      
                     </div>
                     <hr>
