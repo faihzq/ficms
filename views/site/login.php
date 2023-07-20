@@ -32,93 +32,85 @@ use yii\bootstrap5\Html;
 
     </head>
 <body>
-    <div class="auth-page-wrapper pt-5">
-
-        <!-- auth page bg -->
-        <div class="auth-one-bg-position auth-one-bg" id="auth-particles">
-            <div class="bg-overlay"></div>
-
-            <div class="shape">
-                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1440 120">
-                    <path d="M 0,36 C 144,53.6 432,123.2 720,124 C 1008,124.8 1296,56.8 1440,40L1440 140L0 140z"></path>
-                </svg>
-            </div>
-        </div>
-
-        <!-- auth page content -->
-        <div class="auth-page-content">
+    <div class="auth-page-wrapper auth-bg-cover py-5 d-flex justify-content-center align-items-center min-vh-100">
+    
+        <div class="bg-overlay"></div>
+        <!-- auth-page content -->
+        <div class="auth-page-content overflow-hidden pt-lg-5">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="text-center mt-sm-5 mb-4 text-white-50">
-                            <div>
-                                <a href="index.html" class="d-inline-block auth-logo">
-                                    <img src="<?= \Yii::getAlias('@web');?>/images/logo-ficms-light.png" alt="" height="100">
-                                </a>
-                            </div>
-                            <p class="mt-3 fs-15 fw-medium">Fast Interceptor Craft Monitoring Systems (FICMS)</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- end row -->
-
-                <div class="row justify-content-center">
-                    <div class="col-md-8 col-lg-6 col-xl-5">
-                        <div class="card mt-4">
-
-                            <div class="card-body p-4">
-                                <div class="text-center mt-2">
-                                    <h5 class="text-primary">Selamat Datang !</h5>
-                                    <p class="text-muted">Log masuk untuk meneruskan ke FICMS.</p>
+                        <div class="card overflow-hidden">
+                            <div class="row g-0">
+                                <div class="col-lg-6">
+                                    <div class="p-lg-5 p-4 auth-one-bg h-100">
+                                        <div class="bg-overlay"></div>
+                                        <div class="position-relative h-100 d-flex flex-column">
+                                            <div class="mb-4">
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="p-2 mt-4">
-                                    <?php $form = ActiveForm::begin([
-                                        'id' => 'login-form',
-                                        // 'layout' => 'horizontal',
-                                        // 'fieldConfig' => [
-                                        //     'template' => "{label}\n<div>{input}</div>\n<div>{error}</div>",
-                                        //     'labelOptions' => ['class' => 'control-label'],
-                                        // ],
-                                    ]); ?>
-                                    
+                                <!-- end col -->
 
-                                    <div class="mb-3">
-                                        <?= $form->field($model, 'username')->textInput(['autofocus' => true,'placeholder'=>'Masukkan nama pengguna/e-mel']) ?>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <div class="float-end">
-                                            <?= Html::a('Terlupa kata laluan?', ['site/request-password-reset'], ['class'=>'text-muted']) ?>
-                                            <!-- <a href="auth-pass-reset-basic.html" class="text-muted">Forgot password?</a> -->
+                                <div class="col-lg-6">
+                                    <div class="p-lg-5 p-4">
+                                        <div class="mb-4">
+                                            <a href="#" class="d-block text-center">
+                                                <img src="<?= \Yii::getAlias('@web');?>/images/logo-ficms-black.png" alt="" height="100">
+                                            </a>
+                                            <hr>
                                         </div>
-                                        <label class="form-label" for="password-input">Kata Laluan</label>
-                                        <div class="position-relative auth-pass-inputgroup mb-3">
-                                            <?= $form->field($model, 'password')->passwordInput(['placeholder'=>'Masukkan kata laluan anda...', 'class'=>'form-control pe-5 password-input'])->label(false) ?>
-                                            <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
+                                        <div>
+                                            <h5 class="text-primary">Selamat Datang !</h5>
+                                            <p class="text-muted">Log masuk untuk meneruskan ke FICMS.</p>
                                         </div>
-                                    </div>
 
-                                    <div class="form-check">
-                                        <?= $form->field($model, 'rememberMe')->checkbox([
+                                        <div class="mt-4">
+                                        <?php $form = ActiveForm::begin(['id'=>'login-form']); ?>
+
+                                            <div class="mb-3">
+                                                <?= $form->field($model, 'username')->textInput(['autofocus' => true,'placeholder'=>'Masukkan nama pengguna/e-mel']) ?>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <div class="float-end">
+                                                    <?= Html::a('Terlupa kata laluan?', ['site/request-password-reset'], ['class'=>'text-muted']) ?>
+                                                </div>
+
+                                                <label class="form-label" for="password-input">Kata Laluan</label>
+                                                <div class="position-relative auth-pass-inputgroup mb-3">
+                                                    <?= $form->field($model, 'password')->passwordInput(['placeholder'=>'Masukkan kata laluan anda...', 'class'=>'form-control pe-5 password-input'])->label(false) ?>
+                                                    <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
+                                                </div>
+                                                
+                                            </div>
+
+
+                                            <?= $form->field($model, 'rememberMe')->checkbox([
                                             'template' => "<div>{input} {label}</div>\n<div>{error}</div>",
                                         ]) ?>
-                                    </div>
 
-                                    <div class="mt-4">
-                                        <?= Html::submitButton('Log Masuk', ['class' => 'btn btn-success w-100', 'name' => 'login-button']) ?>
-                                    </div>
+                                            <div class="mt-4">
+                                                <?= Html::submitButton('Log Masuk', ['class' => 'btn btn-primary w-100', 'name' => 'login-button']) ?>
+                                            </div>
 
-                                    <?php ActiveForm::end(); ?>
-                                    
+                                        <?php ActiveForm::end(); ?>
+
+                                        
+                                        </div>
+
+                                    </div>
                                 </div>
+                                <!-- end col -->
                             </div>
-                            <!-- end card body -->
+                            <!-- end row -->
                         </div>
                         <!-- end card -->
-
-                        
-
                     </div>
+                    <!-- end col -->
+
                 </div>
                 <!-- end row -->
             </div>
@@ -126,22 +118,24 @@ use yii\bootstrap5\Html;
         </div>
         <!-- end auth page content -->
 
+        <!-- footer -->
         <footer class="footer">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="text-center">
-                            <p class="mb-0 text-muted">&copy;
-                                <?= date('Y') ?> FICMS. Direka & bangun <i class="mdi mdi-wrench text-danger"></i> oleh Galtech (M) Sdn. Bhd.
+                            <p class="mb-0">&copy;
+                                <script>document.write(new Date().getFullYear())</script> Gading Marine Sdn. Bhd.
                             </p>
                         </div>
-                        
                     </div>
                 </div>
             </div>
         </footer>
-        
+        <!-- end Footer -->
     </div>
+    <!-- end auth-page-wrapper -->
+    
 
     <!-- JAVASCRIPT -->
     <script src="<?= \Yii::getAlias('@web');?>/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
