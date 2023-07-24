@@ -85,6 +85,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <td><?php echo $model->running_hours.' jam' ?></td>
                                 </tr>
                                 <tr>
+                                    <th scope="row"><?php echo $model->getAttributeLabel('damage_type_id'); ?></th>
+                                    <td><?php echo $model->damagetype->name ?></td>
+                                </tr>
+                                <tr>
                                     <th scope="row"><?php echo $model->getAttributeLabel('damage_information'); ?></th>
                                     <td><?php echo nl2br($model->damage_information) ?></td>
                                 </tr>

@@ -126,6 +126,42 @@ class Boat extends \yii\db\ActiveRecord
         return $this->hasOne(BoatStatus::className(),['id'=>'boat_status_id']);
     }
 
+    public function getCheck($value)
+    {
+        switch ($value) {
+            case 1:
+                $checkLabel = 'bg-soft-success text-success';
+                break;
+            case 0:
+                $checkLabel = 'bg-soft-danger text-danger';
+                break;
+            
+            default:
+                $checkLabel = 'bg-soft-info text-info';
+                break;
+        }
+
+        return $checkLabel;
+    }
+
+    public function getChecktable($value)
+    {
+        switch ($value) {
+            case 1:
+                $checkLabel = '<i class="ri-checkbox-circle-line text-success fs-16"></i>';
+                break;
+            case 0:
+                $checkLabel = '<i class="ri-close-circle-line text-danger fs-16"></i>';
+                break;
+            
+            default:
+                $checkLabel = '<i class="ri-check-double-fill text-success fs-16"></i>';
+                break;
+        }
+
+        return $checkLabel;
+    }
+
     public function getUpdatedUser()
     {
         return $this->hasOne(User::className(),['id'=>'updated_user_id']);

@@ -111,6 +111,9 @@ $baseUrl = Url::base();
                 <div class="card-body">
                     <div class="tab-content">
                         <div class="tab-pane active" id="addproduct-general-info" role="tabpanel">
+                            <div class="col-lg-6">
+                                <?= $form->field($model, 'damage_type_id')->dropDownList($listDamageType, ['data-choices' => '']) ?>
+                            </div>
                             <div class="row">
                                 
                                 <div class="col-lg-6">

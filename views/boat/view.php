@@ -20,7 +20,7 @@ $baseUrl = Url::base();
     <div class="row">
         <div class="col-lg-12">
             <div class="card mt-n4 mx-n4 mb-n5">
-                <div class="bg-soft-warning">
+                <div class="bg-soft-info">
                     <div class="card-body pb-4 mb-5">
                         <div class="row">
                             <div class="col-md">
@@ -50,7 +50,11 @@ $baseUrl = Url::base();
                                             <div class="vr"></div>
                                             <div class="text-muted">Tarikh Kemaskini : <span class="fw-medium" id="due-date"><?php echo date('d M, Y', strtotime($model->updated_time))?></span></div>
                                             <div class="vr"></div>
-                                            <div class="badge rounded-pill <?php echo $model->status->statusLabel?> fs-12" id="ticket-status"><?php echo $model->status->name?></div>
+                                            <div class="badge badge-border rounded-pill <?php echo $model->getCheck($model->prop_check)?> fs-12">Propulsion</div>
+                                            <div class="badge badge-border rounded-pill <?php echo $model->getCheck($model->gen_check)?> fs-12">Generation</div>
+                                            <div class="badge badge-border rounded-pill <?php echo $model->getCheck($model->nav_check)?> fs-12">Navigation</div>
+                                            <div class="badge badge-border rounded-pill <?php echo $model->getCheck($model->comm_check)?> fs-12">Communication</div>
+                                            <div class="badge badge-border rounded-pill <?php echo $model->getCheck($model->warfare_check)?> fs-12">Warfare System</div>
                                         </div>
                                     </div>
                                     <!--end col-->
@@ -98,7 +102,7 @@ $baseUrl = Url::base();
                     
                     <div class="card-footer mt-3">
                         
-                            <a href="<?php echo Url::to(['boat/index']) ?>" title="Cancel" class="btn btn-label btn-warning btn-animation bg-gradient waves-effect waves-light rounded-pill"><i class="mdi mdi-keyboard-return label-icon align-middle rounded-pill"></i>  Batal</a>
+                            <a href="<?php echo Url::to(['boat/index', 'status'=>'']) ?>" title="Cancel" class="btn btn-label btn-warning btn-animation bg-gradient waves-effect waves-light rounded-pill"><i class="mdi mdi-keyboard-return label-icon align-middle rounded-pill"></i>  Batal</a>
                             
                             <?= Html::a('<i class="mdi mdi-content-save label-icon align-middle rounded-pill"></i>Kemaskini', ['update', 'id' => $model->id], ['class' => 'btn btn-label btn-primary rounded-pill btn-animation bg-gradient waves-effect waves-light float-end']) ?>
                             <?= Html::a('<i class="mdi mdi-delete label-icon align-middle rounded-pill"></i>Padam', ['delete', 'id' => $model->id], [
@@ -159,7 +163,7 @@ $baseUrl = Url::base();
                                     <td><?php echo $model->boat_range ?></td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-medium"><?php echo $model->getAttributeLabel('status_id'); ?></td>
+                                    <td class="fw-medium"><?php echo $model->getAttributeLabel('boat_status_id'); ?></td>
                                     <td>
                                         <span class="badge <?php echo $model->status->statusLabel?>"><?php echo $model->status->name?></span>
                                     </td>

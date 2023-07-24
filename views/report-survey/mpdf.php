@@ -55,7 +55,7 @@
             <table cellpadding="5px" autosize="1" width="100%">
                 <tbody>
                     <tr>
-                        <th>Jurutera KDJ</th>
+                        <th>Jurutera Kerosakan DJ</th>
                     </tr>
                     <tr>
                         <td>Nama: <?php echo $model->engineer_name?$model->engineer_name:'' ?></td>
@@ -72,7 +72,7 @@
             <table style="border-top:  1px dashed black;" cellpadding="5px" autosize="1" width="100%">
                 <tbody>
                     <tr>
-                        <th>Jurutera KDJ</th>
+                        <th>Jurutera Kerosakan DJ</th>
                     </tr>
                     <tr>
                         <td>Nama: <?php echo $model->engineer_name?$model->engineer_name:'' ?></td>

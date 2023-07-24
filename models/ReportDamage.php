@@ -42,8 +42,8 @@ class ReportDamage extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['boat_id', 'report_date', 'report_no', 'requestor_id', 'damage_date', 'status_id', 'boat_location_id', 'sel_no', 'equipment_serial', 'equipment_location', 'running_hours', 'damage_information', 'contact_officer_name', 'contact_officer_tel', 'created_time', 'updated_time', 'updated_user_id'], 'required'],
-            [['boat_id', 'requestor_id', 'status_id', 'updated_user_id', 'boat_location_id'], 'integer'],
+            [['boat_id', 'report_date', 'report_no', 'requestor_id', 'damage_date', 'status_id', 'boat_location_id', 'sel_no', 'equipment_serial', 'equipment_location', 'running_hours', 'damage_information', 'damage_type_id', 'contact_officer_name', 'contact_officer_tel', 'created_time', 'updated_time', 'updated_user_id'], 'required'],
+            [['boat_id', 'requestor_id', 'status_id', 'updated_user_id', 'boat_location_id', 'damage_type_id'], 'integer'],
             [['report_date', 'damage_date', 'created_time', 'updated_time', 'commander_sign', 'sign_time'], 'safe'],
             [['damage_information', 'contact_officer_name'], 'string'],
             [['report_no', 'sel_no', 'equipment_serial', 'contract_no'], 'string', 'max' => 50],
@@ -74,6 +74,7 @@ class ReportDamage extends \yii\db\ActiveRecord
             'equipment_location' => 'Lokasi Peralatan',
             'running_hours' => 'Jam berjalan',
             'damage_information' => 'Keterangan Kerosakan',
+            'damage_type_id' => 'Jenis Kerosakan',
             'sign_time' => 'Tarikh',
             'commander_name' => 'Nama',
             'commander_rank' => 'Pangkat',
@@ -149,5 +150,10 @@ class ReportDamage extends \yii\db\ActiveRecord
     public function getLocation()
     {
         return $this->hasOne(BoatLocation::className(),['id'=>'boat_location_id']);
+    }
+
+    public function getDamagetype()
+    {
+        return $this->hasOne(DamageType::className(),['id'=>'damage_type_id']);
     }
 }

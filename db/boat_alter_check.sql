@@ -1,0 +1,1 @@
+ALTER TABLE `boat` ADD `prop_check` INT NOT NULL DEFAULT '1' AFTER `image_file`, ADD `gen_check` INT NOT NULL DEFAULT '1' AFTER `prop_check`, ADD `nav_check` INT NOT NULL DEFAULT '1' AFTER `gen_check`, ADD `comm_check` INT NOT NULL DEFAULT '1' AFTER `nav_check`, ADD `warfare_check` INT NOT NULL DEFAULT '1' AFTER `comm_check`;

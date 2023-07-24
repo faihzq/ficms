@@ -27,7 +27,7 @@ $baseUrl = Url::base();
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex align-items-center">
-                        <h5 class="card-title mb-0 flex-grow-1">Senarai Bot</h5>
+                        <h5 class="card-title mb-0 flex-grow-1">Senarai Bot <?= $cardTitle; ?></h5>
                         <div class="flex-shrink-0">
                            <div class="d-flex flex-wrap gap-2">
                                 <?= Html::a('<i class="ri-add-line label-icon align-middle rounded-pill"></i> Daftar Bot', ['create'], ['class' => 'btn btn-label rounded-pill btn-danger btn-animation bg-gradient waves-effect waves-light']) ?>
@@ -42,6 +42,11 @@ $baseUrl = Url::base();
                                 <th width="3%">No</th>
                                 <th >Nama</th>
                                 <th class="text-center">Status</th>
+                                <th class="text-center">Propulsion</th>
+                                <th class="text-center">Generation</th>
+                                <th class="text-center">Navigation</th>
+                                <th class="text-center">Communication</th>
+                                <th class="text-center">Warfare System</th>
                                 <th class="text-center">Tindakan</th>
                             </tr>
                         </thead>
@@ -68,6 +73,21 @@ $baseUrl = Url::base();
                                 </td>
                                 <td class="text-center"><span class="badge <?php echo $boat->status->StatusLabel?> text-uppercase"><?php echo $boat->status->name; ?></span></td>
                                 <td class="text-center">
+                                    <?= $boat->getChecktable($boat->prop_check); ?>
+                                </td>
+                                <td class="text-center">
+                                    <?= $boat->getChecktable($boat->gen_check); ?>
+                                </td>
+                                <td class="text-center">
+                                    <?= $boat->getChecktable($boat->nav_check); ?>
+                                </td>
+                                <td class="text-center">
+                                    <?= $boat->getChecktable($boat->comm_check); ?>
+                                </td>
+                                <td class="text-center">
+                                    <?= $boat->getChecktable($boat->warfare_check); ?>
+                                </td>
+                                <td class="text-center">
                                     <div class="dropdown">
                                         <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="ri-more-fill align-middle"></i>
@@ -83,6 +103,7 @@ $baseUrl = Url::base();
                                         </ul>
                                     </div>
                                 </td>
+
                             </tr>
                             <?php $no++;endforeach; ?>
                         </tbody>

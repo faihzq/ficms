@@ -47,7 +47,7 @@
     
 </div>
 <div class="indent-main">
-    <div style="width:40%; float:left; margin-top: 100px;">
+    <div style="width:40%; float:left; margin-top: 75px;">
         <?php if ($model->engineer_sign){ ?>
             <img src="<?= \Yii::getAlias('@web');?>/uploads/reportRepair/sign/<?= $model->engineer_sign_pic ?>" alt="">
             <table cellpadding="5px" autosize="1" width="100%">

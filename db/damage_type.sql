@@ -1,0 +1,2 @@
+CREATE TABLE `bmis`.`damage_type` (`id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(50) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+INSERT INTO `damage_type` (`id`, `name`) VALUES ('1', 'Propulsion'), ('2', 'Generation'), ('3', 'Navigation'), ('4', 'Communication'), ('5', 'Warframe System');

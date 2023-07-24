@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </th>
                                         <th scope="col">Tarikh</th>
                                         <th class="sort" data-sort="report_no" scope="col">No Laporan</th>
-                                        <th class="sort" data-sort="requestor" scope="col">Requestor
+                                        <th class="sort" data-sort="requestor" scope="col">Dilaporkan Oleh
                                         </th>
                                         <th class="sort" data-sort="status" scope="col">Status
                                         </th>
@@ -83,23 +83,23 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <td class="status"><span class="badge badge-soft-<?php echo $report->status->statusLabel?> text-uppercase"><?php echo $report->status->name ?></td>
                                         <td>
                                             <ul class="list-inline hstack gap-2 mb-0">
-                                                <li class="list-inline-item">
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <i class="ri-more-fill align-middle"></i>
-                                                        </button>
-                                                        <ul class="dropdown-menu dropdown-menu-end">
-                                                            <li><a class="dropdown-item view-item-btn" href="<?php echo Url::to(['report-damage/view','id'=>$report->id]) ?>"><i class="ri-eye-fill align-bottom me-2 text-muted"></i>
-                                                                    Lihat</a></li>
-                                                            <li><a class="dropdown-item view-item-btn" target="_blank" href="<?php echo Url::to(['report-damage/pdf','id'=>$report->id]) ?>"><i class="mdi mdi-printer align-bottom me-2 text-muted"></i>
-                                                                    Cetak</a></li>
-                                                            <?php if (Yii::$app->user->identity->user_role_id == 1 || Yii::$app->user->identity->id == $report->requestor_id): ?>
-                                                            <li><a class="dropdown-item edit-item-btn" href="<?php echo Url::to(['report-damage/update','id'=>$report->id]) ?>"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
-                                                                    Edit</a></li>
-                                                            <?php endif ?>
-                                                        </ul>
-                                                    </div>
+                                                <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Lihat">
+                                                    <a href="<?php echo Url::to(['report-damage/view','id'=>$report->id]) ?>" class="text-muted d-inline-block">
+                                                        <i class="ri-eye-fill fs-16"></i>
+                                                    </a>
                                                 </li>
+                                                <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Cetak">
+                                                    <a href="<?php echo Url::to(['report-damage/pdf','id'=>$report->id]) ?>" class="text-muted d-inline-block" target="_blank">
+                                                        <i class="mdi mdi-printer fs-16"></i>
+                                                    </a>
+                                                </li>
+                                                <?php if (Yii::$app->user->identity->user_role_id == 1 || $Yii::$app->user->identity->id == $report->requestor_id): ?>
+                                                <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Edit">
+                                                    <a href="<?php echo Url::to(['report-damage/update','id'=>$report->id]) ?>" class="text-muted d-inline-block">
+                                                        <i class="ri-pencil-fill fs-16"></i>
+                                                    </a>
+                                                </li>
+                                                <?php endif ?>
                                             </ul>
                                         </td>
                                     </tr>

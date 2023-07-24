@@ -43,12 +43,24 @@ class BoatController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex($status = NULL)
     {
-        $model = Boat::find()->all();
+        if ($status == 1){
+            $cardTitle = 'Aktif';
+        }else if ($status == 2) {
+            $cardTitle = 'Tidak Aktif';
+        } else{
+            $cardTitle = '';
+        }
 
+        $status = (!empty($status) ? ['=', 'boat_status_id', $status] : '');
+        
+        $model = Boat::find()->where($status)->all();
+
+        
         return $this->render('indexTable', [
             'model' => $model,
+            'cardTitle' => $cardTitle,
         ]);
     }
 
@@ -194,7 +206,7 @@ class BoatController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'status'=>'']);
     }
 
     /**

@@ -48,7 +48,7 @@ $total = $damageCounter + $surveyCounter + $repairCounter;
                         <i class="bx bxs-dashboard"></i> <span data-key="t-dashboards">Dashboard</span>
                     </a>
                 </li> <!-- end Dashboard Menu -->
-                
+                <?php if (Yii::$app->user->identity->user_role_id != 5): ?>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarReport" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarReport">
                         <i class="bx bxs-report"></i> <span data-key="t-report">Laporan <?php if ($total > 0): ?><span class="badge rounded-pill text-bg-danger"><?= $total;?></span><?php endif; ?></span>
@@ -118,7 +118,7 @@ $total = $damageCounter + $surveyCounter + $repairCounter;
                                 <a href="<?= Url::to(['boat/create']) ?>" class="nav-link"> Daftar Bot </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= Url::to(['boat/index']) ?>" class="nav-link" data-key="t-boatList"> Senarai Bot </a>
+                                <a href="<?= Url::to(['boat/index', 'status'=>'']) ?>" class="nav-link" data-key="t-boatList"> Senarai Bot </a>
                             </li>
                         </ul>
                     </div>
@@ -128,6 +128,7 @@ $total = $damageCounter + $surveyCounter + $repairCounter;
                         <i class="bx bx-location-plus"></i> <span data-key="t-users">Lokasi FIC</span>
                     </a>
                 </li> <!-- end Dashboard Menu -->
+                <?php endif; ?>
 
 
 

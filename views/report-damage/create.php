@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'listBoat' => $listBoat,
         'listLocation' => $listLocation,
+        'listDamageType' => $listDamageType
     ]) ?>
 
 </div>

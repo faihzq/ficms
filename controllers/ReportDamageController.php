@@ -8,6 +8,7 @@ use app\models\ReportDamage;
 use app\models\ReportStatus;
 use app\models\Boat;
 use app\models\BoatLocation;
+use app\models\DamageType;
 use app\models\SignatureLog;
 use app\models\ReportSurvey;
 use app\models\ReportStatusLog;
@@ -101,6 +102,7 @@ class ReportDamageController extends Controller
         // list boat dropdown
         $listBoat = ArrayHelper::map(Boat::find()->where(['IN', 'boat_status_id', [1]])->all(), 'id', 'boat_name');
         $listLocation = ArrayHelper::map(BoatLocation::find()->andWhere(['status'=>1])->all(), 'id', 'name');
+        $listDamageType = ArrayHelper::map(DamageType::find()->all(), 'id', 'name');
 
         // initial report & damage date
         $model->report_date = $date;
@@ -157,6 +159,7 @@ class ReportDamageController extends Controller
             'model' => $model,
             'listBoat' => $listBoat,
             'listLocation' => $listLocation,
+            'listDamageType' => $listDamageType
         ]);
     }
 
@@ -180,6 +183,7 @@ class ReportDamageController extends Controller
         // list boat dropdown
         $listBoat = ArrayHelper::map(Boat::find()->where(['IN', 'boat_status_id', [1]])->all(), 'id', 'boat_name');
         $listLocation = ArrayHelper::map(BoatLocation::find()->andWhere(['status'=>1])->all(), 'id', 'name');
+        $listDamageType = ArrayHelper::map(DamageType::find()->all(), 'id', 'name');
 
         if ($this->request->isPost && $model->load($this->request->post())) {
 
@@ -206,6 +210,7 @@ class ReportDamageController extends Controller
             'model' => $model,
             'listBoat' => $listBoat,
             'listLocation' => $listLocation,
+            'listDamageType' => $listDamageType
         ]);
     }
 
@@ -254,6 +259,29 @@ class ReportDamageController extends Controller
             $model->commander_sign_pic = $model->base64_to_png();
 
             if ($model->save(false)){
+
+                $modelBoat = Boat::findOne(['id' => $model->boat_id]);
+                $uncheck = 0;
+                switch ($model->damage_type_id){
+                    case 1:
+                        $modelBoat->prop_check = $uncheck;
+                        break;
+                    case 2:
+                        $modelBoat->gen_check = $uncheck;
+                        break;
+                    case 3:
+                        $modelBoat->nav_check = $uncheck;
+                        break;
+                    case 4:
+                        $modelBoat->comm_check = $uncheck;
+                        break;
+                    case 5:
+                        $modelBoat->warframe_check = $uncheck;
+                        break; 
+                    default:
+                        break;
+                }
+                $modelBoat->save(false);
 
                 $modelReportStatusLog = new ReportStatusLog();
                 $modelReportStatusLog->report_id = $model->id;
