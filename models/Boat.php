@@ -40,13 +40,14 @@ class Boat extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['boat_name', 'boat_status_id'], 'required'],
+            [['boat_name', 'short_name', 'boat_status_id'], 'required'],
             [['length_overall', 'length_over_waterline', 'beam_overall', 'draft'], 'number'],
             [['boat_range'], 'string'],
             [['boat_status_id','updated_user_id'], 'integer'],
             [['created_time', 'updated_time'], 'safe'],
             [['boat_description', 'image_file'], 'string'],
             [['boat_name', 'power', 'propulsion', 'speed'], 'string', 'max' => 100],
+            [['short_name'], 'string', 'max' => 50],
             [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
             [['imageFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
         ];
@@ -60,6 +61,7 @@ class Boat extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'boat_name' => 'Nama Bot',
+            'short_name' => 'Nama Pendek Bot',
             'boat_description' => 'Penerangan Bot',
             'length_overall' => 'Panjang Keseluruhan',
             'length_over_waterline' => 'Panjang Atas Paras Air',

@@ -10,6 +10,8 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\data\Pagination;
+use yii\bootstrap5\Html;
 use app\models\LoginForm;
 use app\models\SignupForm;
 use app\models\ContactForm;
@@ -86,7 +88,7 @@ class SiteController extends Controller
         $totalBoatReportNotFix = array();
         $totalBoatReportNoWarranty = array();
         foreach ($modelBoat as $boat){
-            $boatName[] = $boat->boat_name;
+            $boatName[] = $boat->short_name;
             $totalBoatReport[] = ReportDamage::find()->where(['status_id'=>2])->andWhere(['boat_id'=>$boat->id])->count();
             $totalBoatReportFix[] = ReportRepair::find()->select('reportDamage.boat_id')->joinWith('reportSurvey')->joinWith('reportSurvey.reportDamage')->where(['report_repair.status_id' => 4,'report_damage.boat_id' => $boat->id])->count();
             $totalBoatReportNotFix[] = ReportRepair::find()->select('reportDamage.boat_id')->joinWith('reportSurvey')->joinWith('reportSurvey.reportDamage')->where(['report_repair.status_id' => 3,'report_damage.boat_id' => $boat->id])->count();
@@ -151,6 +153,69 @@ class SiteController extends Controller
             'notFixedPercent' => $notFixedPercent,
             'noWarrantyPercent' => $noWarrantyPercent,
         ]);
+    }
+
+    public function actionGetList()
+    {
+        $status = $_GET['status'];
+        $status = (!empty($status) ? ['boat_status_id' => $status] : '');
+
+        switch ($_GET['order'][0]['column']) {
+            case 1:
+                $sort = "boat_name " . $_GET['order'][0]['dir'];
+                break;
+
+            default:
+                $sort = 'id ASC';
+                break;
+        }
+
+        $output = [];
+
+        $query = Boat::find()
+                ->where($status) // boat status
+                ->orderBy($sort);
+        
+
+        if ($_GET['search']['value'] != null) {
+            $query->andWhere([
+                'OR',
+                ["LIKE", "boat_name", $_GET['search']['value']],
+            ]);
+        }
+
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count()]);
+        $pages->pageSize = $_GET['length'];
+        $model = $query->offset(($_GET['start']))
+            ->limit($pages->limit)
+            ->all();
+
+        $x = $_GET['start'] + 1;
+
+        foreach ($model as $key => $value) {
+
+            $output[] = array(
+                $x,
+                $value->boat_name,
+                '<span class="badge badge-border '. $value->status->StatusLabel. ' text-uppercase">'.$value->status->name.'</span>',
+                $value->getCheckTable($value->prop_check),
+                $value->getCheckTable($value->gen_check),
+                $value->getCheckTable($value->nav_check),
+                $value->getCheckTable($value->comm_check),
+                $value->getCheckTable($value->warfare_check),
+            );
+
+            $x++;
+        }
+
+        $output = array(
+            "recordsTotal" => $countQuery->count(),
+            "recordsFiltered" => $countQuery->count(),
+            "data" => $output
+        );
+
+        return json_encode($output);
     }
 
     /**

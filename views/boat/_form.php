@@ -16,10 +16,15 @@ use yii\bootstrap5\ActiveForm;
                 <div class="card-body">
 
                     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
-
-                    <div class="mb-3">
-                        <?= $form->field($model, 'boat_name')->textInput(['maxlength' => true, 'class'=>'form-control', 'placeholder'=>'Isi nama bot']) ?>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <?= $form->field($model, 'boat_name')->textInput(['maxlength' => true, 'class'=>'form-control', 'placeholder'=>'Isi nama bot']) ?>
+                        </div>
+                        <div class="col-lg-6">
+                            <?= $form->field($model, 'short_name')->textInput(['maxlength' => true, 'class'=>'form-control', 'placeholder'=>'Isi nama pendek bot']) ?>
+                        </div>
                     </div>
+                    
                     <div>
                         <?php echo $form->field($model, 'boat_description')->textarea([
                             // 'id' => 'ckeditor-classic',

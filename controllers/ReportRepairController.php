@@ -284,11 +284,12 @@ class ReportRepairController extends Controller
         if (Yii::$app->request->isAjax) {
             $selectedValue = Yii::$app->request->post('selectedValue');
             // Fetch data based on selected value
-            $data = ReportSurvey::findOne($selectedValue);
+            $data = ReportRepair::findOne($selectedValue);
             if ($data) {
                 $response = [
-                    'boat_name' => $data->reportDamage->boat->boat_name,
-                    'report_damage_no' => $data->reportDamage->report_no,
+                    'boat_name' => $data->reportSurvey->reportDamage->boat->boat_name,
+                    'report_damage_no' => $data->reportSurvey->reportDamage->report_no,
+                    'report_survey_no' => $data->reportSurvey->report_no,
                      // replace with the field you want to return
                     'success' => true,
                 ];

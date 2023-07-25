@@ -18,7 +18,8 @@ use yii\bootstrap5\ActiveForm;
                     <?php $form = ActiveForm::begin(); ?>
                    <div class="row">
                         <div class="col-md-3">
-                            <?= $form->field($model, 'report_survey_id')->dropDownList($listReportSurvey, ['data-choices' => '', 'disabled'=>true]) ?>
+                            <?= Html::label('No. Laporan Kajian Kerosakan', 'report_survey') ?>        
+                            <?= Html::textInput('report_survey', null, ['id'=>'report-survey','class' => 'form-control', 'maxlength' => true, 'readonly'=>true]) ?>
                         </div>
                         <div class="col-md-3">
                             <?= Html::label('No. Laporan Kerosakan', 'report_damage') ?>        
@@ -118,6 +119,7 @@ use yii\bootstrap5\ActiveForm;
                 </div>
             </div>
             <!--end card-->
+            <?= Html::a('<i class="mdi mdi-printer-outline label-icon align-middle rounded-pill"></i>Rujukan Borang 15B ('.$model->reportSurvey->report_no.') ', ['report-survey/pdf', 'id' => $model->report_survey_id], ['class' => 'btn btn-label rounded-pill btn-secondary btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2', 'target' => '_blank']) ?>
             
             <?php ActiveForm::end(); ?>
         </div>
@@ -147,8 +149,8 @@ use yii\bootstrap5\ActiveForm;
                 // Create new date object from input date value
                 var inputDate = new Date(inputDateValue);
                 inputDate.setHours(0);
-                console.log(inputDate);
-                console.log(now);
+                // console.log(inputDate);
+                // console.log(now);
                 // Calculate time difference in milliseconds
                 var timeDiff = inputDate.getTime() - now.getTime();
                   
@@ -174,8 +176,8 @@ use yii\bootstrap5\ActiveForm;
 
 
             // Get the default value of the dropdown list
-          var selectedValue = $('#reportrepair-report_survey_id').val();
-          
+          var selectedValue = <?php echo $model->id ?>;
+          // console.log(selectedValue);
           // Function to fetch data and update target field
           function fetchDataAndUpdateTargetField(selectedValue) {
             $.ajax({
@@ -186,6 +188,7 @@ use yii\bootstrap5\ActiveForm;
               success: function(data) {
                 $('#report-damage').val(data.report_damage_no);
                 $('#boat-name').val(data.boat_name);
+                $('#report-survey').val(data.report_survey_no);
               }
             });
           }

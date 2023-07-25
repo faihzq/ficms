@@ -7,7 +7,22 @@ $baseUrl = Url::base();
 $this->title = 'Dashboard';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<link href="<?= \Yii::getAlias('@web');?>/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" /><script src="<?= \Yii::getAlias('@web');?>/libs/sweetalert2/sweetalert2.min.js"></script>
+<!--datatable css-->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
+<!--datatable responsive css-->
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+<link href="<?= \Yii::getAlias('@web');?>/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+    .red {
+        background-color: #fce7e7; /* Set the background color you want for highlighted rows */
+        /* Add any other styles you want for the highlighted rows */
+    }
+    .green {
+        background-color: #dcf6e9; /* Set the background color you want for highlighted rows */
+        /* Add any other styles you want for the highlighted rows */
+    }
+</style>
 <div class="row">
     <div class="col">
 
@@ -28,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="d-flex flex-column h-100">
                             <div class="row">
                                 <div class="col-xl-4 col-md-6">
-                                    <a href="<?= Yii::$app->user->identity->user_role_id != 5? Url::to(['boat/index', 'status'=>'']):'javascript:void(0);' ?>">
+                                    <a href="javascript:void(0);" onclick="filterStatus('')">
                                         <div class="card card-animate overflow-hidden">
                                             <div class="position-absolute start-0" style="z-index: 0;">
                                                 <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" width="200" height="120">
@@ -56,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </a>
                                 </div><!--end col-->
                                 <div class="col-xl-4 col-md-6">
-                                    <a href="<?= Yii::$app->user->identity->user_role_id != 5? Url::to(['boat/index', 'status'=>1]):'javascript:void(0);' ?>">
+                                    <a href="javascript:void(0);" onclick="filterStatus('1')">
                                         <!-- card -->
                                         <div class="card card-animate overflow-hidden">
                                             <div class="position-absolute start-0" style="z-index: 0;">
@@ -86,7 +101,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div><!-- end col -->
                                 <div class="col-xl-4 col-md-6">
                                     <!-- card -->
-                                    <a href="<?= Yii::$app->user->identity->user_role_id != 5? Url::to(['boat/index', 'status'=>2]):'javascript:void(0);' ?>">
+                                    <a href="javascript:void(0);" onclick="filterStatus('2')">
                                         <div class="card card-animate overflow-hidden">
                                             <div class="position-absolute start-0" style="z-index: 0;">
                                                 <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" width="200" height="120">
@@ -202,7 +217,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div><!-- end card body -->
                         </div><!-- end card -->
                     </div><!--end col-->
-                    <div class="col=col-xl-12">
+                    <div class="col-xl-12">
                         <div class="card">
                             <div class="card-header border-0 align-items-center d-flex">
                                 <h4 class="card-title mb-0 flex-grow-1">Ringkasan Laporan Mengikut Bot</h4>
@@ -216,6 +231,33 @@ $this->params['breadcrumbs'][] = $this->title;
                             
                         </div><!-- end card -->
                         
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="col-xl-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover dt-responsive nowrap att-tbl" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">#</th>
+                                                        <th class="text-center">Nama Bot</th>                                                        
+                                                        <th class="text-center">Status</th> 
+                                                        <th class="text-center">Proportion</th>
+                                                        <th class="text-center">Generation</th>
+                                                        <th class="text-center">Navigation</th>
+                                                        <th class="text-center">Communication</th>
+                                                        <th class="text-center">Warfare System</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div><!--end row-->
             </div>
@@ -232,9 +274,68 @@ $this->params['breadcrumbs'][] = $this->title;
 <script src="<?= \Yii::getAlias('@web');?>/libs/list.pagination.js/list.pagination.min.js"></script>
 <!-- apexcharts -->
 <script src="<?= \Yii::getAlias('@web');?>/libs/apexcharts/apexcharts.min.js"></script>
+<script src="<?= \Yii::getAlias('@web');?>/libs/sweetalert2/sweetalert2.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<!--datatable js-->
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
 
 
 <script>
+    var status = '';
+    function filterStatus(value){
+        status = value;
+        table.draw();
+    }
+
+    var table = $(".att-tbl").DataTable({
+        "processing": true,
+        "serverSide": true,
+        "paging": true,
+        "searching": false,
+        "lengthMenu": [
+            [10, 25, 50, 100, -1],
+            [10, 25, 50, 100, "All"]
+        ],
+        "pageLength": 10,
+        "ajax": {
+            "type": "GET",
+            "url": "<?= Url::to(['site/get-list']) ?>",
+            "data": function (d) {
+                d.status = status;
+            },
+            "dataType": "json",
+            "contentType": "application/json; charset=utf-8"
+        },
+        "responsive": true,
+        "lengthChange": true,
+        "autoWidth": false,        
+        // oLanguage: {
+        //     sProcessing: "<span class=\"loader-28\"> </span>"
+        // },
+        // columnDefs: [
+        //     { orderable: false, targets: 0 },
+        //     { responsivePriority: 1, targets: 1 },
+        //     { responsivePriority: 2, targets: -1 },
+        //     { responsivePriority: 3, targets: -3 }
+        // ]
+        "createdRow": function( row, data, dataIndex ) {
+            console.log(data[2]);
+            if (data[2] == '<span class="badge badge-border bg-soft-success text-success text-uppercase">Aktif</span>') {        
+                $(row).addClass('green');
+            } else {
+                $(row).addClass('red');
+            }
+        },
+        columnDefs: [
+            {
+                targets: [-1, -2, -3, -4, -5, -6, 0],
+                className: 'dt-body-center'
+            }
+        ]
+    });
     
     // get colors array from the string
     function getChartColorsArray(chartId) {

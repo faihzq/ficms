@@ -72,7 +72,7 @@ $baseUrl = Url::base();
                                     </div>
                                 </td>
                                 <td class="text-center"><span class="badge <?php echo $boat->status->StatusLabel?> text-uppercase"><?php echo $boat->status->name; ?></span></td>
-                                <td class="text-center">
+                                <td class="text-center bg-soft-success">
                                     <?= $boat->getChecktable($boat->prop_check); ?>
                                 </td>
                                 <td class="text-center">

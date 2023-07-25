@@ -45,14 +45,14 @@ class BoatStatus extends \yii\db\ActiveRecord
     {
         switch ($this->id) {
             case 1:
-                $statusLabel = 'bg-success';
+                $statusLabel = 'bg-soft-success text-success';
                 break;
             case 2:
-                $statusLabel = 'bg-dark';
+                $statusLabel = 'bg-soft-danger text-danger';
                 break;
             
             default:
-                $statusLabel = 'bg-info';
+                $statusLabel = 'bg-soft-info text-info';
                 break;
         }
 
