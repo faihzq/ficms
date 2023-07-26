@@ -90,8 +90,7 @@ $total = $damageCounter + $surveyCounter + $repairCounter;
                                 <div class="collapse menu-dropdown" id="sidebarRepair">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <a href="<?= Url::to(['report-repair/index']) ?>" class="nav-link" data-key="t-boatIndex"> Senarai Laporan </a>
-                                            <a href="<?= Url::to(['report-repair/create']) ?>" class="nav-link" data-key="t-boatCreate"> Laporan Baru </a>
+                                            <a href="<?= Url::to(['report-repair/index']) ?>" class="nav-link" data-key="t-boatIndex"> Senarai Laporan </a>                                            
                                             <?php if (Yii::$app->user->identity->user_role_id == 1 || Yii::$app->user->identity->user_role_id == 4): ?>
                                             <a href="<?= Url::to(['report-repair/task']) ?>" class="nav-link" data-key="t-boatCreate"> Tindakan <?php if ($repairCounter > 0): ?><span class="badge rounded-pill text-bg-danger"><?= $repairCounter;?></span><?php endif; ?></a>
                                             <?php endif; ?>

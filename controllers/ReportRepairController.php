@@ -9,6 +9,7 @@ use app\models\ReportSurvey;
 use app\models\ReportStatus;
 use app\models\SignatureLog;
 use app\models\ReportStatusLog;
+use app\models\Boat;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -251,6 +252,36 @@ class ReportRepairController extends Controller
             
 
             if ($model->save(false)){
+
+                if ($model->status_id == 4){
+                    $modelBoat = Boat::findOne(['id' => $model->reportSurvey->reportDamage->boat_id]);
+                    $check = 1;
+                    switch ($model->reportSurvey->reportDamage->damage_type_id){
+                        case 1:
+                            $modelBoat->prop_check = $check;
+                            break;
+                        case 2:
+                            $modelBoat->gen_check = $check;
+                            break;
+                        case 3:
+                            $modelBoat->nav_check = $check;
+                            break;
+                        case 4:
+                            $modelBoat->comm_check = $check;
+                            break;
+                        case 5:
+                            $modelBoat->warframe_check = $check;
+                            break; 
+                        default:
+                            break;
+                    }
+                    if ($model->reportSurvey->boat_status_id == 1){
+                        $modelBoat->boat_status_id = 1;
+                    }else {
+                        $modelBoat->boat_status_id = 2;
+                    }
+                    $modelBoat->save(false);
+                }
 
                 $modelReportStatusLog = new ReportStatusLog();
                 $modelReportStatusLog->report_id = $model->id;

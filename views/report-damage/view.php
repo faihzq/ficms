@@ -43,6 +43,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <th scope="row"><?php echo $model->getAttributeLabel('report_date'); ?></th>
                                     <td><?php echo date('d F Y', strtotime($model->report_date)) ?></td>
                                 </tr>
+                                <tr>
+                                    <th scope="row"><?php echo $model->getAttributeLabel('status_id'); ?></th>
+                                    <td><span class="badge bg-soft-<?php echo $model->status->statusLabel?> text-<?php echo $model->status->statusLabel?>"><?php echo $model->status->name?></span></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

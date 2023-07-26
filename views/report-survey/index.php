@@ -62,6 +62,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <th class="sort" data-sort="no" scope="col">No</th>
                                         <th class="sort" data-sort="report_no" scope="col">No Laporan</th>
                                         <th scope="col">Tarikh</th>
+                                        <th class="sort" data-sort="boat_name" scope="col">Hull No/FIC No.
+                                        </th>
                                         <th class="sort" data-sort="report_damage_id" scope="col">Rujukan No. Laporan Kerosakan DJ
                                         </th>
                                         <th class="sort" data-sort="warranty" scope="col">Jaminan Perlindungan
@@ -80,6 +82,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </td>
                                         <td class="report_no"><?php echo $report->report_no ?></td>
                                         <td class="tarikh"><?php echo date('d F Y', strtotime($report->report_date)) ?></td>
+                                        <td class="boat_name"><?php echo $report->reportDamage->boat->boat_name ?>
+                                        </td>
                                         <td class="report_damage_id"><?php echo $report->reportDamage->report_no ?>
                                         </td>
                                         <td class="warranty"><?php echo $report->warrantyProtection ?>
@@ -164,6 +168,7 @@ $this->params['breadcrumbs'][] = $this->title;
             "no",
             "report_no",
             "tarikh",
+            "boat_name",
             "report_damage_id",
             "warranty",
             "requestor",

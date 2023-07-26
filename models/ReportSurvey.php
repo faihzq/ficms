@@ -82,6 +82,7 @@ class ReportSurvey extends \yii\db\ActiveRecord
             'commander_sign_time' => 'Tarikh',
             'commander_name' => 'Nama',
             'commander_position' => 'Jawatan',
+            'status_id' => 'Status',
             'created_time' => 'Created Time',
             'updated_user_id' => 'Updated User ID',
             'updated_time' => 'Updated Time',

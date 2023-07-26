@@ -45,6 +45,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <th scope="row"><?php echo $model->getAttributeLabel('report_date'); ?></th>
                                     <td><?php echo date('d F Y', strtotime($model->report_date)) ?></td>
                                 </tr>
+                                <tr>
+                                    <th scope="row"><?php echo $model->getAttributeLabel('status_id'); ?></th>
+                                    <td><span class="badge bg-soft-<?php echo $model->status->statusLabel?> text-<?php echo $model->status->statusLabel?>"><?php echo $model->status->name?></span></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -201,17 +205,17 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?php $model->engineer_sign?$signName='Tandatangan Komander':$signName='Tandatangan Jurutera'; ?>
                             <?php if ($model->status_id == 4){ ?>
                                 <div class="col-sm-6">
-                                    <?= Html::a('<i class="mdi mdi-content-save label-icon align-middle rounded-pill"></i>Kemaskini', ['update', 'id' => $model->id], ['class' => 'btn btn-sm btn-label rounded-pill btn-primary btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2 disabled']) ?>
+                                    <?= Html::a('<i class="mdi mdi-content-save label-icon align-middle rounded-pill"></i>Kemaskini', ['update', 'id' => $model->id], ['class' => 'btn btn-label rounded-pill btn-primary btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2 disabled']) ?>
                                 </div>
                                 <div class="col-sm-6">
-                                    <?= Html::a('<i class="mdi mdi-file-sign label-icon align-middle rounded-pill"></i>' . $signName, ['sign', 'id' => $model->id], ['class' => 'btn btn-sm btn-label rounded-pill btn-success btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2 disabled']) ?>
+                                    <?= Html::a('<i class="mdi mdi-file-sign label-icon align-middle rounded-pill"></i>' . $signName, ['sign', 'id' => $model->id], ['class' => 'btn btn-label rounded-pill btn-success btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2 disabled']) ?>
                                 </div>
                             <?php } else { ?>
                                 <div class="col-sm-6">
-                                    <?= Html::a('<i class="mdi mdi-content-save label-icon align-middle rounded-pill"></i>Kemaskini', ['update', 'id' => $model->id], ['class' => 'btn btn-sm btn-label rounded-pill btn-primary btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2']) ?>
+                                    <?= Html::a('<i class="mdi mdi-content-save label-icon align-middle rounded-pill"></i>Kemaskini', ['update', 'id' => $model->id], ['class' => 'btn btn-label rounded-pill btn-primary btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2']) ?>
                                 </div>
                                 <div class="col-sm-6">
-                                    <?= Html::a('<i class="mdi mdi-file-sign label-icon align-middle rounded-pill"></i>' . $signName, ['sign', 'id' => $model->id, 'section' => $model->engineer_sign ? '2' : '1'], ['class' => 'btn btn-sm btn-label rounded-pill btn-success btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2']) ?>
+                                    <?= Html::a('<i class="mdi mdi-file-sign label-icon align-middle rounded-pill"></i>' . $signName, ['sign', 'id' => $model->id, 'section' => $model->engineer_sign ? '2' : '1'], ['class' => 'btn btn-label rounded-pill btn-success btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2']) ?>
                                 </div>
                             <?php } ?>
                             
@@ -219,11 +223,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="col-lg-12">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <?= Html::a('<i class="mdi mdi-format-list-bulleted label-icon align-middle rounded-pill"></i>Senarai Laporan', ['index', 'id' => $model->id], ['class' => 'btn btn-sm btn-label rounded-pill btn-warning btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2']) ?>
+                                    <?= Html::a('<i class="mdi mdi-format-list-bulleted label-icon align-middle rounded-pill"></i>Senarai Laporan', ['index', 'id' => $model->id], ['class' => 'btn btn-label rounded-pill btn-warning btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2']) ?>
                                 </div>
                                 <div class="col-lg-6">
                                     <?= Html::a('<i class="mdi mdi-delete label-icon align-middle rounded-pill"></i>Padam', ['delete', 'id' => $model->id], [
-                                        'class' => 'btn btn-sm btn-label rounded-pill btn-danger btn-animation bg-gradient waves-effect waves-light d-grid gap-2',
+                                        'class' => 'btn btn-label rounded-pill btn-danger btn-animation bg-gradient waves-effect waves-light d-grid gap-2',
                                         'data' => [
                                             'confirm' => 'Adakah anda pasti mahu memadamkan item ini?',
                                             'method' => 'post',
@@ -235,7 +239,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <?php if (Yii::$app->user->identity->user_role_id == 1){?>
                             <div class="col-sm-12">
-                                <?= Html::a('<i class="mdi mdi-printer label-icon align-middle rounded-pill"></i>Cetak', ['pdf', 'id' => $model->id], ['class' => 'btn btn-sm btn-label rounded-pill btn-secondary btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2', 'target' => '_blank']) ?>
+                                <?= Html::a('<i class="mdi mdi-printer label-icon align-middle rounded-pill"></i>Cetak', ['pdf', 'id' => $model->id], ['class' => 'btn btn-label rounded-pill btn-secondary btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2', 'target' => '_blank']) ?>
                                 
                                 
                                 
