@@ -190,8 +190,12 @@ class ReportRepairController extends Controller
 
     public function actionTask()
     {
-        if (in_array(Yii::$app->user->identity->user_role_id,[1,2,3])){
-            $model = ReportRepair::find()->where(['=', 'status_id', 4])->andWhere(['=', 'engineer_sign_status_id', 0])->all();
+        if (Yii::$app->user->identity->user_role_id == 1){
+            $model1 = ReportRepair::find()->where(['=', 'status_id', 4])->andWhere(['=', 'engineer_sign_status_id', 0])->all();
+            $model2 = ReportRepair::find()->where(['=', 'status_id', 4])->andWhere(['=', 'engineer_sign_status_id', 1])->andWhere(['=', 'commander_sign_status_id', 0])->all();
+            $model = array_merge($model1, $model2);
+        } else if (Yii::$app->user->identity->user_role_id == 3 || Yii::$app->user->identity->user_role_id == 2){
+            $model = ReportRepair::find()->where(['=', 'status_id', 4])->all();
         } else {
             $model = ReportRepair::find()->where(['=', 'status_id', 4])->andWhere(['=', 'engineer_sign_status_id', 1])->andWhere(['=', 'commander_sign_status_id', 0])->all();
         }

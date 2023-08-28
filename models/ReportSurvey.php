@@ -93,15 +93,18 @@ class ReportSurvey extends \yii\db\ActiveRecord
 
     public static function getTaskCounter()
     {
+        $counter = 0;
         if (Yii::$app->user->identity->user_role_id == 1){
-            $model = ReportSurvey::find()->where(['=', 'status_id', 2])->andWhere(['=', 'engineer_sign_status_id', 0])->count();
+            $model1 = ReportSurvey::find()->where(['=', 'status_id', 2])->andWhere(['=', 'engineer_sign_status_id', 0])->count();
+            $model2 = ReportSurvey::find()->where(['=', 'status_id', 2])->andWhere(['=', 'engineer_sign_status_id', 1])->andWhere(['=', 'commander_sign_status_id', 0])->count();
+            $counter = $model1 + $model2;
         } else if (Yii::$app->user->identity->user_role_id == 3 || Yii::$app->user->identity->user_role_id == 2){
-            $model = ReportSurvey::find()->where(['=', 'status_id', 2])->count();
+            $counter = ReportSurvey::find()->where(['=', 'status_id', 2])->count();
         } else {
-            $model = ReportSurvey::find()->where(['=', 'status_id', 2])->andWhere(['=', 'engineer_sign_status_id', 1])->andWhere(['=', 'commander_sign_status_id', 0])->count();
+            $counter = ReportSurvey::find()->where(['=', 'status_id', 2])->andWhere(['=', 'engineer_sign_status_id', 1])->andWhere(['=', 'commander_sign_status_id', 0])->count();
         }
 
-        return $model;
+        return $counter;
     }
 
     public function getReportDamage()
