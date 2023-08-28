@@ -122,7 +122,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
             <!--end card-->
-            <?php if ($model->status_id == 4): ?>
+            <?php if ($model->status_id == 5): ?>
             <div class="card">
                 <div class="card-header align-items-center d-flex border-bottom-dashed">
                     <h4 class="card-title mb-0 flex-grow-1">Tandatangan Komander</h4>
@@ -203,7 +203,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="form-group">
                         <div class="row">
                             <?php $model->engineer_sign?$signName='Tandatangan Komander':$signName='Tandatangan Jurutera'; ?>
-                            <?php if ($model->status_id == 4){ ?>
+                            <?php if ($model->commander_sign_status_id == 1){ ?>
                                 <div class="col-sm-6">
                                     <?= Html::a('<i class="mdi mdi-content-save label-icon align-middle rounded-pill"></i>Kemaskini', ['update', 'id' => $model->id], ['class' => 'btn btn-label rounded-pill btn-primary btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2 disabled']) ?>
                                 </div>
@@ -211,12 +211,22 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <?= Html::a('<i class="mdi mdi-file-sign label-icon align-middle rounded-pill"></i>' . $signName, ['sign', 'id' => $model->id], ['class' => 'btn btn-label rounded-pill btn-success btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2 disabled']) ?>
                                 </div>
                             <?php } else { ?>
+                                <?php if (Yii::$app->user->identity->user_role_id == 1 || Yii::$app->user->identity->id == $model->requestor_id): ?>
+                                <?php if ($model->engineer_sign_status_id == 0){ ?>
                                 <div class="col-sm-6">
                                     <?= Html::a('<i class="mdi mdi-content-save label-icon align-middle rounded-pill"></i>Kemaskini', ['update', 'id' => $model->id], ['class' => 'btn btn-label rounded-pill btn-primary btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2']) ?>
                                 </div>
+                                <?php }else{ ?>
+                                    <div class="col-sm-6">
+                                        <?= Html::a('<i class="mdi mdi-content-save label-icon align-middle rounded-pill"></i>Kemaskini', ['update', 'id' => $model->id], ['class' => 'btn btn-label rounded-pill btn-primary btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2 disabled']) ?>
+                                    </div>
+                                <?php } ?>
+                                <?php endif; ?>
+                                <?php if (in_array(Yii::$app->user->identity->user_role_id, [1,3,4])): ?>
                                 <div class="col-sm-6">
                                     <?= Html::a('<i class="mdi mdi-file-sign label-icon align-middle rounded-pill"></i>' . $signName, ['sign', 'id' => $model->id, 'section' => $model->engineer_sign ? '2' : '1'], ['class' => 'btn btn-label rounded-pill btn-success btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2']) ?>
                                 </div>
+                                <?php endif; ?>
                             <?php } ?>
                             
                         </div>

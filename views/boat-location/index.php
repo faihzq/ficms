@@ -9,7 +9,7 @@ use yii\grid\GridView;
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Boat Locations';
+$this->title = 'Loaksi FIC';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="boat-location-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card-header border border-dashed border-start-0 border-end-0 border-top-0">
                     <div class="row align-items-center gy-3">
                         <div class="col-sm">
-                            <h5 class="card-title mb-0">Senarai Lokasi</h5>
+                            <h5 class="card-title mb-0">Senarai Lokasi FIC</h5>
                         </div>
                         <div class="col-sm-auto">
                             <div class="d-flex gap-1 flex-wrap">

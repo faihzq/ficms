@@ -48,6 +48,8 @@ $total = $damageCounter + $surveyCounter + $repairCounter;
                         <i class="bx bxs-dashboard"></i> <span data-key="t-dashboards">Dashboard</span>
                     </a>
                 </li> <!-- end Dashboard Menu -->
+                
+                <li class="menu-title"><span data-key="t-menu">Borang 15</span></li>
                 <?php if (Yii::$app->user->identity->user_role_id != 5): ?>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarReport" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarReport">
@@ -101,6 +103,59 @@ $total = $damageCounter + $surveyCounter + $repairCounter;
                         </ul>
                     </div>
                 </li> <!-- end Report Menu -->
+                <li class="menu-title"><span data-key="t-menu">Borang 17</span></li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarReport17" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarReport17">
+                        <i class="bx bxs-report"></i> <span data-key="t-report">Laporan</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarReport17">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="#sidebarLaporan" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLaporan" data-key="t-level-1.2"> Borang Pendaftaran Lattern Defect (Borang 17A) <span class="badge rounded-pill text-bg-warning">In Progress</span>
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarLaporan">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-key="t-boatIndex"> Senarai Laporan </a>
+                                            <a href="#" class="nav-link" data-key="t-boatCreate"> Laporan Baru </a>
+                                            <?php if (Yii::$app->user->identity->user_role_id == 1): ?>
+                                            <a href="#" class="nav-link" data-key="t-boatCreate"> Tindakan</a>
+                                            <?php endif; ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#sidebarSurvey" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarSurvey" data-key="t-level-1.2"> Laporan Tinjauan Pakar (Borang 17B) <span class="badge rounded-pill text-bg-warning">In Progress</span>
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarSurvey">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-key="t-boatIndex"> Senarai Laporan </a>
+                                            <?php if (Yii::$app->user->identity->user_role_id == 1): ?>
+                                            <a href="#" class="nav-link" data-key="t-boatCreate"> Tindakan </a>
+                                            <?php endif; ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#sidebarRepair" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarRepair" data-key="t-level-1.2"> Laporan Selesai Latern Defect (Borang 17C) <span class="badge rounded-pill text-bg-warning">In Progress</span>
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarRepair">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-key="t-boatIndex"> Senarai Laporan </a>                                            
+                                            <?php if (Yii::$app->user->identity->user_role_id == 1 || Yii::$app->user->identity->user_role_id == 4): ?>
+                                            <a href="#" class="nav-link" data-key="t-boatCreate"> Tindakan </a>
+                                            <?php endif; ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li> <!-- end Report Menu -->
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-components">Pentadbiran</span></li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="<?= Url::to(['user/index']) ?>">
@@ -125,6 +180,11 @@ $total = $damageCounter + $surveyCounter + $repairCounter;
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="<?= Url::to(['boat-location/index']) ?>">
                         <i class="bx bx-location-plus"></i> <span data-key="t-users">Lokasi FIC</span>
+                    </a>
+                </li> <!-- end Dashboard Menu -->
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="<?= Url::to(['equipment-location/index']) ?>">
+                        <i class="bx bx-package"></i> <span data-key="t-users">Lokasi Peralatan</span>
                     </a>
                 </li> <!-- end Dashboard Menu -->
                 <?php endif; ?>

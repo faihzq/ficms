@@ -61,6 +61,12 @@ $warrantyOptions = [
                     </div>
                     <div class="row">
                         <div class="col-md-6">
+                            <?= $form->field($model, 'damage_type_survey_id')->dropDownList($listDamageSurvey, ['data-choices' => '', 'data-choices-search-false'=>'']) ?>
+                        </div>
+                        <div class="col-md-6">
+                            <?= $form->field($model, 'damage_category_id')->dropDownList($listDamageCategory, ['data-choices' => '', 'data-choices-search-false'=>'']) ?>
+                        </div>
+                        <div class="col-md-6">
                                 
                             <?= $form->field($model, 'damage_description')->textarea(['rows' => 6]) ?>
                             

@@ -9,9 +9,12 @@ use app\models\ReportStatus;
 use app\models\Boat;
 use app\models\BoatLocation;
 use app\models\DamageType;
+use app\models\BoatStatus;
 use app\models\SignatureLog;
 use app\models\ReportSurvey;
 use app\models\ReportStatusLog;
+use app\models\EquipmentLocation;
+use app\models\Equipment;
 
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -102,8 +105,14 @@ class ReportDamageController extends Controller
         // list boat dropdown
         $listBoat = ArrayHelper::map(Boat::find()->where(['IN', 'boat_status_id', [1]])->all(), 'id', 'boat_name');
         $listLocation = ArrayHelper::map(BoatLocation::find()->andWhere(['status'=>1])->all(), 'id', 'name');
+        $listEqLocation = ArrayHelper::map(EquipmentLocation::find()->andWhere(['status'=>1])->all(), 'id', 'name');
         $listDamageType = ArrayHelper::map(DamageType::find()->all(), 'id', 'name');
+        $listEquipment = ArrayHelper::map(Equipment::find()->all(), 'id', function($model) {
+            return $model->no_series.' - '.$model->name;
+        });
+        $listBoatStatus = ArrayHelper::map(BoatStatus::find()->all(), 'id', 'name');
 
+        $encodedListEquipment = json_encode($listEquipment);
         // initial report & damage date
         $model->report_date = $date;
         $model->damage_date = $date;
@@ -137,7 +146,7 @@ class ReportDamageController extends Controller
                 //set status new
                 $model->status_id = 1;
 
-                if ($model->save()){
+                if ($model->save(false)){
 
                     $modelReportStatusLog = new ReportStatusLog();
                     $modelReportStatusLog->report_id = $model->id;
@@ -159,7 +168,11 @@ class ReportDamageController extends Controller
             'model' => $model,
             'listBoat' => $listBoat,
             'listLocation' => $listLocation,
-            'listDamageType' => $listDamageType
+            'listDamageType' => $listDamageType,
+            'listBoatStatus' => $listBoatStatus,
+            'listEqLocation' => $listEqLocation,
+            'listEquipment' => $listEquipment,
+            'encodedListEquipment' => $encodedListEquipment
         ]);
     }
 
@@ -183,7 +196,12 @@ class ReportDamageController extends Controller
         // list boat dropdown
         $listBoat = ArrayHelper::map(Boat::find()->where(['IN', 'boat_status_id', [1]])->all(), 'id', 'boat_name');
         $listLocation = ArrayHelper::map(BoatLocation::find()->andWhere(['status'=>1])->all(), 'id', 'name');
+        $listEqLocation = ArrayHelper::map(EquipmentLocation::find()->andWhere(['status'=>1])->all(), 'id', 'name');
+        $listEquipment = ArrayHelper::map(Equipment::find()->all(), 'id', function($model) {
+            return $model->no_series.' - '.$model->name;
+        });
         $listDamageType = ArrayHelper::map(DamageType::find()->all(), 'id', 'name');
+        $listBoatStatus = ArrayHelper::map(BoatStatus::find()->all(), 'id', 'name');
 
         if ($this->request->isPost && $model->load($this->request->post())) {
 
@@ -210,13 +228,21 @@ class ReportDamageController extends Controller
             'model' => $model,
             'listBoat' => $listBoat,
             'listLocation' => $listLocation,
-            'listDamageType' => $listDamageType
+            'listDamageType' => $listDamageType,
+            'listBoatStatus' => $listBoatStatus,
+            'listEqLocation' => $listEqLocation,
+            'listEquipment' => $listEquipment
         ]);
     }
 
     public function actionTask()
     {
-        $model = ReportDamage::find()->where(['=', 'status_id', 1])->all();
+        if (in_array(Yii::app()->user->user_role_id,[1,2])){
+            $model = ReportDamage::find()->where(['=', 'status_id', 1])->all();
+        } else {
+            $model = ReportDamage::find()->where(['=', 'status_id', 0])->all();
+        }
+        
         $listStatus = ArrayHelper::map(ReportStatus::find()->all(), 'name', 'name');
 
         // Add a new item to the array
@@ -281,6 +307,7 @@ class ReportDamageController extends Controller
                     default:
                         break;
                 }
+                $modelBoat->boat_status_id = $model->boat_status_id;
                 $modelBoat->save(false);
 
                 $modelReportStatusLog = new ReportStatusLog();
@@ -309,7 +336,7 @@ class ReportDamageController extends Controller
                 $runningNo = 'T/'.$runNoDate.'/'.$prefix;
                 $modelSurvey->report_no = $runningNo;
                 $modelSurvey->survey_date = $date;
-                $modelSurvey->boat_status_id = 1;
+                $modelSurvey->boat_status_id = $model->boat_status_id;
                 $modelSurvey->created_time = $time;
                 $modelSurvey->updated_time = $time;
                 $modelSurvey->updated_user_id = $model->requestor_id;
@@ -391,6 +418,29 @@ class ReportDamageController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    public function actionCancel($id)
+    {
+        date_default_timezone_set('Asia/Kuala_Lumpur');
+        $time = date_default_timezone_get();
+        $time = date('Y-m-d H:i:s');
+        $date = date('Y-m-d');
+
+        $model= $this->findModel($id);
+        $model->status_id = 6;
+        $model->updated_time = $time;
+        $model->save(false);
+
+        $modelReportStatusLog = new ReportStatusLog();
+        $modelReportStatusLog->report_id = $model->id;
+        $modelReportStatusLog->report_status_id = $model->status_id;
+        $modelReportStatusLog->report_type_id = 1;
+        $modelReportStatusLog->updated_user_id = $model->requestor_id;
+        $modelReportStatusLog->updated_time = $model->updated_time;
+        $modelReportStatusLog->save();
 
         return $this->redirect(['index']);
     }

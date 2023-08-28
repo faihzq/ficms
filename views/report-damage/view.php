@@ -76,17 +76,26 @@ $this->params['breadcrumbs'][] = $this->title;
                                     
                                 </tr>
                                 <tr>
+                                    <th scope="row"><?php echo $model->getAttributeLabel('equipment_id'); ?></th>
+                                    <td><?php echo $model->equipment->fullname ?></td>
+                                    
+                                </tr>
+                                <tr>
                                     <th scope="row"><?php echo $model->getAttributeLabel('equipment_serial'); ?></th>
                                     <td><?php echo $model->equipment_serial ?></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row"><?php echo $model->getAttributeLabel('equipment_location'); ?></th>
-                                    <td><?php echo $model->equipment_location ?></td>
+                                    <th scope="row"><?php echo $model->getAttributeLabel('equipment_location_id'); ?></th>
+                                    <td><?php echo $model->equipmentLocation->name ?></td>
                                     
                                 </tr>
                                 <tr>
                                     <th scope="row"><?php echo $model->getAttributeLabel('running_hours'); ?></th>
                                     <td><?php echo $model->running_hours.' jam' ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><?php echo $model->getAttributeLabel('boat_status_id'); ?></th>
+                                    <td><span class="badge <?php echo $model->boatstatus->statusLabel?>"><?php echo $model->boatstatus->name?></span></td>
                                 </tr>
                                 <tr>
                                     <th scope="row"><?php echo $model->getAttributeLabel('damage_type_id'); ?></th>
@@ -237,7 +246,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card-body">
                     <div class="form-group">
                         <div class="row">
-                            <?php if ($model->status_id == 2){ ?>
+                            <?php if ($model->status_id == 2 || $model->status_id == 6){ ?>
                                 
                                 <div class="col-sm-6">
                                     <?= Html::a('<i class="mdi mdi-content-save label-icon align-middle rounded-pill"></i>Kemaskini', ['update', 'id' => $model->id], ['class' => 'btn btn-label rounded-pill btn-primary btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2 disabled']) ?>
@@ -279,10 +288,22 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php } ?>
                             </div>
                         </div>
-                            <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-6">
                                 <?= Html::a('<i class="mdi mdi-printer label-icon align-middle rounded-pill"></i>Cetak', ['pdf', 'id' => $model->id], ['class' => 'btn btn-label rounded-pill btn-secondary btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2', 'target' => '_blank']) ?>
                             </div>
-                        
+                            <?php if ($model->status_id != 6):?>
+                            <div class="col-sm-6">
+                                <?= Html::a('<i class="mdi mdi-format-color-marker-cancel label-icon align-middle rounded-pill"></i>Batal ', ['cancel', 'id' => $model->id], [
+                                    'class' => 'btn btn-label rounded-pill btn-dark btn-animation bg-gradient waves-effect waves-light d-grid gap-2',
+                                    'data' => [
+                                        'confirm' => 'Adakah anda pasti mahu batalkan laporan ini?',
+                                        'method' => 'post',
+                                    ],
+                                ]) ?>
+                            <?php endif; ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

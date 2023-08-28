@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\BoatLocation $model */
 
-$this->title = 'Update Boat Location: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Boat Locations', 'url' => ['index']];
+$this->title = 'Kemaskini Lokasi FIC: ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Lokasi FIC', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Kemaskini';
 ?>
 <div class="boat-location-update">
 

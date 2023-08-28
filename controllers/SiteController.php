@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use Yii;
+use yii\helpers\Url;
 use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
 use yii\filters\AccessControl;
@@ -90,8 +91,8 @@ class SiteController extends Controller
         foreach ($modelBoat as $boat){
             $boatName[] = $boat->short_name;
             $totalBoatReport[] = ReportDamage::find()->where(['status_id'=>2])->andWhere(['boat_id'=>$boat->id])->count();
-            $totalBoatReportFix[] = ReportRepair::find()->select('reportDamage.boat_id')->joinWith('reportSurvey')->joinWith('reportSurvey.reportDamage')->where(['report_repair.status_id' => 4,'report_damage.boat_id' => $boat->id])->count();
-            $totalBoatReportNotFix[] = ReportRepair::find()->select('reportDamage.boat_id')->joinWith('reportSurvey')->joinWith('reportSurvey.reportDamage')->where(['report_repair.status_id' => 3,'report_damage.boat_id' => $boat->id])->count();
+            $totalBoatReportFix[] = ReportRepair::find()->select('reportDamage.boat_id')->joinWith('reportSurvey')->joinWith('reportSurvey.reportDamage')->where(['report_repair.status_id' => 5,'report_damage.boat_id' => $boat->id])->count();
+            $totalBoatReportNotFix[] = ReportRepair::find()->select('reportDamage.boat_id')->joinWith('reportSurvey')->joinWith('reportSurvey.reportDamage')->where(['report_repair.status_id' => 4,'report_damage.boat_id' => $boat->id])->count();
             $totalBoatReportNoWarranty[] = ReportSurvey::find()->joinWith('reportDamage')->where(['report_survey.status_id' => 3,'report_survey.warranty_protection' => 0,'report_damage.boat_id' => $boat->id])->count();
         }
 
@@ -109,8 +110,8 @@ class SiteController extends Controller
         $totalRepair = ReportRepair::find()->count();
         $totalAllReport = $totalDamage + $totalSurvey + $totalRepair;
         $totalReport = ReportDamage::find()->andWhere(['status_id'=>2])->count(); // total report yg dah approved
-        $totalFixed = ReportRepair::find()->andWhere(['status_id'=>4])->count(); // report pembaikan yg dah approved
-        $totalNotFixed = ReportRepair::find()->andWhere(['status_id'=>3])->count();; // report kerosakan yg dah approved tapi belum dibaiki
+        $totalFixed = ReportRepair::find()->andWhere(['status_id'=>5])->count(); // report pembaikan yg dah approved
+        $totalNotFixed = ReportRepair::find()->andWhere(['status_id'=>4])->count(); // report kerosakan yg dah approved tapi belum dibaiki
         $totalNoWarranty = ReportSurvey::find()->andWhere(['status_id'=>3])->andWhere(['warranty_protection'=>0])->count(); // report tinjauan yg dah approved and no warranty
 
         if ($totalReport){
@@ -199,11 +200,12 @@ class SiteController extends Controller
                 $x,
                 $value->boat_name,
                 '<span class="badge badge-border '. $value->status->StatusLabel. ' text-uppercase">'.$value->status->name.'</span>',
-                $value->getCheckTable($value->prop_check),
-                $value->getCheckTable($value->gen_check),
-                $value->getCheckTable($value->nav_check),
-                $value->getCheckTable($value->comm_check),
-                $value->getCheckTable($value->warfare_check),
+                $value->prop_check == 0? '<a href="'.Url::to(["report-damage/view","id"=>$value->getCheckReport(1)]) .'" class="text-muted d-inline-block">'.$value->getCheckTable($value->prop_check).'</a>':$value->getCheckTable($value->prop_check),
+                $value->gen_check == 0? '<a href="'.Url::to(["report-damage/view","id"=>$value->getCheckReport(2)]) .'" class="text-muted d-inline-block">'.$value->getCheckTable($value->gen_check).'</a>':$value->getCheckTable($value->gen_check),
+                $value->nav_check == 0? '<a href="'.Url::to(["report-damage/view","id"=>$value->getCheckReport(3)]) .'" class="text-muted d-inline-block">'.$value->getCheckTable($value->nav_check).'</a>':$value->getCheckTable($value->nav_check),
+                $value->comm_check == 0? '<a href="'.Url::to(["report-damage/view","id"=>$value->getCheckReport(4)]) .'" class="text-muted d-inline-block">'.$value->getCheckTable($value->comm_check).'</a>':$value->getCheckTable($value->comm_check),
+                $value->warfare_check == 0? '<a href="'.Url::to(["report-damage/view","id"=>$value->getCheckReport(5)]) .'" class="text-muted d-inline-block">'.$value->getCheckTable($value->warfare_check).'</a>':$value->getCheckTable($value->warfare_check),
+                $value->getLocation()
             );
 
             $x++;

@@ -46,16 +46,22 @@ class ReportStatus extends \yii\db\ActiveRecord
     {
         switch ($this->id) {
             case 1:
-                $statusLabel = 'success';
+                $statusLabel = 'primary';
                 break;
             case 2:
-                $statusLabel = 'primary';
+                $statusLabel = 'danger';
                 break;
             case 3:
                 $statusLabel = 'dark';
                 break;
             case 4:
                 $statusLabel = 'secondary';
+                break;
+            case 5:
+                $statusLabel = 'success';
+                break;
+            case 6:
+                $statusLabel = 'warning';
                 break;
             
             default:

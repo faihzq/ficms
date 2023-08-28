@@ -155,7 +155,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                             </span>
                                         </div>
                                         <div class="flex-grow-1 ms-3">
-                                            <p class="text-uppercase fw-medium fs-12 text-muted mb-1">Dibaiki</p>
+                                            <p class="text-uppercase fw-medium fs-12 text-muted mb-1">Selesai</p>
                                             <h4 class=" mb-0"><span class="counter-value" data-target="<?php echo $totalFixed ?>">0</span></h4>
                                         </div>
                                         
@@ -174,7 +174,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                             </span>
                                         </div>
                                         <div class="flex-grow-1 ms-3">
-                                            <p class="text-uppercase fw-medium fs-12 text-muted mb-1">Belum Dibaiki</p>
+                                            <p class="text-uppercase fw-medium fs-12 text-muted mb-1">Dalam Tindakan GMI</p>
                                             <h4 class=" mb-0"><span class="counter-value" data-target="<?php echo $totalNotFixed ?>">0</span></h4>
                                         </div>
                                         
@@ -236,6 +236,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="col-xl-12">
                             <div class="col-xl-12">
                                 <div class="card">
+                                    <div class="card-header align-items-center d-flex">
+                                        <h4 class="card-title mb-0 flex-grow-1">Senarai Bot</h4>
+                                    </div><!-- end card header -->
                                     <div class="card-body">
                                         <div class="table-responsive">
                                             <table class="table table-hover dt-responsive nowrap att-tbl" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -249,6 +252,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         <th class="text-center">Navigation</th>
                                                         <th class="text-center">Communication</th>
                                                         <th class="text-center">Warfare System</th>
+                                                        <th class="text-center">Lokasi</th>
                                                     </tr>
                                                 </thead>
                                             </table>

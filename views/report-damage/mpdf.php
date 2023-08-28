@@ -13,6 +13,9 @@
     .text-right {
       text-align: right;
     }
+    .text-left {
+      text-align: left;
+    }
 </style>
 
 <div class="text-center">
@@ -44,48 +47,190 @@
     <table style="margin-bottom:15px">
         <tr>
             <td>No. Kontrak</td>
-            <td>: <b><?php echo $model->contract_no ?></b></td>
+            <td>
+                :
+            </td>
+            <td style="border-bottom: 1px dotted;"><b><?php echo $model->contract_no ?></b></td>
         </tr>
         <tr>
             <td>Hull No./FIC No</td>
-            <td>: <?php echo $model->boat->boat_name ?></td>
+            <td>
+                :
+            </td>
+            <td style="border-bottom: 1px dotted;"><b><?php echo $model->boat->boat_name ?></b></td>
         </tr>
         <tr>
             <td>Tarikh</td>
-            <td>: <?php echo date('d F Y', strtotime($model->report_date)) ?></td>
+            <td>
+                :
+            </td>
+            <td style="border-bottom: 1px dotted;"><b><?php echo date('d F Y', strtotime($model->report_date)) ?></b></td>
         </tr>
     </table>
     
 
-    <p>Pemberitahuan kerosakan bahagian atau barang Dalam Jaminan (DJ) sebagaimana ditentukan dalam Klausa 22.</p>
+    <p style="margin-bottom:0">Pemberitahuan kerosakan bahagian atau barang Dalam Jaminan (DJ) sebagaimana ditentukan dalam Klausa 22.</p>
 
-    
-    <ol type="1">
-        <li>No. Laporan : <?php echo $model->report_no ?></li>
-        <li>Tarikh Kerosakan : <?php echo date('d F Y', strtotime($model->damage_date)) ?></li>
-        <li>Lokasi FIC terkini : <?php echo $model->location->name ?></li>
-        <li>Butir-butir Peralatan :
-            <ol type="a">
-                <li>No SEL/ESWBS : <?php echo $model->sel_no ?></li>
-                <li>No Siri Peralatan : <?php echo $model->equipment_serial ?></li>
-                <li>Lokasi Peralatan : <?php echo $model->equipment_location ?></li>
-                <li>Running Hours : <?php echo $model->equipment_location ?></li>
-            </ol>
-        </li>
-        <li style="margin-bottom: 100px;">Keterangan Kerosakan (Sila sertakan Lampiran/Gambar sekiranya ruang tidak mencukupi): <br><?php echo nl2br($model->damage_information) ?>
-        </li>
-        <li>Pegawai/anggota yang boleh dihubungi :
-            <ol>
-                <li>No/Pangkat/nama : <?php echo nl2br($model->contact_officer_name) ?></li>
-                <li>No Tel : <?php echo $model->contact_officer_tel ?></li>
-            </ol>
-        </li>
-    </ol>
-            
-    
-    
-
-    
+    <table style="margin-left: 20px; margin-bottom: 10px;" border="0" width="100%">
+        <tr>
+            <td width="15px">
+                1.
+            </td>
+            <td colspan="2">
+                No. Laporan
+            </td>
+            <td width="20px">
+                :
+            </td>
+            <td style="border-bottom: 1px dotted;">
+                <b><?php echo $model->report_no ?></b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                2.
+            </td>
+            <td colspan="2">
+                Tarikh Kerosakan
+            </td>
+            <td>
+                :
+            </td>
+            <td style="border-bottom: 1px dotted;">
+                <b><?php echo date('d F Y', strtotime($model->damage_date)) ?></b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                3.
+            </td>
+            <td colspan="2">
+                Lokasi FIC terkini
+            </td>
+            <td>
+                :
+            </td>
+            <td style="border-bottom: 1px dotted;">
+                <b><?php echo $model->location->name ?></b>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="5" style="vertical-align: top;">
+                4.
+            </td>
+            <td colspan="2">
+                Butir-butir Peralatan
+            </td>
+            <td>
+                :
+            </td>
+        </tr>
+        <tr>
+            <td width="40px" class="text-right">
+                a.
+            </td>
+            <td width="120px">
+                No SEL/ESWBS
+            </td>
+            <td>
+                :
+            </td>
+            <td style="border-bottom: 1px dotted;">
+                <b><?php echo $model->sel_no ?></b>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right">
+                b.
+            </td>
+            <td>
+                No Siri Peralatan
+            </td>
+            <td>
+                :
+            </td>
+            <td style="border-bottom: 1px dotted;">
+                <b><?php echo $model->equipment_serial ?></b>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right">
+                c.
+            </td>
+            <td>
+                Lokasi Peralatan
+            </td>
+            <td>
+                :
+            </td>
+            <td style="border-bottom: 1px dotted;">
+                <b><?php echo $model->equipmentLocation->name ?></b>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right">
+                d.
+            </td>
+            <td>
+                Running Hours
+            </td>
+            <td>
+                :
+            </td>
+            <td style="border-bottom: 1px dotted;">
+                <b><?php echo $model->running_hours ?> jam</b>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top;" rowspan="2">
+                5.
+            </td>
+            <td colspan="4">
+                Keterangan Kerosakan (Sila sertakan Lampiran/Gambar sekiranya ruang tidak mencukupi):
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" height="50px" style="vertical-align: top;">
+                <p style="border-bottom: 1px dotted;"><b><?php echo nl2br($model->damage_information) ?></b></p>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right" rowspan="3" style="vertical-align: top">
+                6.
+            </td>
+            <td colspan="4">
+                Pegawai/anggota yang boleh dihubungi :
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right">
+                a.
+            </td>
+            <td>
+                No/Pangkat/nama
+            </td>
+            <td>
+                :
+            </td>
+            <td style="border-bottom: 1px dotted;">
+                <b><?php echo nl2br($model->contact_officer_name) ?></b>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right">
+                b.
+            </td>
+            <td>
+                No Tel
+            </td>
+            <td>
+                :
+            </td>
+            <td style="border-bottom: 1px dotted;">
+                <b><?php echo $model->contact_officer_tel ?></b>
+            </td>
+        </tr>
+    </table>
 </div>
 
 
@@ -93,36 +238,72 @@
     <div style="width:40%; float:left;margin-right: 40px;">
         <?php if ($model->status_id == 2){ ?>
             <img src="<?= \Yii::getAlias('@web');?>/uploads/reportDamage/sign/<?= $model->commander_sign_pic ?>" alt="">
-            <table cellpadding="5px" autosize="1" width="100%">
+            <table autosize="1" width="100%" border="0">
                 <tbody>
                     <tr>
-                        <th>Tandatangan Komander FIC</th>
+                        <th colspan="3" class="text-left">Tandatangan Komander FIC</th>
                     </tr>
                    <tr>
-                        <td>Nama: <?php echo $model->commander_name?$model->commander_name:'' ?></td>
+                        <td>Nama</td>
+                        <td width="10px">
+                            :
+                        </td>
+                        <td style="border-bottom: 1px dotted;">
+                            <b><?php echo $model->commander_name?$model->commander_name:'' ?></b>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Jawatan: <?php echo $model->commander_position?$model->commander_position:'' ?></td>
+                        <td width="50px">Jawatan</td>
+                        <td>
+                            :
+                        </td>
+                        <td style="border-bottom: 1px dotted;">
+                            <b><?php echo $model->commander_position?$model->commander_position:'' ?></b>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Tarikh: <?php echo $model->sign_time?date('d F Y', strtotime($model->sign_time)):'' ?></td>
+                        <td>Tarikh</td>
+                        <td>
+                            :
+                        </td>
+                        <td style="border-bottom: 1px dotted;">
+                            <b><?php echo $model->sign_time?date('d F Y', strtotime($model->sign_time)):'' ?></b>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         <?php } else { ?>
-            <table style="border-top:  1px dashed black;margin-top: 100px;" cellpadding="5px" autosize="1" width="100%">
+            <table style="border-top:  1px dotted black;margin-top: 100px;" autosize="1" width="100%" border="0">
                 <tbody>
                     <tr>
-                        <th>Tandatangan Komander FIC</th>
+                        <th colspan="3" class="text-left">Tandatangan Komander FIC</th>
                     </tr>
                    <tr>
-                        <td>Nama: <?php echo $model->commander_name?$model->commander_name:'' ?></td>
+                        <td>Nama</td>
+                        <td width="10px">
+                            :
+                        </td>
+                        <td style="border-bottom: 1px dotted;">
+                            <b><?php echo $model->commander_name?$model->commander_name:'' ?></b>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Jawatan: <?php echo $model->commander_position?$model->commander_position:'' ?></td>
+                        <td width="50px">Jawatan</td>
+                        <td>
+                            :
+                        </td>
+                        <td style="border-bottom: 1px dotted;">
+                            <b><?php echo $model->commander_position?$model->commander_position:'' ?></b>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Tarikh: <?php echo $model->sign_time?date('d F Y', strtotime($model->sign_time)):'' ?></td>
+                        <td>Tarikh</td>
+                        <td>
+                            :
+                        </td>
+                        <td style="border-bottom: 1px dotted;">
+                            <b><?php echo $model->sign_time?date('d F Y', strtotime($model->sign_time)):'' ?></b>
+                        </td>
                     </tr>
                 </tbody>
             </table>

@@ -11,6 +11,8 @@ use app\models\BoatStatus;
 use app\models\SignatureLog;
 use app\models\ReportRepair;
 use app\models\ReportStatusLog;
+use app\models\DamageTypeSurvey;
+use app\models\DamageCategory;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -110,6 +112,8 @@ class ReportSurveyController extends Controller
 
         $listReportDamage = ArrayHelper::map(ReportDamage::find()->where(['IN', 'status_id', [2]])->all(), 'id', 'report_no');
         $listBoatStatus = ArrayHelper::map(BoatStatus::find()->all(), 'id', 'name');
+        $listDamageSurvey = ArrayHelper::map(DamageTypeSurvey::find()->all(), 'id', 'name');
+        $listDamageCategory = ArrayHelper::map(DamageCategory::find()->all(), 'id', 'name');
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
@@ -134,6 +138,8 @@ class ReportSurveyController extends Controller
             'model' => $model,
             'listReportDamage' => $listReportDamage,
             'listBoatStatus' => $listBoatStatus,
+            'listDamageSurvey' => $listDamageSurvey,
+            'listDamageCategory' => $listDamageCategory,
         ]);
     }
 
@@ -156,6 +162,8 @@ class ReportSurveyController extends Controller
 
         $listReportDamage = ArrayHelper::map(ReportDamage::find()->where(['IN', 'status_id', [2]])->all(), 'id', 'report_no');
         $listBoatStatus = ArrayHelper::map(BoatStatus::find()->all(), 'id', 'name');
+        $listDamageSurvey = ArrayHelper::map(DamageTypeSurvey::find()->all(), 'id', 'name');
+        $listDamageCategory = ArrayHelper::map(DamageCategory::find()->all(), 'id', 'name');
 
         if ($this->request->isPost && $model->load($this->request->post())) {
             // set updated time
@@ -179,17 +187,17 @@ class ReportSurveyController extends Controller
             'model' => $model,
             'listReportDamage' => $listReportDamage,
             'listBoatStatus' => $listBoatStatus,
+            'listDamageSurvey' => $listDamageSurvey,
+            'listDamageCategory' => $listDamageCategory,
         ]);
     }
 
     public function actionTask()
     {
-        if (Yii::$app->user->identity->user_role_id == 1){
-            $model = ReportSurvey::find()->where(['=', 'status_id', 2])->andWhere(['=', 'engineer_sign_status_id', 0])->all();
-        } else if (Yii::$app->user->identity->user_role_id == 3 || Yii::$app->user->identity->user_role_id == 2){
-            $model = ReportSurvey::find()->where(['=', 'status_id', 2])->all();
+        if (in_array(Yii::app()->user->user_role_id,[1,2,3])){
+            $model = ReportSurvey::find()->where(['=', 'status_id', [2,3,4]])->andWhere(['=', 'engineer_sign_status_id', 0])->all();
         } else {
-            $model = ReportSurvey::find()->where(['=', 'status_id', 2])->andWhere(['=', 'engineer_sign_status_id', 1])->andWhere(['=', 'commander_sign_status_id', 0])->all();
+            $model = ReportSurvey::find()->where(['=', 'status_id', [2,4]])->andWhere(['=', 'engineer_sign_status_id', 1])->andWhere(['=', 'commander_sign_status_id', 0])->all();
         }
         $listStatus = ArrayHelper::map(ReportStatus::find()->all(), 'name', 'name');
 
@@ -226,13 +234,17 @@ class ReportSurveyController extends Controller
         
 
         if ($this->request->isPost && $model->load($this->request->post())) {
+
+            if ($model->warranty_protection == 1){
+                $model->status_id = 4;
+            }
+
             if ($section == 1){
                 $model->engineer_sign= Yii::$app->request->post('ReportSurvey')['engineer_sign'];
                 // set updated time
                 $model->updated_time = $time;
                 $model->updated_user_id = Yii::$app->user->identity->id;
                 $model->engineer_sign_status_id = 1;
-
                 $model->engineer_sign_pic = $model->base64_to_png_eng();
                 
             } else {
@@ -241,10 +253,10 @@ class ReportSurveyController extends Controller
                 $model->updated_time = $time;
                 $model->updated_user_id = Yii::$app->user->identity->id;
                 $model->commander_sign_status_id = 1;
-                // set status lulus
-                $model->status_id = 3;
-
                 $model->commander_sign_pic = $model->base64_to_png_com();
+                if ($model->warranty_protection == 0){
+                    $model->status_id = 3;
+                }
             }
             
 
@@ -265,11 +277,11 @@ class ReportSurveyController extends Controller
                 $modelSignatureLog->updated_time = $time;
                 $modelSignatureLog->save();
 
-                if ($model->status_id == 3){
+                if ($model->status_id == 4 && $model->commander_sign_status_id == 1){
                     $modelRepair = new ReportRepair();
                     $modelRepair->report_survey_id = $model->id;
                     $modelRepair->requestor_id = $model->requestor_id;
-                    $modelRepair->status_id = 3;
+                    $modelRepair->status_id = 4;
                     $modelRepair->report_date = $date;
 
                     $counter = ReportRepair::find()->count();

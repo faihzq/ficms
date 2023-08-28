@@ -21,7 +21,7 @@ use yii\bootstrap5\ActiveForm;
                             <?= $form->field($model, 'boat_name')->textInput(['maxlength' => true, 'class'=>'form-control', 'placeholder'=>'Isi nama bot']) ?>
                         </div>
                         <div class="col-lg-6">
-                            <?= $form->field($model, 'short_name')->textInput(['maxlength' => true, 'class'=>'form-control', 'placeholder'=>'Isi nama pendek bot']) ?>
+                            <?= $form->field($model, 'short_name')->textInput(['maxlength' => true, 'class'=>'form-control', 'placeholder'=>'Isi hull no. bot']) ?>
                         </div>
                     </div>
                     

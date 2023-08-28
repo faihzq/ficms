@@ -119,7 +119,7 @@ class ReportRepairController extends Controller
         $runningNo = 'B/'.$runNoDate.'/'.$prefix;
         $model->report_no = $runningNo;
 
-        $listReportSurvey = ArrayHelper::map(ReportSurvey::find()->where(['IN', 'status_id', [3]])->all(), 'id', 'report_no');
+        $listReportSurvey = ArrayHelper::map(ReportSurvey::find()->where(['IN', 'status_id', [4]])->all(), 'id', 'report_no');
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
@@ -129,7 +129,7 @@ class ReportRepairController extends Controller
                 // set requestor
                 $model->requestor_id = Yii::$app->user->identity->id;
                 //set status new
-                $model->status_id = 3;
+                $model->status_id = 4;
 
                 if ($model->save()){
                     return $this->redirect(['view', 'id' => $model->id]);
@@ -163,7 +163,7 @@ class ReportRepairController extends Controller
 
         $model = $this->findModel($id);
 
-        $listReportSurvey = ArrayHelper::map(ReportSurvey::find()->where(['IN', 'status_id', [3]])->all(), 'id', 'report_no');
+        $listReportSurvey = ArrayHelper::map(ReportSurvey::find()->where(['IN', 'status_id', [4]])->all(), 'id', 'report_no');
 
         if ($this->request->isPost && $model->load($this->request->post())) {
             // set updated time
@@ -190,12 +190,10 @@ class ReportRepairController extends Controller
 
     public function actionTask()
     {
-        if (Yii::$app->user->identity->user_role_id == 1){
-            $model = ReportRepair::find()->where(['=', 'status_id', 3])->andWhere(['=', 'engineer_sign_status_id', 0])->all();
-        } else if (Yii::$app->user->identity->user_role_id == 3 || Yii::$app->user->identity->user_role_id == 2){
-            $model = ReportRepair::find()->where(['=', 'status_id', 3])->all();
+        if (in_array(Yii::app()->user->user_role_id,[1,2,3])){
+            $model = ReportRepair::find()->where(['=', 'status_id', [4]])->andWhere(['=', 'engineer_sign_status_id', 0])->all();
         } else {
-            $model = ReportRepair::find()->where(['=', 'status_id', 3])->andWhere(['=', 'engineer_sign_status_id', 1])->andWhere(['=', 'commander_sign_status_id', 0])->all();
+            $model = ReportRepair::find()->where(['=', 'status_id', [4]])->andWhere(['=', 'engineer_sign_status_id', 1])->andWhere(['=', 'commander_sign_status_id', 0])->all();
         }
         $listStatus = ArrayHelper::map(ReportStatus::find()->all(), 'name', 'name');
 
@@ -218,7 +216,7 @@ class ReportRepairController extends Controller
     {
         //set time and date
         date_default_timezone_set('Asia/Kuala_Lumpur');
-        $time = date_default_timezone_get() ;
+        $time = date_default_timezone_get();
         $time = date('Y-m-d H:i:s');
         $date = date('Y-m-d');
 
@@ -236,7 +234,7 @@ class ReportRepairController extends Controller
                 // set updated time
                 $model->updated_time = $time;
                 $model->updated_user_id = Yii::$app->user->identity->id;
-
+                $model->engineer_sign_status_id = 1;
                 $model->engineer_sign_pic = $model->base64_to_png_eng();
                 
             } else {
@@ -245,15 +243,15 @@ class ReportRepairController extends Controller
                 $model->updated_time = $time;
                 $model->updated_user_id = Yii::$app->user->identity->id;
                 // set status lulus
-                $model->status_id = 4;
-
+                $model->status_id = 5;
+                $model->commander_sign_status_id = 1;
                 $model->commander_sign_pic = $model->base64_to_png_com();
             }
             
 
             if ($model->save(false)){
 
-                if ($model->status_id == 4){
+                if ($model->status_id == 5){
                     $modelBoat = Boat::findOne(['id' => $model->reportSurvey->reportDamage->boat_id]);
                     $check = 1;
                     switch ($model->reportSurvey->reportDamage->damage_type_id){

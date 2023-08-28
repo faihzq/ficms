@@ -61,7 +61,7 @@ class Boat extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'boat_name' => 'Nama Bot',
-            'short_name' => 'Nama Pendek Bot',
+            'short_name' => 'Hull No',
             'boat_description' => 'Penerangan Bot',
             'length_overall' => 'Panjang Keseluruhan',
             'length_over_waterline' => 'Panjang Atas Paras Air',
@@ -162,6 +162,26 @@ class Boat extends \yii\db\ActiveRecord
         }
 
         return $checkLabel;
+    }
+
+    public function getCheckReport($value)
+    {
+
+        $reportId = ReportDamage::find()->where(['boat_id'=>$this->id])->andWhere(['damage_type_id'=>$value])->andWhere(['status_id'=>2])->one();
+
+        return $reportId->id;
+    }
+
+    public function getLocation()
+    {
+
+        $item = ReportDamage::find()->where(['boat_id'=>$this->id])->andWhere(['status_id'=>2])->orderBy(['created_time'=>SORT_DESC])->one();
+
+        if ($item){
+            return $item->location->name;
+        } else {
+            return '';
+        }
     }
 
     public function getUpdatedUser()

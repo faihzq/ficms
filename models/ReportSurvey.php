@@ -46,8 +46,8 @@ class ReportSurvey extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['report_damage_id', 'requestor_id', 'status_id', 'report_date', 'report_no', 'survey_date', 'damage_description', 'probable_cause', 'boat_status_id', 'warranty_protection', 'suggested_correction', 'tools_need', 'created_time', 'updated_user_id', 'updated_time'], 'required'],
-            [['report_damage_id', 'requestor_id', 'status_id', 'boat_status_id', 'warranty_protection', 'updated_user_id', 'engineer_sign_status_id', 'commander_sign_status_id'], 'integer'],
+            [['report_damage_id', 'requestor_id', 'status_id', 'report_date', 'report_no', 'survey_date', 'damage_type_survey_id', 'damage_description', 'probable_cause', 'boat_status_id', 'warranty_protection', 'suggested_correction', 'tools_need', 'created_time', 'updated_user_id', 'updated_time'], 'required'],
+            [['report_damage_id', 'requestor_id', 'status_id', 'damage_type_survey_id', 'boat_status_id', 'warranty_protection', 'updated_user_id', 'engineer_sign_status_id', 'commander_sign_status_id'], 'integer'],
             [['report_date', 'survey_date', 'engineer_sign_time', 'commander_sign_time', 'created_time', 'updated_time'], 'safe'],
             [['damage_description', 'nowarranty_protection_reason', 'suggested_correction', 'tools_need', 'engineer_sign', 'commander_sign', 'probable_cause'], 'string'],
             [['report_no'], 'string', 'max' => 50],
@@ -67,6 +67,8 @@ class ReportSurvey extends \yii\db\ActiveRecord
             'report_date' => 'Tarikh',
             'report_no' => 'No. Laporan Kajian',
             'survey_date' => 'Tarikh Kajian',
+            'damage_type_survey_id' => 'Jenis Kerosakan',
+            'damage_category_id' => 'Kategori Kerosakan',
             'damage_description' => 'Keterangan Kerosakan',
             'probable_cause' => 'Sebab Kemungkinan',
             'boat_status_id' => 'Status Bot',
@@ -120,6 +122,16 @@ class ReportSurvey extends \yii\db\ActiveRecord
     public function getStatusBoat()
     {
         return $this->hasOne(BoatStatus::className(),['id'=>'boat_status_id']);
+    }
+
+    public function getDamageSurvey()
+    {
+        return $this->hasOne(DamageTypeSurvey::className(),['id'=>'damage_type_survey_id']);
+    }
+
+    public function getDamageCategory()
+    {
+        return $this->hasOne(DamageCategory::className(),['id'=>'damage_category_id']);
     }
 
     public function getWarrantyProtection()

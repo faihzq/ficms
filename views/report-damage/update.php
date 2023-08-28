@@ -16,7 +16,10 @@ $this->params['breadcrumbs'][] = 'Kemaskini';
         'model' => $model,
         'listBoat' => $listBoat,
         'listLocation' => $listLocation,
-        'listDamageType' => $listDamageType
+        'listDamageType' => $listDamageType,
+        'listBoatStatus' => $listBoatStatus,
+        'listEqLocation' => $listEqLocation,
+        'listEquipment' => $listEquipment
     ]) ?>
 
 </div>

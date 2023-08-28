@@ -25,26 +25,157 @@
     <h4><u>LAPORAN TINJAUAN KEROSAKAN DALAM JAMINAN</u></h4>
 </div>
 <div class="indent-main">
-    <p>Rujukan kepada No. Laporan Kerosakan Dalam Jaminan (DJ) / Tarikh : <?php echo $model->reportDamage->report_no ?><br>
-    Hull No./FIC No : <?php echo $model->reportDamage->boat->boat_name ?><br>
-    Tarikh : <?php echo date('d F Y', strtotime($model->report_date)) ?></p>
-
-    <ol type="1">
-        <li>No. Laporan Kajian : <?php echo $model->report_no ?></li>
-        <li>Tarikh Kajian : <?php echo date('d F Y', strtotime($model->survey_date)) ?></li>
-        <li>Keterangan Kerosakan : <?php echo nl2br($model->damage_description) ?></li>
-        <li>Sebab Kemungkinan : <?php echo nl2br($model->probable_cause) ?></li>
-        <li>Jaminan Perlindungan : <?php echo $model->warrantyProtection ?>
-            <ul>
-                <li style="margin-bottom: 100px;">Sebab jika TIDAK :<br><?php echo nl2br($model->nowarranty_protection_reason) ?></li>
-            </ul>
-        </li>
-        <li style="margin-bottom: 100px;">Cadangan Pembetulan : <?php echo nl2br($model->suggested_correction) ?></li>
-        <li style="margin-bottom: 500px;">Keperluan Alat Ganti, Alat Sokongan dan Peralatan Pengujian : <?php echo nl2br($model->tools_need) ?></li>
-    </ol>
-    
-
-    
+    <table border="0" width="100%">
+        <tr>
+            <td>
+                Rujukan kepada No. Laporan Kerosakan Dalam Jaminan (DJ) / Tarikh
+            </td>
+            <td width="10px">
+                :
+            </td>
+            <td style="border-bottom: 1px dotted;">
+                <b><?php echo $model->reportDamage->report_no ?></b>
+            </td>
+        </tr>
+        
+    </table>
+    <table border="0" width="100%">
+        <tr>
+            <td width="150px">
+                Hull No./FIC No
+            </td>
+            
+            <td width="10px">
+                :
+            </td>
+            <td style="border-bottom: 1px dotted;">
+                <b><?php echo $model->reportDamage->boat->boat_name ?></b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Tarikh
+            </td>
+            <td width="10px">
+                :
+            </td>
+            <td style="border-bottom: 1px dotted;">
+                <b><?php echo date('d F Y', strtotime($model->report_date)) ?></b>
+            </td>
+        </tr>
+    </table>
+    <table border="0" width="100%" style="margin-left: 10px;">
+        
+        <tr>
+            <td width="40px">
+                1.
+            </td>
+            <td colspan="2">
+                No. Laporan Kajian
+            </td>
+            <td width="10px">
+                :
+            </td>
+            <td style="border-bottom: 1px dotted;">
+                <b><?php echo $model->report_no ?></b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                2.
+            </td>
+            <td colspan="2">
+                Tarikh Kajian
+            </td>
+            <td>
+                :
+            </td>
+            <td style="border-bottom: 1px dotted;">
+                <b><?php echo date('d F Y', strtotime($model->survey_date)) ?></b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                3.
+            </td>
+            <td colspan="2">
+                Keterangan Kerosakan
+            </td>
+            <td>
+                :
+            </td>
+            <td style="border-bottom: 1px dotted;">
+                <b><?php echo nl2br($model->damage_description) ?></b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                4.
+            </td>
+            <td colspan="2">
+                Sebab Kemungkinan
+            </td>
+            <td>
+                :
+            </td>
+            <td style="border-bottom: 1px dotted;">
+                <b><?php echo nl2br($model->probable_cause) ?></b>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3" style="vertical-align: top">
+                5.
+            </td>
+            <td colspan="2">
+                Jaminan Perlindungan
+            </td>
+            <td>
+                :
+            </td>
+            <td style="border-bottom: 1px dotted;">
+                <b><?php echo $model->warrantyProtection ?></b>
+            </td>
+        </tr>
+        <tr>
+            <td width="10px">
+                5.1.
+            </td>
+            <td width="150px" colspan="3">
+                Sebab jika TIDAK:
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" height="80px" style="vertical-align: top">
+                <p style="border-bottom: 1px dotted;"><b><?php echo nl2br($model->nowarranty_protection_reason) ?></b></p>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="2" style="vertical-align: top;">
+                6.
+            </td>
+            <td colspan="4">
+                Cadangan Pembetulan:
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" height="80px" style="vertical-align: top">
+                <p style="border-bottom: 1px dotted;"><b><?php echo nl2br($model->suggested_correction) ?></b></p>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="2" style="vertical-align: top;">
+                7.
+            </td>
+            <td colspan="4">
+                Keperluan Alat Ganti, Alat Sokongan dan Peralatan Pengujian:
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" height="80px" style="vertical-align: top">
+                <p style="border-bottom: 1px dotted;"><b><?php echo nl2br($model->suggested_correction) ?></b></p>
+            </td>
+        </tr>
+    </table>
 </div>
 
 
@@ -52,36 +183,72 @@
     <div style="width:40%; float:left; margin-top: 100px;">
         <?php if ($model->engineer_sign){ ?>
             <img src="<?= \Yii::getAlias('@web');?>/uploads/reportSurvey/sign/<?= $model->engineer_sign_pic ?>" alt="">
-            <table cellpadding="5px" autosize="1" width="100%">
+            <table autosize="1" width="100%" border="0">
                 <tbody>
                     <tr>
-                        <th>Jurutera Kerosakan DJ</th>
+                        <th colspan="3" class="text-left">Jurutera Kerosakan DJ</th>
+                    </tr>
+                   <tr>
+                        <td>Nama</td>
+                        <td width="10px">
+                            :
+                        </td>
+                        <td>
+                            <b><?php echo $model->engineer_name?$model->engineer_name:'' ?></b>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Nama: <?php echo $model->engineer_name?$model->engineer_name:'' ?></td>
+                        <td width="50px">Jawatan</td>
+                        <td>
+                            :
+                        </td>
+                        <td>
+                            <b><?php echo $model->engineer_position?$model->engineer_position:'' ?></b>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Jawatan: <?php echo $model->engineer_position?$model->engineer_position:'' ?></td>
-                    </tr>
-                    <tr>
-                        <td>Tarikh: <?php echo $model->engineer_sign_time?date('d F Y', strtotime($model->engineer_sign_time)):'' ?></td>
+                        <td>Tarikh</td>
+                        <td>
+                            :
+                        </td>
+                        <td>
+                            <b><?php echo $model->engineer_sign_time?date('d F Y', strtotime($model->engineer_sign_time)):'' ?></b>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         <?php } else { ?>
-            <table style="border-top:  1px dashed black;" cellpadding="5px" autosize="1" width="100%">
+            <table autosize="1" width="100%" border="0" style="border-top: 1px dotted;">
                 <tbody>
                     <tr>
-                        <th>Jurutera Kerosakan DJ</th>
+                        <th colspan="3" class="text-left">Jurutera Kerosakan DJ</th>
+                    </tr>
+                   <tr>
+                        <td>Nama</td>
+                        <td width="10px">
+                            :
+                        </td>
+                        <td>
+                            <b><?php echo $model->engineer_name?$model->engineer_name:'' ?></b>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Nama: <?php echo $model->engineer_name?$model->engineer_name:'' ?></td>
+                        <td width="50px">Jawatan</td>
+                        <td>
+                            :
+                        </td>
+                        <td>
+                            <b><?php echo $model->engineer_position?$model->engineer_position:'' ?></b>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Jawatan: <?php echo $model->engineer_position?$model->engineer_position:'' ?></td>
-                    </tr>
-                    <tr>
-                        <td>Tarikh: <?php echo $model->engineer_sign_time?date('d F Y', strtotime($model->engineer_sign_time)):'' ?></td>
+                        <td>Tarikh</td>
+                        <td>
+                            :
+                        </td>
+                        <td>
+                            <b><?php echo $model->engineer_sign_time?date('d F Y', strtotime($model->engineer_sign_time)):'' ?></b>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -92,36 +259,72 @@
     <div style="width:40%; float:right;margin-right: 40px;">
         <?php if ($model->commander_sign){ ?>
             <img src="<?= \Yii::getAlias('@web');?>/uploads/reportSurvey/sign/<?= $model->commander_sign_pic ?>" alt="">
-            <table cellpadding="5px" autosize="1" width="100%">
+            <table autosize="1" width="100%" border="0">
                 <tbody>
                     <tr>
-                        <th>Komander FIC</th>
+                        <th colspan="3" class="text-left">Komander FIC</th>
                     </tr>
                    <tr>
-                        <td>Nama: <?php echo $model->commander_name?$model->commander_name:'' ?></td>
+                        <td>Nama</td>
+                        <td width="10px">
+                            :
+                        </td>
+                        <td>
+                            <b><?php echo $model->commander_name?$model->commander_name:'' ?></b>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Jawatan: <?php echo $model->commander_position?$model->commander_position:'' ?></td>
+                        <td width="50px">Jawatan</td>
+                        <td>
+                            :
+                        </td>
+                        <td>
+                            <b><?php echo $model->commander_position?$model->commander_position:'' ?></b>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Tarikh: <?php echo $model->commander_sign_time?date('d F Y', strtotime($model->commander_sign_time)):'' ?></td>
+                        <td>Tarikh</td>
+                        <td>
+                            :
+                        </td>
+                        <td>
+                            <b><?php echo $model->commander_sign_time?date('d F Y', strtotime($model->commander_sign_time)):'' ?></b>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         <?php } else { ?>
-            <table style="border-top:  1px dashed black;" cellpadding="5px" autosize="1" width="100%">
+            <table autosize="1" width="100%" border="0" style="border-top: 1px dotted;">
                 <tbody>
                     <tr>
-                        <th>Komander FIC</th>
+                        <th colspan="3" class="text-left">Komander FIC</th>
                     </tr>
                    <tr>
-                        <td>Nama: <?php echo $model->commander_name?$model->commander_name:'' ?></td>
+                        <td>Nama</td>
+                        <td width="10px">
+                            :
+                        </td>
+                        <td>
+                            <b><?php echo $model->commander_name?$model->commander_name:'' ?></b>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Jawatan: <?php echo $model->commander_position?$model->commander_position:'' ?></td>
+                        <td width="50px">Jawatan</td>
+                        <td>
+                            :
+                        </td>
+                        <td>
+                            <b><?php echo $model->commander_position?$model->commander_position:'' ?></b>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Tarikh: <?php echo $model->commander_sign_time?date('d F Y', strtotime($model->commander_sign_time)):'' ?></td>
+                        <td>Tarikh</td>
+                        <td>
+                            :
+                        </td>
+                        <td>
+                            <b><?php echo $model->commander_sign_time?date('d F Y', strtotime($model->commander_sign_time)):'' ?></b>
+                        </td>
                     </tr>
                 </tbody>
             </table>

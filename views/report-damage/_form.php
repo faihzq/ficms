@@ -53,27 +53,32 @@ $baseUrl = Url::base();
                             
                             <?= $form->field($model, 'boat_location_id')->dropDownList($listLocation, ['data-choices' => '']) ?>
                             <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addLocationModal">Daftar Lokasi</button> -->
-                            <?= Html::button('Daftar Lokasi', ['value' => Url::to(['boat-location/register']), 'title' => 'Daftar Lokasi', 'class' => 'showModalButton btn btn-success']); ?>
+                            <?= Html::button('Daftar Lokasi FIC', ['value' => Url::to(['boat-location/register']), 'title' => 'Daftar Lokasi', 'class' => 'showModalButton btn btn-success']); ?>
                         </div>
                     </div>
                     <p class="text-muted fs-5 mt-3">Butir-butir peralatan:</p>
                     <hr>
                     <div class="row">
                         
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             
                             <?= $form->field($model, 'sel_no')->textInput(['maxlength' => true]) ?>
                             
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             
-                            <?= $form->field($model, 'equipment_serial')->textInput(['maxlength' => true]) ?>
+                            <?= $form->field($model, 'equipment_id')->dropDownList($listEquipment, ['data-choices' => '']) ?>
+                            
+                        </div>
+                        <div class="col-md-2">
+                            
+                            <?= $form->field($model, 'equipment_serial')->textInput(['maxlength' => true, 'readonly'=> true]) ?>
                             
                         </div>
                         <div class="col-md-4">
-                            
-                            <?= $form->field($model, 'equipment_location')->textInput(['maxlength' => true]) ?>
-                            
+
+                            <?= $form->field($model, 'equipment_location_id')->dropDownList($listEqLocation, ['data-choices' => '']) ?>
+                            <?= Html::button('Daftar Lokasi Peralatan', ['value' => Url::to(['equipment-location/register']), 'title' => 'Daftar Lokasi Peralatan', 'class' => 'showModalButton btn btn-success']); ?>
                         
                         </div>
                         <div class="col-md-4">
@@ -111,10 +116,14 @@ $baseUrl = Url::base();
                 <div class="card-body">
                     <div class="tab-content">
                         <div class="tab-pane active" id="addproduct-general-info" role="tabpanel">
-                            <div class="col-lg-6">
-                                <?= $form->field($model, 'damage_type_id')->dropDownList($listDamageType, ['data-choices' => '']) ?>
-                            </div>
                             <div class="row">
+                                <div class="col-lg-6">
+                                    <?= $form->field($model, 'boat_status_id')->dropDownList($listBoatStatus, ['data-choices' => '', 'data-choices-search-false'=>'']) ?>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <?= $form->field($model, 'damage_type_id')->dropDownList($listDamageType, ['data-choices' => '']) ?>
+                                </div>
                                 
                                 <div class="col-lg-6">
                                     <?= $form->field($model, 'damage_information')->textarea(['rows' => 7]) ?>
@@ -212,6 +221,7 @@ $baseUrl = Url::base();
         
     </div>
 </div>
+
 <script src="<?= \Yii::getAlias('@web');?>/libs/cleave.js/cleave.min.js"></script>
 <script src="<?= \Yii::getAlias('@web');?>/libs/cleave.js/addons/cleave-phone.ms.js"></script>
 
@@ -251,6 +261,21 @@ $baseUrl = Url::base();
     var cleaveBlocks = new Cleave('#reportdamage-contact_officer_tel', {
         phone: true,
     });
+
+     $(document).ready(function() {
+
+        var equipmentDropdown = $('#reportdamage-equipment_id');
+        var equipmentSerialInput = $('#reportdamage-equipment_serial');
+        var selectedOptionText = equipmentDropdown.find('option:selected').text();
+        var numericPart = selectedOptionText.split(' - ')[0];
+        equipmentSerialInput.val(numericPart);
+
+        equipmentDropdown.on('change', function() {
+            var selectedOptionText = equipmentDropdown.find('option:selected').text();
+            var numericPart = selectedOptionText.split(' - ')[0];
+            equipmentSerialInput.val(numericPart);
+        });
+    });
     
 </script>
 
@@ -266,3 +291,5 @@ yii\bootstrap5\Modal::begin([
 echo "<div id='modalContent'><div style='text-align:center'><img src='".\Yii::getAlias('@web')."/images/ajax-loader.gif'></div></div>";
 yii\bootstrap5\Modal::end();
 ?>
+
+

@@ -15,7 +15,8 @@ use yii\bootstrap5\ActiveForm;
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+        <?= Html::submitButton('Daftar', ['class' => 'btn btn-success float-end']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
