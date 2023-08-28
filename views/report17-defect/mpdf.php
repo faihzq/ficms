@@ -20,12 +20,12 @@
 
 <div class="text-center">
     <h4 style="margin: 0px">SULIT</h4>
-    <h4 class="text-right" style="margin: 0px; margin-right: 20px;">JADUAL 15A</h4>
+    <h4 class="text-right" style="margin: 0px; margin-right: 20px;">JADUAL 17A</h4>
     <h4 style="margin: 0px">TENTERA LAUT DIRAJA MALAYSIA<br>FAST INTERCEPTOR CRAFT</h4>
 </div>
 <hr>
 <div class="text-center">
-    <h4><u>BORANG PELAPORAN KEROSAKAN DALAM JAMINAN</u></h4>
+    <h4><u>BORANG PENDAFTARAN LATERN DEFECT</u></h4>
 </div>
 <div class="indent-main">
     <p>Perhatian Kepada :<br><br>
@@ -69,7 +69,7 @@
     </table>
     
 
-    <p style="margin-bottom:0">Pemberitahuan kerosakan bahagian atau barang Dalam Jaminan (DJ) sebagaimana ditentukan dalam Klausa 22.</p>
+    <p style="margin-bottom:0">Pemberitahuan pendaftaran Latern Defect (LD) sebagaimana ditentukan dalam Klausa 23.</p>
 
     <table style="margin-left: 20px; margin-bottom: 10px;" border="0" width="100%">
         <tr>
@@ -77,7 +77,7 @@
                 1.
             </td>
             <td colspan="2">
-                No. Laporan
+                No. Lapor LD
             </td>
             <td width="20px">
                 :
@@ -186,7 +186,7 @@
                 5.
             </td>
             <td colspan="4">
-                Keterangan Kerosakan (Sila sertakan Lampiran/Gambar sekiranya ruang tidak mencukupi):
+                Keterangan pendaftaran LD (Sila sertakan Lampiran/Gambar sekiranya ruang tidak mencukupi):
             </td>
         </tr>
         <tr>
@@ -270,6 +270,7 @@
                             <b><?php echo $model->commander_position?$model->commander_position:'' ?></b>
                         </td>
                     </tr>
+                    
                 </tbody>
             </table>
         <?php } else { ?>
@@ -314,6 +315,6 @@
 
 <div style="margin-top: 20px;position: fixed; bottom: 0px;text-align: center;width: 100%;">
 
-    <p style="margin:0 0 10px 0px; font-size:12px">MUKA SURAT J15A-1 DARI J15A-1</p>
+    <p style="margin:0 0 10px 0px; font-size:12px">MUKA SURAT J17A-1 DARI J17A-1</p>
     <h4 style="margin: 0px">SULIT</h4>
 </div>

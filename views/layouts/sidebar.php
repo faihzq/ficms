@@ -111,43 +111,43 @@ $total = $damageCounter + $surveyCounter + $repairCounter;
                     <div class="collapse menu-dropdown" id="sidebarReport17">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="#sidebarLaporan" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLaporan" data-key="t-level-1.2"> Borang Pendaftaran Lattern Defect (Borang 17A) <span class="badge rounded-pill text-bg-warning">In Progress</span>
+                                <a href="#sidebarLaporan17" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLaporan17" data-key="t-level-1.2"> Borang Pendaftaran Latern Defect (Borang 17A)
                                 </a>
-                                <div class="collapse menu-dropdown" id="sidebarLaporan">
+                                <div class="collapse menu-dropdown" id="sidebarLaporan17">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link" data-key="t-boatIndex"> Senarai Laporan </a>
-                                            <a href="#" class="nav-link" data-key="t-boatCreate"> Laporan Baru </a>
+                                            <a href="<?= Url::to(['report17-defect/index']) ?>" class="nav-link" data-key="t-boatIndex"> Senarai Laporan </a>
+                                            <a href="<?= Url::to(['report17-defect/create']) ?>" class="nav-link" data-key="t-boatCreate"> Laporan Baru </a>
                                             <?php if (Yii::$app->user->identity->user_role_id == 1): ?>
-                                            <a href="#" class="nav-link" data-key="t-boatCreate"> Tindakan</a>
+                                            <a href="<?= Url::to(['report17-defect/task']) ?>" class="nav-link" data-key="t-boatCreate"> Tindakan</a>
                                             <?php endif; ?>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a href="#sidebarSurvey" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarSurvey" data-key="t-level-1.2"> Laporan Tinjauan Pakar (Borang 17B) <span class="badge rounded-pill text-bg-warning">In Progress</span>
+                                <a href="#sidebarSurvey17" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarSurvey17" data-key="t-level-1.2"> Laporan Tinjauan Pakar (Borang 17B)
                                 </a>
-                                <div class="collapse menu-dropdown" id="sidebarSurvey">
+                                <div class="collapse menu-dropdown" id="sidebarSurvey17">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link" data-key="t-boatIndex"> Senarai Laporan </a>
+                                            <a href="<?= Url::to(['report17-survey/index']) ?>" class="nav-link" data-key="t-boatIndex"> Senarai Laporan </a>
                                             <?php if (Yii::$app->user->identity->user_role_id == 1): ?>
-                                            <a href="#" class="nav-link" data-key="t-boatCreate"> Tindakan </a>
+                                            <a href="<?= Url::to(['report17-survey/task']) ?>" class="nav-link" data-key="t-boatCreate"> Tindakan </a>
                                             <?php endif; ?>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a href="#sidebarRepair" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarRepair" data-key="t-level-1.2"> Laporan Selesai Latern Defect (Borang 17C) <span class="badge rounded-pill text-bg-warning">In Progress</span>
+                                <a href="#sidebarRepair17" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarRepair17" data-key="t-level-1.2"> Laporan Selesai Latern Defect (Borang 17C)
                                 </a>
-                                <div class="collapse menu-dropdown" id="sidebarRepair">
+                                <div class="collapse menu-dropdown" id="sidebarRepair17">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link" data-key="t-boatIndex"> Senarai Laporan </a>                                            
+                                            <a href="<?= Url::to(['report17-repair/index']) ?>" class="nav-link" data-key="t-boatIndex"> Senarai Laporan </a>                                            
                                             <?php if (Yii::$app->user->identity->user_role_id == 1 || Yii::$app->user->identity->user_role_id == 4): ?>
-                                            <a href="#" class="nav-link" data-key="t-boatCreate"> Tindakan </a>
+                                            <a href="<?= Url::to(['report17-repair/task']) ?>" class="nav-link" data-key="t-boatCreate"> Tindakan </a>
                                             <?php endif; ?>
                                         </li>
                                     </ul>
