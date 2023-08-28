@@ -190,10 +190,10 @@ class ReportRepairController extends Controller
 
     public function actionTask()
     {
-        if (in_array(Yii::app()->user->user_role_id,[1,2,3])){
-            $model = ReportRepair::find()->where(['=', 'status_id', [4]])->andWhere(['=', 'engineer_sign_status_id', 0])->all();
+        if (in_array(Yii::$app->user->identity->user_role_id,[1,2,3])){
+            $model = ReportRepair::find()->where(['=', 'status_id', 4])->andWhere(['=', 'engineer_sign_status_id', 0])->all();
         } else {
-            $model = ReportRepair::find()->where(['=', 'status_id', [4]])->andWhere(['=', 'engineer_sign_status_id', 1])->andWhere(['=', 'commander_sign_status_id', 0])->all();
+            $model = ReportRepair::find()->where(['=', 'status_id', 4])->andWhere(['=', 'engineer_sign_status_id', 1])->andWhere(['=', 'commander_sign_status_id', 0])->all();
         }
         $listStatus = ArrayHelper::map(ReportStatus::find()->all(), 'name', 'name');
 

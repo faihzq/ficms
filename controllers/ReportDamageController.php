@@ -237,7 +237,7 @@ class ReportDamageController extends Controller
 
     public function actionTask()
     {
-        if (in_array(Yii::app()->user->user_role_id,[1,2])){
+        if (in_array(Yii::$app->user->identity->user_role_id,[1,2])){
             $model = ReportDamage::find()->where(['=', 'status_id', 1])->all();
         } else {
             $model = ReportDamage::find()->where(['=', 'status_id', 0])->all();

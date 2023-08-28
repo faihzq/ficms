@@ -194,7 +194,7 @@ class ReportSurveyController extends Controller
 
     public function actionTask()
     {
-        if (in_array(Yii::app()->user->user_role_id,[1,2,3])){
+        if (in_array(Yii::$app->user->identity->user_role_id,[1,2,3])){
             $model = ReportSurvey::find()->where(['=', 'status_id', [2,3,4]])->andWhere(['=', 'engineer_sign_status_id', 0])->all();
         } else {
             $model = ReportSurvey::find()->where(['=', 'status_id', [2,4]])->andWhere(['=', 'engineer_sign_status_id', 1])->andWhere(['=', 'commander_sign_status_id', 0])->all();
