@@ -141,7 +141,7 @@ $warrantyOptions = [
                 </div>
             </div>
             <!--end card-->
-            <?= Html::a('<i class="mdi mdi-printer-outline label-icon align-middle rounded-pill"></i>Rujukan Borang 15A ('.$model->reportDamage->report_no.') ', ['report17-defect/pdf', 'id' => $model->report_damage_id], ['class' => 'btn btn-label rounded-pill btn-secondary btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2', 'target' => '_blank']) ?>
+            <?= Html::a('<i class="mdi mdi-printer-outline label-icon align-middle rounded-pill"></i>Rujukan Borang 17A ('.$model->reportDamage->report_no.') ', ['report17-defect/pdf', 'id' => $model->report_damage_id], ['class' => 'btn btn-label rounded-pill btn-secondary btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2', 'target' => '_blank']) ?>
             
             
             <?php ActiveForm::end(); ?>

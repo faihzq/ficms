@@ -4,10 +4,18 @@ use yii\helpers\Url;
 use app\models\ReportDamage;
 use app\models\ReportSurvey;
 use app\models\ReportRepair;
+use app\models\Report17Defect;
+use app\models\Report17Survey;
+use app\models\Report17Repair;
 $damageCounter = ReportDamage::getTaskCounter();
 $surveyCounter = ReportSurvey::getTaskCounter();
 $repairCounter = ReportRepair::getTaskCounter();
 $total = $damageCounter + $surveyCounter + $repairCounter;
+
+$damage17Counter = Report17Defect::getTaskCounter();
+$survey17Counter = Report17Survey::getTaskCounter();
+$repair17Counter = Report17Repair::getTaskCounter();
+$total17 = $damage17Counter + $survey17Counter + $repair17Counter;
 ?>
 <!-- ========== App Menu ========== -->
 <div class="app-menu navbar-menu">
@@ -106,12 +114,12 @@ $total = $damageCounter + $surveyCounter + $repairCounter;
                 <li class="menu-title"><span data-key="t-menu">Borang 17</span></li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarReport17" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarReport17">
-                        <i class="bx bxs-report"></i> <span data-key="t-report">Laporan</span>
+                        <i class="bx bxs-report"></i> <span data-key="t-report">Laporan <?php if ($total17 > 0): ?><span class="badge rounded-pill text-bg-danger"><?= $total17;?></span><?php endif; ?></span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarReport17">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="#sidebarLaporan17" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLaporan17" data-key="t-level-1.2"> Borang Pendaftaran Latern Defect (Borang 17A)
+                                <a href="#sidebarLaporan17" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLaporan17" data-key="t-level-1.2"> Borang Pendaftaran Latent Defect (Borang 17A)
                                 </a>
                                 <div class="collapse menu-dropdown" id="sidebarLaporan17">
                                     <ul class="nav nav-sm flex-column">
@@ -119,7 +127,7 @@ $total = $damageCounter + $surveyCounter + $repairCounter;
                                             <a href="<?= Url::to(['report17-defect/index']) ?>" class="nav-link" data-key="t-boatIndex"> Senarai Laporan </a>
                                             <a href="<?= Url::to(['report17-defect/create']) ?>" class="nav-link" data-key="t-boatCreate"> Laporan Baru </a>
                                             <?php if (Yii::$app->user->identity->user_role_id == 1): ?>
-                                            <a href="<?= Url::to(['report17-defect/task']) ?>" class="nav-link" data-key="t-boatCreate"> Tindakan</a>
+                                            <a href="<?= Url::to(['report17-defect/task']) ?>" class="nav-link" data-key="t-boatCreate"> Tindakan <?php if ($damage17Counter > 0): ?><span class="badge rounded-pill text-bg-danger"><?= $damage17Counter;?></span><?php endif; ?></a>
                                             <?php endif; ?>
                                         </li>
                                     </ul>
@@ -133,7 +141,7 @@ $total = $damageCounter + $surveyCounter + $repairCounter;
                                         <li class="nav-item">
                                             <a href="<?= Url::to(['report17-survey/index']) ?>" class="nav-link" data-key="t-boatIndex"> Senarai Laporan </a>
                                             <?php if (Yii::$app->user->identity->user_role_id == 1): ?>
-                                            <a href="<?= Url::to(['report17-survey/task']) ?>" class="nav-link" data-key="t-boatCreate"> Tindakan </a>
+                                            <a href="<?= Url::to(['report17-survey/task']) ?>" class="nav-link" data-key="t-boatCreate"> Tindakan <?php if ($survey17Counter > 0): ?><span class="badge rounded-pill text-bg-danger"><?= $survey17Counter;?></span><?php endif; ?> </a>
                                             <?php endif; ?>
                                         </li>
                                     </ul>
@@ -147,7 +155,7 @@ $total = $damageCounter + $surveyCounter + $repairCounter;
                                         <li class="nav-item">
                                             <a href="<?= Url::to(['report17-repair/index']) ?>" class="nav-link" data-key="t-boatIndex"> Senarai Laporan </a>                                            
                                             <?php if (Yii::$app->user->identity->user_role_id == 1 || Yii::$app->user->identity->user_role_id == 4): ?>
-                                            <a href="<?= Url::to(['report17-repair/task']) ?>" class="nav-link" data-key="t-boatCreate"> Tindakan </a>
+                                            <a href="<?= Url::to(['report17-repair/task']) ?>" class="nav-link" data-key="t-boatCreate"> Tindakan <?php if ($repair17Counter > 0): ?><span class="badge rounded-pill text-bg-danger"><?= $repair17Counter;?></span><?php endif; ?></a>
                                             <?php endif; ?>
                                         </li>
                                     </ul>
@@ -184,7 +192,12 @@ $total = $damageCounter + $surveyCounter + $repairCounter;
                 </li> <!-- end Dashboard Menu -->
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="<?= Url::to(['equipment-location/index']) ?>">
-                        <i class="bx bx-package"></i> <span data-key="t-users">Lokasi Peralatan</span>
+                        <i class="bx bx-map-pin"></i> <span data-key="t-users">Lokasi Peralatan</span>
+                    </a>
+                </li> <!-- end Dashboard Menu -->
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="<?= Url::to(['equipment/index']) ?>">
+                        <i class="bx bx-package"></i> <span data-key="t-users">Senarai Peralatan</span>
                     </a>
                 </li> <!-- end Dashboard Menu -->
                 <?php endif; ?>

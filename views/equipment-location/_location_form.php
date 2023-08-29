@@ -16,7 +16,7 @@ use yii\bootstrap5\ActiveForm;
 
     <div class="form-group">
         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
-        <?= Html::submitButton('Daftar', ['class' => 'btn btn-success float-end']) ?>
+        <?= Html::submitButton('Simpan', ['class' => 'btn btn-success float-end']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

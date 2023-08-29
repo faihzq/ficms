@@ -219,7 +219,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div><!--end col-->
                     <div class="col-xl-12">
                         <div class="card">
-                            <div class="card-header border-0 align-items-center d-flex">
+                            <div class="card-header align-items-center d-flex">
                                 <h4 class="card-title mb-0 flex-grow-1">Ringkasan Laporan Mengikut Bot</h4>
                             </div><!-- end card header -->
 
@@ -232,37 +232,76 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div><!-- end card -->
                         
                     </div>
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <div class="col-xl-12">
-                                <div class="card">
-                                    <div class="card-header align-items-center d-flex">
-                                        <h4 class="card-title mb-0 flex-grow-1">Senarai Bot</h4>
-                                    </div><!-- end card header -->
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-hover dt-responsive nowrap att-tbl" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="text-center">#</th>
-                                                        <th class="text-center">Nama Bot</th>                                                        
-                                                        <th class="text-center">Status</th> 
-                                                        <th class="text-center">Propulsion</th>
-                                                        <th class="text-center">Generation</th>
-                                                        <th class="text-center">Navigation</th>
-                                                        <th class="text-center">Communication</th>
-                                                        <th class="text-center">Warfare System</th>
-                                                        <th class="text-center">Lokasi</th>
-                                                    </tr>
-                                                </thead>
-                                            </table>
-                                        </div>
-                                    </div>
-
+                    
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header align-items-center d-flex">
+                                <h4 class="card-title mb-0 flex-grow-1">Senarai Bot</h4>
+                            </div><!-- end card header -->
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover dt-responsive nowrap att-tbl" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                <th class="text-center">Nama Bot</th>                                                        
+                                                <th class="text-center">Status</th> 
+                                                <th class="text-center">Propulsion</th>
+                                                <th class="text-center">Generation</th>
+                                                <th class="text-center">Navigation</th>
+                                                <th class="text-center">Communication</th>
+                                                <th class="text-center">Warfare System</th>
+                                                <th class="text-center">Lokasi</th>
+                                                <th class="text-center">Kekerapan Kerosakan</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header align-items-center d-flex">
+                                <h4 class="card-title mb-0 flex-grow-1">Senarai Kekerapan Kerosakan</h4>
+                                <div class="flex-shrink-0">
+                                    <!-- <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="tableChange">
+                                        <option value="peralatan">Peralatan</option>
+                                        <option value="bot">Bot</option>
+                                    </select> -->
+                                </div>
+                            </div><!-- end card header -->
+                            <div class="card-body">
+                                <div class="table-responsive" id="tableAlat">
+                                    <table class="table table-hover dt-responsive nowrap alat-tbl" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                <th class="text-center">No Siri</th>                                                        
+                                                <th class="text-center">Nama</th> 
+                                                <th class="text-center">Kekerapan</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="table-responsive" id="tableBot">
+                                    <table class="table table-hover dt-responsive nowrap bot-tbl" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                <th class="text-center">No Siri</th>                                                        
+                                                <th class="text-center">Nama</th> 
+                                                <th class="text-center">Kekerapan</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        
+                    
                 </div><!--end row-->
             </div>
             <!--end row-->
@@ -288,6 +327,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 <script>
+    $("#tableAlat").show();
+    $("#tableBot").hide();
     var status = '';
     function filterStatus(value){
         status = value;
@@ -339,6 +380,62 @@ $this->params['breadcrumbs'][] = $this->title;
                 className: 'dt-body-center'
             }
         ]
+    });
+
+    var table1 = $(".alat-tbl").DataTable({
+        "processing": true,
+        "serverSide": true,
+        "paging": true,
+        "searching": false,
+        "lengthMenu": [
+            [10, 25, 50, 100, -1],
+            [10, 25, 50, 100, "All"]
+        ],
+        "pageLength": 10,
+        "ajax": {
+            "type": "GET",
+            "url": "<?= Url::to(['site/get-list-alat']) ?>",
+            "dataType": "json",
+            "contentType": "application/json; charset=utf-8"
+        },
+        "responsive": true,
+        "lengthChange": true,
+        "autoWidth": false,        
+        columnDefs: [
+            {
+                targets: [0, -1, -2, -3],
+                className: 'dt-body-center'
+            }
+        ]
+        
+    });
+
+    var table2 = $(".bot-tbl").DataTable({
+        "processing": true,
+        "serverSide": true,
+        "paging": true,
+        "searching": false,
+        "lengthMenu": [
+            [10, 25, 50, 100, -1],
+            [10, 25, 50, 100, "All"]
+        ],
+        "pageLength": 10,
+        "ajax": {
+            "type": "GET",
+            "url": "<?= Url::to(['site/get-list-bot']) ?>",
+            "dataType": "json",
+            "contentType": "application/json; charset=utf-8"
+        },
+        "responsive": true,
+        "lengthChange": true,
+        "autoWidth": false,        
+        columnDefs: [
+            {
+                targets: [0, -1, -2, -3],
+                className: 'dt-body-center'
+            }
+        ]
+        
     });
     
     // get colors array from the string
@@ -639,6 +736,21 @@ $this->params['breadcrumbs'][] = $this->title;
         var chart = new ApexCharts(document.querySelector("#projects-overview-chart"), options);
         chart.render();
     }
+
+
+    $("#tableChange").on('change', function () {
+        var valc = $(this).val();
+        if (valc == 'peralatan') {
+            // Code to change the content of #tableKerap for "peralatan" option
+            $("#tableAlat").show();
+            $("#tableBot").hide();
+        }
+        if (valc == 'bot') {
+            // Code to change the content of #tableKerap for "bot" option
+            $("#tableBot").show();
+            $("#tableAlat").hide();
+        }
+    });
 
 </script>
 

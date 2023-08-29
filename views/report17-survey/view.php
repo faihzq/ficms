@@ -94,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </tr>
                                 <?php if ($model->warranty_protection == 0): ?>
                                     <tr>
-                                        <th scope="row"><?php echo $model->getAttributeLabel('warranty_protection'); ?></th>
+                                        <th scope="row"><?php echo $model->getAttributeLabel('nowarranty_protection_reason'); ?></th>
                                         <td><?php echo nl2br($model->nowarranty_protection_reason) ?></td>
                                         
                                     </tr>

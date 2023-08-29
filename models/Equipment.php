@@ -49,4 +49,14 @@ class Equipment extends \yii\db\ActiveRecord
     {
         return $this->no_series.' - '.$this->name;
     }
+
+    public function getKekerapan()
+    {
+        $total = ReportDamage::find()->where(['equipment_id'=>$this->id])->andWhere(['status_id'=>2])->count();
+        if (!$total){
+            return '-';
+        }
+        return $total;
+        
+    }
 }

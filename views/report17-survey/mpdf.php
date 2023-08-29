@@ -182,7 +182,7 @@
 <div class="indent-main">
     <div style="width:40%; float:left; margin-top: 100px;">
         <?php if ($model->engineer_sign){ ?>
-            <img src="<?= \Yii::getAlias('@web');?>/uploads/reportSurvey/sign/<?= $model->engineer_sign_pic ?>" alt="">
+            <img src="<?= \Yii::getAlias('@web');?>/uploads/report17Survey/sign/<?= $model->engineer_sign_pic ?>" alt="">
             <table autosize="1" width="100%" border="0">
                 <tbody>
                     <tr>

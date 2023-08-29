@@ -195,7 +195,7 @@
                 </tbody>
             </table>
         <?php } else { ?>
-            <table autosize="1" width="100%" border="0">
+            <table autosize="1" width="100%" border="0" style="border-top: 1px dotted;">
                 <tbody>
                     <tr>
                         <th colspan="3" class="text-left">Jurutera Kerosakan DJ</th>
@@ -228,6 +228,7 @@
                         </td>
                     </tr>
                 </tbody>
+            </table>
         <?php } ?>
     </div>
 
@@ -235,36 +236,72 @@
     <div style="width:40%; float:right;margin-right: 40px;">
         <?php if ($model->commander_sign){ ?>
             <img src="<?= \Yii::getAlias('@web');?>/uploads/reportRepair/sign/<?= $model->commander_sign_pic ?>" alt="">
-            <table cellpadding="5px" autosize="1" width="100%">
+            <table autosize="1" width="100%" border="0">
                 <tbody>
                     <tr>
-                        <th>Komander FIC</th>
+                        <th colspan="3" class="text-left">Komander FIC</th>
                     </tr>
                    <tr>
-                        <td>Nama: <?php echo $model->commander_name?$model->commander_name:'' ?></td>
+                        <td>Nama</td>
+                        <td width="10px">
+                            :
+                        </td>
+                        <td>
+                            <b><?php echo $model->commander_name?$model->commander_name:'' ?></b>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Jawatan: <?php echo $model->commander_position?$model->commander_position:'' ?></td>
+                        <td width="50px">Jawatan</td>
+                        <td>
+                            :
+                        </td>
+                        <td>
+                            <b><?php echo $model->commander_position?$model->commander_position:'' ?></b>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Tarikh: <?php echo $model->commander_sign_time?date('d F Y', strtotime($model->commander_sign_time)):'' ?></td>
+                        <td>Tarikh</td>
+                        <td>
+                            :
+                        </td>
+                        <td>
+                            <b><?php echo $model->commander_sign_time?date('d F Y', strtotime($model->commander_sign_time)):'' ?></b>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         <?php } else { ?>
-            <table style="border-top:  1px dashed black;" cellpadding="5px" autosize="1" width="100%">
+            <table autosize="1" width="100%" border="0" style="border-top: 1px dotted;">
                 <tbody>
                     <tr>
-                        <th>Komander FIC</th>
+                        <th colspan="3" class="text-left">Komander FIC</th>
                     </tr>
                    <tr>
-                        <td>Nama: <?php echo $model->commander_name?$model->commander_name:'' ?></td>
+                        <td>Nama</td>
+                        <td width="10px">
+                            :
+                        </td>
+                        <td>
+                            <b><?php echo $model->commander_name?$model->commander_name:'' ?></b>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Jawatan: <?php echo $model->commander_position?$model->commander_position:'' ?></td>
+                        <td width="50px">Jawatan</td>
+                        <td>
+                            :
+                        </td>
+                        <td>
+                            <b><?php echo $model->commander_position?$model->commander_position:'' ?></b>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Tarikh: <?php echo $model->commander_sign_time?date('d F Y', strtotime($model->commander_sign_time)):'' ?></td>
+                        <td>Tarikh</td>
+                        <td>
+                            :
+                        </td>
+                        <td>
+                            <b><?php echo $model->commander_sign_time?date('d F Y', strtotime($model->commander_sign_time)):'' ?></b>
+                        </td>
                     </tr>
                 </tbody>
             </table>

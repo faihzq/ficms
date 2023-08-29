@@ -168,6 +168,9 @@ class Boat extends \yii\db\ActiveRecord
     {
 
         $reportId = ReportDamage::find()->where(['boat_id'=>$this->id])->andWhere(['damage_type_id'=>$value])->andWhere(['status_id'=>2])->one();
+        if (!$reportId){
+            $reportId = Report17Defect::find()->where(['boat_id'=>$this->id])->andWhere(['damage_type_id'=>$value])->andWhere(['status_id'=>2])->one();
+        }
 
         return $reportId->id;
     }
@@ -177,11 +180,17 @@ class Boat extends \yii\db\ActiveRecord
 
         $item = ReportDamage::find()->where(['boat_id'=>$this->id])->andWhere(['status_id'=>2])->orderBy(['created_time'=>SORT_DESC])->one();
 
+        if (!$item){
+            $item = Report17Defect::find()->where(['boat_id'=>$this->id])->andWhere(['status_id'=>2])->orderBy(['created_time'=>SORT_DESC])->one();
+            
+        }
         if ($item){
             return $item->location->name;
         } else {
             return '';
         }
+
+
     }
 
     public function getUpdatedUser()
@@ -191,7 +200,9 @@ class Boat extends \yii\db\ActiveRecord
 
     public function getTotalReport()
     {
-        $result = ReportDamage::find()->where(['boat_id'=>$this->id])->andWhere(['status_id'=>2])->count();
+        $result1 = ReportDamage::find()->where(['boat_id'=>$this->id])->andWhere(['status_id'=>2])->count();
+        $result2 = Report17Defect::find()->where(['boat_id'=>$this->id])->andWhere(['status_id'=>2])->count();
+        $result = $result1+$result2;
         if (!$result){
             return '-';
         } else {
@@ -201,7 +212,7 @@ class Boat extends \yii\db\ActiveRecord
 
     public function getTotalReportRepair()
     {
-        $result = ReportDamage::find()->join('JOIN','report_survey', 'report_damage.id = report_survey.report_damage_id')->join('JOIN','report_repair', 'report_survey.id = report_repair.report_survey_id')->andWhere(['report_damage.boat_id' => $this->id, 'report_repair.status_id' => 2])->count();
+        $result = ReportDamage::find()->join('JOIN','report_survey', 'report_damage.id = report_survey.report_damage_id')->join('JOIN','report_repair', 'report_survey.id = report_repair.report_survey_id')->andWhere(['report_damage.boat_id' => $this->id, 'report_repair.status_id' => 5])->count();
 
         if (!$result){
             return '-';
@@ -255,5 +266,15 @@ class Boat extends \yii\db\ActiveRecord
         $result = $colors[$index];
 
         return $result;
+    }
+
+    public function getKekerapan()
+    {
+        $total = ReportDamage::find()->where(['boat_id'=>$this->id])->andWhere(['status_id'=>2])->count();
+        if (!$total){
+            return '-';
+        }
+        return $total;
+        
     }
 }

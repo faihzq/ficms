@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         </button>
                                                         <ul class="dropdown-menu dropdown-menu-end">
                                                             <?php if (Yii::$app->user->identity->user_role_id == 1 || $Yii::$app->user->identity->id == $location->requestor_id): ?>
-                                                            <li><a class="dropdown-item edit-item-btn" href="<?php echo Url::to(['boat-location/update','id'=>$location->id]) ?>"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
+                                                            <li><a class="dropdown-item edit-item-btn" href="<?php echo Url::to(['equipment-location/update','id'=>$location->id]) ?>"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
                                                                     Edit</a></li>
                                                             <li><?= Html::a('Padam', ['delete', 'id' => $location->id], [
                                                                         'class' => 'dropdown-item edit-item-btn',

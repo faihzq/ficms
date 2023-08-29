@@ -103,7 +103,7 @@ use yii\bootstrap5\ActiveForm;
                 </div>
             </div>
             <!--end card-->
-            <?= Html::a('<i class="mdi mdi-printer-outline label-icon align-middle rounded-pill"></i>Rujukan Borang 15B ('.$model->reportSurvey->report_no.') ', ['report17-survey/pdf', 'id' => $model->report_survey_id], ['class' => 'btn btn-label rounded-pill btn-secondary btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2', 'target' => '_blank']) ?>
+            <?= Html::a('<i class="mdi mdi-printer-outline label-icon align-middle rounded-pill"></i>Rujukan Borang 17B ('.$model->reportSurvey->report_no.') ', ['report17-survey/pdf', 'id' => $model->report_survey_id], ['class' => 'btn btn-label rounded-pill btn-secondary btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2', 'target' => '_blank']) ?>
             
             <?php ActiveForm::end(); ?>
         </div>

@@ -237,7 +237,7 @@
 <div class="indent-main">
     <div style="width:40%; float:left;margin-right: 40px;">
         <?php if ($model->status_id == 2){ ?>
-            <img src="<?= \Yii::getAlias('@web');?>/uploads/reportDamage/sign/<?= $model->commander_sign_pic ?>" alt="">
+            <img src="<?= \Yii::getAlias('@web');?>/uploads/report17Defect/sign/<?= $model->commander_sign_pic ?>" alt="">
             <table autosize="1" width="100%" border="0">
                 <tbody>
                     <tr>

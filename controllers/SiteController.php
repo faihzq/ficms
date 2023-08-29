@@ -24,6 +24,7 @@ use app\models\Boat;
 use app\models\ReportDamage;
 use app\models\ReportSurvey;
 use app\models\ReportRepair;
+use app\models\Equipment;
 
 class SiteController extends Controller
 {
@@ -96,6 +97,8 @@ class SiteController extends Controller
             $totalBoatReportNoWarranty[] = ReportSurvey::find()->joinWith('reportDamage')->where(['report_survey.status_id' => 3,'report_survey.warranty_protection' => 0,'report_damage.boat_id' => $boat->id])->count();
         }
 
+        $modelAlat = Equipment::find()->all();
+
         // status boat
         $total = Boat::find()->count();
         $active = Boat::find()->andWhere(['boat_status_id'=>1])->count();
@@ -131,6 +134,7 @@ class SiteController extends Controller
 
         return $this->render('index', [
             'modelBoat' => $modelBoat,
+            'modelAlat' => $modelAlat,
             'boatName' => json_encode($boatName),
             'totalBoatReport' => json_encode($totalBoatReport),
             'totalBoatReportFix' => json_encode($totalBoatReportFix),
@@ -205,7 +209,128 @@ class SiteController extends Controller
                 $value->nav_check == 0? '<a href="'.Url::to(["report-damage/view","id"=>$value->getCheckReport(3)]) .'" class="text-muted d-inline-block">'.$value->getCheckTable($value->nav_check).'</a>':$value->getCheckTable($value->nav_check),
                 $value->comm_check == 0? '<a href="'.Url::to(["report-damage/view","id"=>$value->getCheckReport(4)]) .'" class="text-muted d-inline-block">'.$value->getCheckTable($value->comm_check).'</a>':$value->getCheckTable($value->comm_check),
                 $value->warfare_check == 0? '<a href="'.Url::to(["report-damage/view","id"=>$value->getCheckReport(5)]) .'" class="text-muted d-inline-block">'.$value->getCheckTable($value->warfare_check).'</a>':$value->getCheckTable($value->warfare_check),
-                $value->getLocation()
+                $value->getLocation(),
+                $value->kekerapan
+            );
+
+            $x++;
+        }
+
+        $output = array(
+            "recordsTotal" => $countQuery->count(),
+            "recordsFiltered" => $countQuery->count(),
+            "data" => $output
+        );
+
+        return json_encode($output);
+    }
+
+    public function actionGetListAlat()
+    {
+
+        switch ($_GET['order'][0]['column']) {
+            case 1:
+                $sort = "no_series " . $_GET['order'][0]['dir'];
+                break;
+            case 2:
+                $sort = "name " . $_GET['order'][0]['dir'];
+                break;
+
+            default:
+                $sort = 'id ASC';
+                break;
+        }
+
+        $output = [];
+
+        $query = Equipment::find()
+                ->orderBy($sort);
+        
+
+        if ($_GET['search']['value'] != null) {
+            $query->andWhere([
+                'OR',
+                ["LIKE", "name", $_GET['search']['value']],
+                ["LIKE", "no_series", $_GET['search']['value']],
+            ]);
+        }
+
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count()]);
+        $pages->pageSize = $_GET['length'];
+        $model = $query->offset(($_GET['start']))
+            ->limit($pages->limit)
+            ->all();
+
+        $x = $_GET['start'] + 1;
+
+        foreach ($model as $key => $value) {
+
+            $output[] = array(
+                $x,
+                $value->no_series,
+                $value->name,
+                $value->kekerapan,
+            );
+
+            $x++;
+        }
+
+        $output = array(
+            "recordsTotal" => $countQuery->count(),
+            "recordsFiltered" => $countQuery->count(),
+            "data" => $output
+        );
+
+        return json_encode($output);
+    }
+
+    public function actionGetListBot()
+    {
+
+        switch ($_GET['order'][0]['column']) {
+            case 1:
+                $sort = "no_series " . $_GET['order'][0]['dir'];
+                break;
+            case 2:
+                $sort = "name " . $_GET['order'][0]['dir'];
+                break;
+
+            default:
+                $sort = 'id ASC';
+                break;
+        }
+
+        $output = [];
+
+        $query = Equipment::find()
+                ->orderBy($sort);
+        
+
+        if ($_GET['search']['value'] != null) {
+            $query->andWhere([
+                'OR',
+                ["LIKE", "name", $_GET['search']['value']],
+                ["LIKE", "no_series", $_GET['search']['value']],
+            ]);
+        }
+
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count()]);
+        $pages->pageSize = $_GET['length'];
+        $model = $query->offset(($_GET['start']))
+            ->limit($pages->limit)
+            ->all();
+
+        $x = $_GET['start'] + 1;
+
+        foreach ($model as $key => $value) {
+
+            $output[] = array(
+                $x,
+                $value->no_series,
+                $value->name,
+                $value->kekerapan,
             );
 
             $x++;

@@ -1,6 +1,6 @@
 <?php
 
-use app\models\ReportRepair;
+use app\models\BoatLocation;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -9,18 +9,22 @@ use yii\grid\GridView;
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Laporan Selesai Latern Defect';
+$this->title = 'Senarai Peralatan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="report17-repair-index">
-
+<div class="equipment-index">
     <div class="row">
         <div class="col-lg-12">
             <div class="card" id="reportList">
                 <div class="card-header border border-dashed border-start-0 border-end-0 border-top-0">
                     <div class="row align-items-center gy-3">
                         <div class="col-sm">
-                            <h5 class="card-title mb-0">Senarai Laporan</h5>
+                            <h5 class="card-title mb-0">Senarai Peralatan</h5>
+                        </div>
+                        <div class="col-sm-auto">
+                            <div class="d-flex gap-1 flex-wrap">
+                                <?= Html::a('<i class="ri-add-line label-icon align-middle"></i> Peralatan Baru', ['create'], ['class' => 'btn btn-label btn-success rounded-pills btn-animation bg-gradient waves-effect waves-light']) ?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -28,26 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="row g-3">
                         <div class="col-xl-6">
                             <div class="col-lg-6 search-box">
-                                <input type="text" class="form-control search" placeholder="Carian laporan...">
+                                <input type="text" class="form-control search" placeholder="Carian peralatan...">
                                 <i class="ri-search-line search-icon"></i>
-                            </div>
-                        </div>
-                        <div class="col-xl-2">
-                        </div>
-                        <div class="col-xl-4">
-                            <div class="row g-3">
-                                <div class="col-sm-6">
-                                    <div>
-                                        <?= Html::dropDownList('name', null, $listStatus, ['id'=>'idStatus', 'data-choices'=>'', 'data-choices-search-false'=>'', 'data-choices-sort-false'=>'']); ?>
-                                    </div>
-                                </div>
-                                <!--end col-->
-                                <div class="col-sm-6">
-                                    <div>
-                                        <button type="button" class="btn btn-primary w-100" onclick="SearchData();"> <i class="ri-equalizer-fill me-2 align-bottom"></i>Tapis</button>
-                                    </div>
-                                </div>
-                                <!--end col-->
                             </div>
                         </div>
                         
@@ -60,54 +46,45 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <thead class="table-light">
                                     <tr>
                                         <th class="sort" data-sort="no" scope="col">No</th>
-                                        <th class="sort" data-sort="report_no" scope="col">No Laporan</th>
-                                        <th scope="col">Tarikh</th>
-                                        <th class="sort" data-sort="boat_name" scope="col">Hull No/FIC No.
+                                        <th class="sort" data-sort="no_series" scope="col">No. Siri
                                         </th>
-                                        <th class="sort" data-sort="report_damage_id" scope="col">Rujukan No. Laporan LD
-                                        </th>
-                                        <th class="sort" data-sort="report_survey_id" scope="col">Rujukan No. Laporan Kajian LD
-                                        </th>
-                                        <th class="sort" data-sort="requestor" scope="col">Disediakan Oleh
-                                        </th>
-                                        <th class="sort" data-sort="status" scope="col">Status
+                                        <th class="sort" data-sort="nama" scope="col">Nama
                                         </th>
                                         <th scope="col">Tindakan</th>
                                     </tr>
                                 </thead>
                                 <tbody class="list">
-                                    <?php $no=1;foreach($model as $report): ?>
+                                    <?php $no=1;foreach($model as $location): ?>
                                     <tr>
                                         <td class="no"><?php echo $no ?>
                                         </td>
-                                        <td class="report_no"><?php echo $report->report_no ?></td>
-                                        <td class="tarikh"><?php echo date('d F Y', strtotime($report->report_date)) ?></td>
-                                        <td class="boat_name"><?php echo $report->reportSurvey->reportDamage->boat->boat_name ?>
+                                        <td class="no_series"><?php echo $location->no_series ?>
                                         </td>
-                                        <td class="report_damage_id"><?php echo $report->reportSurvey->reportDamage->report_no ?>
+                                        <td class="boat_id"><?php echo $location->name ?>
                                         </td>
-                                        <td class="report_survey_id"><?php echo $report->reportSurvey->report_no ?></td>
-                                        <td class="requestor"><?php echo $report->requestor->fullname ?></td>
-                                        <td class="status"><span class="badge badge-soft-<?php echo $report->status->statusLabel?> text-uppercase"><?php echo $report->status->name ?></td>
                                         <td>
                                             <ul class="list-inline hstack gap-2 mb-0">
-                                                <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Lihat">
-                                                    <a href="<?php echo Url::to(['report17-repair/view','id'=>$report->id]) ?>" class="text-muted d-inline-block">
-                                                        <i class="ri-eye-fill fs-16"></i>
-                                                    </a>
+                                                <li class="list-inline-item">
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="ri-more-fill align-middle"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-end">
+                                                            <?php if (Yii::$app->user->identity->user_role_id == 1 || $Yii::$app->user->identity->id == $location->requestor_id): ?>
+                                                            <li><a class="dropdown-item edit-item-btn" href="<?php echo Url::to(['equipment/update','id'=>$location->id]) ?>"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
+                                                                    Edit</a></li>
+                                                            <li><?= Html::a('Padam', ['delete', 'id' => $location->id], [
+                                                                        'class' => 'dropdown-item edit-item-btn',
+                                                                        'data' => [
+                                                                            'confirm' => 'Adakah anda pasti mahu memadamkan peralatan ini?',
+                                                                            'method' => 'post',
+                                                                        ],
+                                                                    ]) ?></li>        
+                                                                    
+                                                            <?php endif ?>
+                                                        </ul>
+                                                    </div>
                                                 </li>
-                                                <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Cetak">
-                                                    <a href="<?php echo Url::to(['report17-repair/pdf','id'=>$report->id]) ?>" class="text-muted d-inline-block" target="_blank">
-                                                        <i class="mdi mdi-printer fs-16"></i>
-                                                    </a>
-                                                </li>
-                                                <?php if (Yii::$app->user->identity->user_role_id == 1 || $Yii::$app->user->identity->id == $report->requestor_id): ?>
-                                                <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Edit">
-                                                    <a href="<?php echo Url::to(['report17-repair/update','id'=>$report->id]) ?>" class="text-muted d-inline-block">
-                                                        <i class="ri-pencil-fill fs-16"></i>
-                                                    </a>
-                                                </li>
-                                                <?php endif ?>
                                             </ul>
                                         </td>
                                     </tr>
@@ -147,7 +124,6 @@ $this->params['breadcrumbs'][] = $this->title;
             
         </div>
     </div>
-
 </div>
 
 <!-- list.js min js -->
@@ -166,13 +142,8 @@ $this->params['breadcrumbs'][] = $this->title;
     var options = {
         valueNames: [
             "no",
-            "report_no",
-            "tarikh",
-            "boat_name",
-            "report_damage_id",
-            "report_survey_id",
-            "requestor",
-            "status"
+            "no_series",
+            "nama",
         ],
         page: perPage,
         pagination: true,
@@ -226,28 +197,5 @@ $this->params['breadcrumbs'][] = $this->title;
         document.querySelector(".pagination.listjs-pagination").querySelector(".active").previousSibling.children[0].click(): '': '';
     });
 
-    function SearchData() {
-
-      var isstatus = document.getElementById("idStatus").value;
-
-      contactList.filter(function (data) {
-        matchData = new DOMParser().parseFromString(data.values().status, 'text/html');
-        var status = matchData.body.firstElementChild.innerHTML;
-        var statusFilter = false;
-
-        if (status == 'Semua' || isstatus == 'Semua') {
-          statusFilter = true;
-        } else {
-          statusFilter = status == isstatus;
-        }
-
-        if (statusFilter) {
-          return statusFilter
-        } else if (statusFilter == "") {
-          return statusFilter
-        }
-      });
-      contactList.update();
-    }
 
 </script>
