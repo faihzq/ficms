@@ -1,7 +1,7 @@
 <?php
 
 namespace app\controllers;
-
+use Yii;
 use app\models\Equipment;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;

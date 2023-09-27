@@ -87,6 +87,12 @@ class ReportStatus extends \yii\db\ActiveRecord
             case 4:
                 $statusIcon = 'ri-file-add-line';
                 break;
+            case 5:
+                $statusIcon = 'ri-file-add-line';
+                break;
+            case 6:
+                $statusIcon = 'ri-close-circle-line';
+                break;
             
             default:
                 $statusIcon = 'info';

@@ -40,8 +40,8 @@ class Equipment extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'no_series' => 'No Series',
-            'name' => 'Name',
+            'no_series' => 'No Siri Peralatan',
+            'name' => 'Nama Peralatan',
         ];
     }
 
@@ -52,7 +52,9 @@ class Equipment extends \yii\db\ActiveRecord
 
     public function getKekerapan()
     {
-        $total = ReportDamage::find()->where(['equipment_id'=>$this->id])->andWhere(['status_id'=>2])->count();
+        $total1 = ReportDamage::find()->where(['equipment_id'=>$this->id])->andWhere(['status_id'=>2])->count();
+        $total2 = Report17Defect::find()->where(['equipment_id'=>$this->id])->andWhere(['status_id'=>2])->count();
+        $total = $total1+$total2;
         if (!$total){
             return '-';
         }

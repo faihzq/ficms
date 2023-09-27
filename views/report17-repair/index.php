@@ -12,6 +12,42 @@ use yii\grid\GridView;
 $this->title = 'Laporan Selesai Latern Defect';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<style>
+   /* Define the keyframes for the pulse animation */
+    @keyframes pulseAnimation {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 0.7;
+        }
+    }
+
+    /* Define the keyframes for the fade-in animation */
+    @keyframes fadeInAnimation {
+        0% {
+            opacity: 0;
+        }
+        50% {
+            opacity: 0.5;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    /* Apply the pulse and fade-in animations to the important-status class */
+    .important-status {
+        animation: pulseAnimation 2s infinite alternate, fadeInAnimation 1s;
+        animation-timing-function: ease-in-out;
+    }
+
+</style>
 <div class="report17-repair-index">
 
     <div class="row">
@@ -88,7 +124,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </td>
                                         <td class="report_survey_id"><?php echo $report->reportSurvey->report_no ?></td>
                                         <td class="requestor"><?php echo $report->requestor->fullname ?></td>
-                                        <td class="status"><span class="badge badge-soft-<?php echo $report->status->statusLabel?> text-uppercase"><?php echo $report->status->name ?></td>
+                                        <td class="status"><span class="badge badge-soft-<?php echo $report->status->statusLabel?> text-uppercase <?= $report->status_id == 4?'status-badge important-status':''?>"><?php echo $report->status->name ?></td>
                                         <td>
                                             <ul class="list-inline hstack gap-2 mb-0">
                                                 <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Lihat">

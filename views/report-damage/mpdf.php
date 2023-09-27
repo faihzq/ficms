@@ -46,21 +46,21 @@
     </table>
     <table style="margin-bottom:15px">
         <tr>
-            <td>No. Kontrak</td>
+            <td><?php echo $model->getAttributeLabel('contract_no'); ?></td>
             <td>
                 :
             </td>
             <td style="border-bottom: 1px dotted;"><b><?php echo $model->contract_no ?></b></td>
         </tr>
         <tr>
-            <td>Hull No./FIC No</td>
+            <td><?php echo $model->getAttributeLabel('boat_id'); ?></td>
             <td>
                 :
             </td>
             <td style="border-bottom: 1px dotted;"><b><?php echo $model->boat->boat_name ?></b></td>
         </tr>
         <tr>
-            <td>Tarikh</td>
+            <td><?php echo $model->getAttributeLabel('report_date'); ?></td>
             <td>
                 :
             </td>
@@ -77,7 +77,7 @@
                 1.
             </td>
             <td colspan="2">
-                No. Laporan
+                <?php echo $model->getAttributeLabel('report_no'); ?>
             </td>
             <td width="20px">
                 :
@@ -91,7 +91,7 @@
                 2.
             </td>
             <td colspan="2">
-                Tarikh Kerosakan
+                <?php echo $model->getAttributeLabel('damage_date'); ?>
             </td>
             <td>
                 :
@@ -105,7 +105,7 @@
                 3.
             </td>
             <td colspan="2">
-                Lokasi FIC terkini
+                <?php echo $model->getAttributeLabel('boat_location_id'); ?>
             </td>
             <td>
                 :
@@ -130,7 +130,7 @@
                 a.
             </td>
             <td width="120px">
-                No SEL/ESWBS
+                <?php echo $model->getAttributeLabel('sel_no'); ?>
             </td>
             <td>
                 :
@@ -144,7 +144,7 @@
                 b.
             </td>
             <td>
-                No Siri Peralatan
+                <?php echo $model->getAttributeLabel('equipment_serial'); ?>
             </td>
             <td>
                 :
@@ -158,7 +158,7 @@
                 c.
             </td>
             <td>
-                Lokasi Peralatan
+                <?php echo $model->getAttributeLabel('equipment_location_id'); ?>
             </td>
             <td>
                 :
@@ -172,7 +172,7 @@
                 d.
             </td>
             <td>
-                Running Hours
+                <?php echo $model->getAttributeLabel('running_hours'); ?>
             </td>
             <td>
                 :
@@ -186,7 +186,7 @@
                 5.
             </td>
             <td colspan="4">
-                Keterangan Kerosakan (Sila sertakan Lampiran/Gambar sekiranya ruang tidak mencukupi):
+                <?php echo $model->getAttributeLabel('damage_information'); ?> (Sila sertakan Lampiran/Gambar sekiranya ruang tidak mencukupi):
             </td>
         </tr>
         <tr>
@@ -207,7 +207,7 @@
                 a.
             </td>
             <td>
-                No/Pangkat/nama
+                <?php echo $model->getAttributeLabel('contact_officer_name'); ?>
             </td>
             <td>
                 :
@@ -221,7 +221,7 @@
                 b.
             </td>
             <td>
-                No Tel
+                <?php echo $model->getAttributeLabel('contact_officer_tel'); ?>
             </td>
             <td>
                 :

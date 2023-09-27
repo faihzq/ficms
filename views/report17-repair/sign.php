@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-lg-7">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title mb-0"><?php echo $section==1?'Tandatangan Jurutera LD':'Tandatangan Komander FIC'?></h5>
+                    <h5 class="card-title mb-0"><?php echo $section==1?'Tandatangan Jurutera KDJ':'Tandatangan Komander FIC'?></h5>
                 </div>
                 <div class="card-body">
                     
@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php if ($section == 1){ ?>
                                     <div class="col-lg-12 mb-3">
                                         <div class="text-center">
-                                        <p>Tandatangan Jurutera LD: <button type="button" class="btn btn-sm btn-light" id="clear">Clear</button></p>
+                                        <p>Tandatangan Jurutera KDJ: <button type="button" class="btn btn-sm btn-light" id="clear">Clear</button></p>
                                         <div id="sign"></div>
                                         <?= $form->field($model, 'engineer_sign')->hiddenInput(['id' => 'signature_data'])->label(false); ?>
                                     </div>

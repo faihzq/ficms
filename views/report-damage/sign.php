@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php $form = ActiveForm::begin(); ?>
                                 <div class="col-lg-12 mb-3">
                                     <div class="text-center">
-                                    <p>Tandatangan Komander: <button type="button" class="btn btn-sm btn-light" id="clear">Clear</button></p>
+                                    <p>Tandatangan Komander FIC: <button type="button" class="btn btn-sm btn-light" id="clear">Clear</button></p>
                                     <div id="sign"></div>
                                     <?= $form->field($model, 'commander_sign')->hiddenInput(['id' => 'signature_data'])->label(false); ?>
                                 </div>

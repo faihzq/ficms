@@ -12,6 +12,42 @@ use yii\grid\GridView;
 $this->title = 'Borang Pelaporan Kerosakan Dalam Jaminan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<style>
+   /* Define the keyframes for the pulse animation */
+    @keyframes pulseAnimation {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 0.7;
+        }
+    }
+
+    /* Define the keyframes for the fade-in animation */
+    @keyframes fadeInAnimation {
+        0% {
+            opacity: 0;
+        }
+        50% {
+            opacity: 0.5;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    /* Apply the pulse and fade-in animations to the important-status class */
+    .important-status {
+        animation: pulseAnimation 2s infinite alternate, fadeInAnimation 1s;
+        animation-timing-function: ease-in-out;
+    }
+
+</style>
 <div class="report-damage-index">
     <div class="row">
         <div class="col-lg-12">
@@ -63,7 +99,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </th>
                                         <th scope="col">Tarikh</th>
                                         <th class="sort" data-sort="report_no" scope="col">No Laporan</th>
-                                        <th class="sort" data-sort="requestor" scope="col">Dilaporkan Oleh
+                                        <th class="sort" data-sort="equipment_id" scope="col">Nama Peralatan
+                                        </th>
+                                        <th class="sort" data-sort="damage_type" scope="col">Jenis Kerosakan
                                         </th>
                                         <th class="sort" data-sort="status" scope="col">Status
                                         </th>
@@ -73,29 +111,30 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <tbody class="list">
                                     <?php $no=1;foreach($model as $report): ?>
                                     <tr>
-                                        <td class="no"><?php echo $no ?>
+                                        <td class="no"><?= $no ?>
                                         </td>
-                                        <td class="boat_id"><?php echo $report->boat->boat_name ?>
+                                        <td class="boat_id"><?= $report->boat->boat_name ?>
                                         </td>
-                                        <td class="tarikh"><?php echo date('d F Y', strtotime($report->report_date)) ?></td>
-                                        <td class="report_no"><?php echo $report->report_no ?></td>
-                                        <td class="requestor"><?php echo $report->requestor->fullname ?></td>
-                                        <td class="status"><span class="badge badge-soft-<?php echo $report->status->statusLabel?> text-uppercase"><?php echo $report->status->name ?></td>
+                                        <td class="tarikh"><?= date('d F Y', strtotime($report->report_date)) ?></td>
+                                        <td class="report_no"><?= $report->status_id == 6?'<s><span style="color: red; text-decoration: none;">'.$report->report_no.'</span></s>':$report->report_no ?></td>
+                                        <td class="equipment_id"><?= $report->equipment->fullname ?></td>
+                                        <td class="damage_type"><?= $report->damagetype->name ?></td>
+                                        <td class="status"><span class="badge badge-soft-<?= $report->status->statusLabel?> text-uppercase <?= $report->status_id == 1?'status-badge important-status':''?>"><?= $report->status->name ?><span></td>
                                         <td>
                                             <ul class="list-inline hstack gap-2 mb-0">
                                                 <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Lihat">
-                                                    <a href="<?php echo Url::to(['report-damage/view','id'=>$report->id]) ?>" class="text-muted d-inline-block">
+                                                    <a href="<?= Url::to(['report-damage/view','id'=>$report->id]) ?>" class="text-muted d-inline-block">
                                                         <i class="ri-eye-fill fs-16"></i>
                                                     </a>
                                                 </li>
                                                 <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Cetak">
-                                                    <a href="<?php echo Url::to(['report-damage/pdf','id'=>$report->id]) ?>" class="text-muted d-inline-block" target="_blank">
+                                                    <a href="<?= Url::to(['report-damage/pdf','id'=>$report->id]) ?>" class="text-muted d-inline-block" target="_blank">
                                                         <i class="mdi mdi-printer fs-16"></i>
                                                     </a>
                                                 </li>
                                                 <?php if (Yii::$app->user->identity->user_role_id == 1 || $Yii::$app->user->identity->id == $report->requestor_id): ?>
                                                 <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Edit">
-                                                    <a href="<?php echo Url::to(['report-damage/update','id'=>$report->id]) ?>" class="text-muted d-inline-block">
+                                                    <a href="<?= Url::to(['report-damage/update','id'=>$report->id]) ?>" class="text-muted d-inline-block">
                                                         <i class="ri-pencil-fill fs-16"></i>
                                                     </a>
                                                 </li>
@@ -160,7 +199,8 @@ $this->params['breadcrumbs'][] = $this->title;
             "boat_id",
             "tarikh",
             "report_no",
-            "requestor",
+            "equipment_id",
+            "damage_type",
             "status"
         ],
         page: perPage,

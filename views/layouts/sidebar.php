@@ -148,7 +148,7 @@ $total17 = $damage17Counter + $survey17Counter + $repair17Counter;
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a href="#sidebarRepair17" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarRepair17" data-key="t-level-1.2"> Laporan Selesai Latern Defect (Borang 17C)
+                                <a href="#sidebarRepair17" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarRepair17" data-key="t-level-1.2"> Laporan Selesai Latent Defect (Borang 17C)
                                 </a>
                                 <div class="collapse menu-dropdown" id="sidebarRepair17">
                                     <ul class="nav nav-sm flex-column">

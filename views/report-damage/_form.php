@@ -68,7 +68,7 @@ $baseUrl = Url::base();
                         <div class="col-md-3">
                             
                             <?= $form->field($model, 'equipment_id')->dropDownList($listEquipment, ['data-choices' => '']) ?>
-                            
+                            <?= Html::button('Daftar Nama Peralatan', ['value' => Url::to(['equipment/register']), 'title' => 'Daftar Nama Peralatan', 'class' => 'showModalButton btn btn-success']); ?>
                         </div>
                         <div class="col-md-2">
                             

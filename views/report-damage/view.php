@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <tr>
                                     <th scope="row" width="50%">
                                         <?php echo $model->getAttributeLabel('report_no'); ?></th>
-                                    <td><?php echo $model->report_no ?></td>
+                                    <td><?php echo $model->status_id == 6?'<s><span style="color: red; text-decoration: none;">'.$model->report_no.'</span></s>':$model->report_no ?></td>
                                 </tr>
                                     <th scope="row"><?php echo $model->getAttributeLabel('damage_date'); ?></th>
                                     <td><?php echo date('d F Y', strtotime($model->damage_date)) ?></td>
@@ -167,7 +167,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php if ($model->status_id == 2): ?>
             <div class="card">
                 <div class="card-header align-items-center d-flex border-bottom-dashed">
-                    <h4 class="card-title mb-0 flex-grow-1">Tandatangan Komander</h4>
+                    <h4 class="card-title mb-0 flex-grow-1">Tandatangan Komander FIC</h4>
                 </div>
                 <div class="card-body">
                     <div class="text-center">
@@ -277,7 +277,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php if (Yii::$app->user->identity->user_role_id == 1){?>
                                 <div class="col-lg-6">
                                     <?= Html::a('<i class="mdi mdi-delete label-icon align-middle rounded-pill"></i>Padam', ['delete', 'id' => $model->id], [
-                                        'class' => 'btn btn-label rounded-pill btn-danger btn-animation bg-gradient waves-effect waves-light d-grid gap-2',
+                                        'class' => 'btn btn-label rounded-pill btn-danger btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2',
                                         'data' => [
                                             'confirm' => 'Adakah anda pasti mahu memadamkan item ini?',
                                             'method' => 'post',

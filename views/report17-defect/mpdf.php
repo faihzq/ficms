@@ -25,7 +25,7 @@
 </div>
 <hr>
 <div class="text-center">
-    <h4><u>BORANG PENDAFTARAN LATERN DEFECT</u></h4>
+    <h4><u>BORANG PENDAFTARAN LATENT DEFECT</u></h4>
 </div>
 <div class="indent-main">
     <p>Perhatian Kepada :<br><br>

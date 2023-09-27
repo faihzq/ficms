@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php if ($model->engineer_sign): ?>
             <div class="card">
                 <div class="card-header align-items-center d-flex border-bottom-dashed">
-                    <h4 class="card-title mb-0 flex-grow-1">Tandatangan Jurutera LD</h4>
+                    <h4 class="card-title mb-0 flex-grow-1">Tandatangan Jurutera KDJ</h4>
                 </div>
                 <div class="card-body">
                     <div class="text-center">

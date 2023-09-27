@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <tr>
                                     <th scope="row" width="50%">
                                         <?php echo $model->getAttributeLabel('report_no'); ?></th>
-                                    <td><?php echo $model->report_no ?></td>
+                                    <td><?php echo $model->status_id == 6?'<s><span style="color: red; text-decoration: none;">'.$model->report_no.'</span></s>':$model->report_no ?></td>
                                 </tr>
                                     <th scope="row"><?php echo $model->getAttributeLabel('damage_date'); ?></th>
                                     <td><?php echo date('d F Y', strtotime($model->damage_date)) ?></td>

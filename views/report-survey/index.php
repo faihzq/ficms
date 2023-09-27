@@ -12,6 +12,42 @@ use yii\grid\GridView;
 $this->title = 'Laporan Tinjauan Kerosakan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<style>
+   /* Define the keyframes for the pulse animation */
+    @keyframes pulseAnimation {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 0.7;
+        }
+    }
+
+    /* Define the keyframes for the fade-in animation */
+    @keyframes fadeInAnimation {
+        0% {
+            opacity: 0;
+        }
+        50% {
+            opacity: 0.5;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    /* Apply the pulse and fade-in animations to the important-status class */
+    .important-status {
+        animation: pulseAnimation 2s infinite alternate, fadeInAnimation 1s;
+        animation-timing-function: ease-in-out;
+    }
+
+</style>
 <div class="report-survey-index">
 
     <div class="row">
@@ -66,9 +102,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </th>
                                         <th class="sort" data-sort="report_damage_id" scope="col">Rujukan No. Laporan Kerosakan DJ
                                         </th>
-                                        <th class="sort" data-sort="warranty" scope="col">Jaminan Perlindungan
+                                        <th class="sort" data-sort="damage_type_survey" scope="col">Jenis Kerosakan
                                         </th>
-                                        <th class="sort" data-sort="requestor" scope="col">Disediakan Oleh
+                                        <th class="sort" data-sort="damage_category" scope="col">Kategori Kerosakan
+                                        </th>
+                                        <th class="sort" data-sort="warranty" scope="col">Jaminan Perlindungan
                                         </th>
                                         <th class="sort" data-sort="status" scope="col">Status
                                         </th>
@@ -84,12 +122,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <td class="tarikh"><?php echo date('d F Y', strtotime($report->report_date)) ?></td>
                                         <td class="boat_name"><?php echo $report->reportDamage->boat->boat_name ?>
                                         </td>
-                                        <td class="report_damage_id"><?php echo $report->reportDamage->report_no ?>
+                                        <td class="report_damage_id"><a href="<?= Url::to(['report-damage/view','id'=>$report->report_damage_id]) ?>" target="_blank"><?php echo $report->reportDamage->report_no ?></a>
+                                        </td>
+                                        <td class="damage_type_survey"><?php echo $report->damageSurvey->name ?>
+                                        </td>
+                                        <td class="damage_category"><?php echo $report->damageCategory->name ?>
                                         </td>
                                         <td class="warranty"><?php echo $report->warrantyProtection ?>
                                         </td>
-                                        <td class="requestor"><?php echo $report->requestor->fullname ?></td>
-                                        <td class="status"><span class="badge badge-soft-<?php echo $report->status->statusLabel?> text-uppercase"><?php echo $report->status->name ?></td>
+                                        <td class="status"><span class="badge badge-soft-<?php echo $report->status->statusLabel?> text-uppercase <?= $report->status_id == 2?'status-badge important-status':''?>"><?php echo $report->status->name ?></td>
                                         <td>
                                             <ul class="list-inline hstack gap-2 mb-0">
                                                 <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Lihat">
@@ -170,8 +211,9 @@ $this->params['breadcrumbs'][] = $this->title;
             "tarikh",
             "boat_name",
             "report_damage_id",
+            "damage_type_survey",
+            "damage_category",
             "warranty",
-            "requestor",
             "status"
         ],
         page: perPage,

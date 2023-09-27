@@ -18,11 +18,11 @@ use yii\bootstrap5\ActiveForm;
                     <?php $form = ActiveForm::begin(); ?>
                    <div class="row">
                         <div class="col-md-3">
-                            <?= Html::label('No. Laporan Kajian Kerosakan', 'report_survey') ?>        
+                            <?= Html::label('No. Laporan Kajian KDJ', 'report_survey') ?>        
                             <?= Html::textInput('report_survey', null, ['id'=>'report-survey','class' => 'form-control', 'maxlength' => true, 'readonly'=>true]) ?>
                         </div>
                         <div class="col-md-3">
-                            <?= Html::label('No. Laporan Kerosakan', 'report_damage') ?>        
+                            <?= Html::label('No. Laporan Kerosakan Dalam Jaminan (KDJ)', 'report_damage') ?>        
                             <?= Html::textInput('report_damage', null, ['id'=>'report-damage','class' => 'form-control', 'maxlength' => true, 'readonly'=>true]) ?>
                         </div>
                         <div class="col-md-3">

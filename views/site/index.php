@@ -264,7 +264,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-header align-items-center d-flex">
-                                <h4 class="card-title mb-0 flex-grow-1">Senarai Kekerapan Kerosakan</h4>
+                                <h4 class="card-title mb-0 flex-grow-1">Senarai Kekerapan Kerosakan Peralatan</h4>
                                 <div class="flex-shrink-0">
                                     <!-- <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="tableChange">
                                         <option value="peralatan">Peralatan</option>

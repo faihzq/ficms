@@ -61,12 +61,12 @@ class ReportRepair extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'report_survey_id' => 'No. Laporan Kajian Kerosakan',
+            'report_survey_id' => 'No. Laporan Kajian KDJ',
             'requestor_id' => 'Requestor',
             'status_id' => 'Status',
             'report_date' => 'Tarikh',
-            'report_no' => 'No. Laporan Pembetulan Kajian',
-            'service_description' => 'Keterangan Perkhidmatan Kajian',
+            'report_no' => 'No. Laporan Pembetulan KDJ',
+            'service_description' => 'Keterangan Perkhidmatan KDJ',
             'tools_need' => 'Alat Ganti, Alat Sokongan dan Peralatan Pengujian yang digunakan',
             'warranty_expiration_date' => 'Tarikh Tamat Tempoh Jaminan',
             'engineer_sign' => 'Tandatangan',

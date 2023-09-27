@@ -136,7 +136,7 @@
             <table autosize="1" width="100%" border="0">
                 <tbody>
                     <tr>
-                        <th colspan="3" class="text-left">Jurutera LD</th>
+                        <th colspan="3" class="text-left">Jurutera KDJ</th>
                     </tr>
                    <tr>
                         <td>Nama</td>
@@ -171,7 +171,7 @@
             <table autosize="1" width="100%" border="0">
                 <tbody>
                     <tr>
-                        <th colspan="3" class="text-left">Jurutera LD</th>
+                        <th colspan="3" class="text-left">Jurutera KDJ</th>
                     </tr>
                    <tr>
                         <td>Nama</td>

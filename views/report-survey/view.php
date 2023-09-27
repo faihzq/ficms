@@ -118,7 +118,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php if ($model->engineer_sign): ?>
             <div class="card">
                 <div class="card-header align-items-center d-flex border-bottom-dashed">
-                    <h4 class="card-title mb-0 flex-grow-1">Tandatangan Jurutera</h4>
+                    <h4 class="card-title mb-0 flex-grow-1">Tandatangan Jurutera Kerosakan DJ</h4>
                 </div>
                 <div class="card-body">
                     <div class="text-center">
@@ -150,7 +150,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php if ($model->status_id == 4 && $model->commander_sign_status_id == 1): ?>
             <div class="card">
                 <div class="card-header align-items-center d-flex border-bottom-dashed">
-                    <h4 class="card-title mb-0 flex-grow-1">Tandatangan Komander</h4>
+                    <h4 class="card-title mb-0 flex-grow-1">Tandatangan Komander FIC</h4>
                 </div>
                 <div class="card-body">
                     <div class="text-center">
@@ -263,7 +263,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php if (Yii::$app->user->identity->user_role_id == 1){?>
                                 <div class="col-lg-6">
                                     <?= Html::a('<i class="mdi mdi-delete label-icon align-middle rounded-pill"></i>Padam', ['delete', 'id' => $model->id], [
-                                        'class' => 'btn btn-label rounded-pill btn-danger btn-animation bg-gradient waves-effect waves-light d-grid gap-2',
+                                        'class' => 'btn btn-label rounded-pill btn-danger btn-animation bg-gradient waves-effect waves-light d-grid gap-2 mb-2',
                                         'data' => [
                                             'confirm' => 'Adakah anda pasti mahu memadamkan item ini?',
                                             'method' => 'post',

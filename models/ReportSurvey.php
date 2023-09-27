@@ -63,9 +63,9 @@ class ReportSurvey extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'report_damage_id' => 'Rujukan No. Laporan Kerosakan',
+            'report_damage_id' => 'Rujukan kepada No. Laporan Kerosakan Dalam Jaminan (DJ)',
             'report_date' => 'Tarikh',
-            'report_no' => 'No. Laporan Kajian',
+            'report_no' => 'No. Laporan Kajian DJ',
             'survey_date' => 'Tarikh Kajian',
             'damage_type_survey_id' => 'Jenis Kerosakan',
             'damage_category_id' => 'Kategori Kerosakan',

@@ -172,7 +172,13 @@ class Boat extends \yii\db\ActiveRecord
             $reportId = Report17Defect::find()->where(['boat_id'=>$this->id])->andWhere(['damage_type_id'=>$value])->andWhere(['status_id'=>2])->one();
         }
 
-        return $reportId->id;
+        if ($reportId){
+            return $reportId->id;
+        } else {
+            return '-';
+        }
+
+        
     }
 
     public function getLocation()
@@ -270,7 +276,9 @@ class Boat extends \yii\db\ActiveRecord
 
     public function getKekerapan()
     {
-        $total = ReportDamage::find()->where(['boat_id'=>$this->id])->andWhere(['status_id'=>2])->count();
+        $total1 = ReportDamage::find()->where(['boat_id'=>$this->id])->andWhere(['status_id'=>2])->count();
+        $total2 = Report17Defect::find()->where(['boat_id'=>$this->id])->andWhere(['status_id'=>2])->count();
+        $total = $total1 + $total2;
         if (!$total){
             return '-';
         }
