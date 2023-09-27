@@ -235,68 +235,60 @@ $this->params['breadcrumbs'][] = $this->title;
                     
                     <div class="col-xl-12">
                         <div class="card">
-                            <div class="card-header align-items-center d-flex">
-                                <h4 class="card-title mb-0 flex-grow-1">Senarai Bot</h4>
-                            </div><!-- end card header -->
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-hover dt-responsive nowrap att-tbl" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">#</th>
-                                                <th class="text-center">Nama Bot</th>                                                        
-                                                <th class="text-center">Status</th> 
-                                                <th class="text-center">Propulsion</th>
-                                                <th class="text-center">Generation</th>
-                                                <th class="text-center">Navigation</th>
-                                                <th class="text-center">Communication</th>
-                                                <th class="text-center">Warfare System</th>
-                                                <th class="text-center">Lokasi</th>
-                                                <th class="text-center">Kekerapan Kerosakan</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-12">
-                        <div class="card">
-                            <div class="card-header align-items-center d-flex">
-                                <h4 class="card-title mb-0 flex-grow-1">Senarai Kekerapan Kerosakan Peralatan</h4>
+                            <div class="card-header align-items-xl-center d-xl-flex">
                                 <div class="flex-shrink-0">
-                                    <!-- <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="tableChange">
-                                        <option value="peralatan">Peralatan</option>
-                                        <option value="bot">Bot</option>
-                                    </select> -->
+                                    <ul class="nav nav-tabs nav-border-top nav-border-top-primary" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-bs-toggle="tab" href="#developers" role="tab">
+                                                Senarai Bot
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-bs-toggle="tab" href="#designers" role="tab">
+                                                Senarai Kekerapan Kerosakan Peralatan
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div><!-- end card header -->
                             <div class="card-body">
-                                <div class="table-responsive" id="tableAlat">
-                                    <table class="table table-hover dt-responsive nowrap alat-tbl" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">#</th>
-                                                <th class="text-center">No Siri</th>                                                        
-                                                <th class="text-center">Nama</th> 
-                                                <th class="text-center">Kekerapan</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
+                                <div class="tab-content text-muted">
+                                    <div class="tab-pane active" id="developers" role="tabpanel">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover dt-responsive nowrap att-tbl" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">#</th>
+                                                        <th class="text-center">Nama Bot</th>                                                        
+                                                        <th class="text-center">Status</th> 
+                                                        <th class="text-center">Propulsion</th>
+                                                        <th class="text-center">Generation</th>
+                                                        <th class="text-center">Navigation</th>
+                                                        <th class="text-center">Communication</th>
+                                                        <th class="text-center">Warfare System</th>
+                                                        <th class="text-center">Lokasi</th>
+                                                        <th class="text-center">Kekerapan Kerosakan</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="designers" role="tabpanel">
+                                        <div class="table-responsive" id="tableAlat">
+                                            <table class="table table-hover dt-responsive nowrap alat-tbl" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">#</th>
+                                                        <th class="text-center">No Siri</th>                                                        
+                                                        <th class="text-center">Nama</th> 
+                                                        <th class="text-center">Kekerapan</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="table-responsive" id="tableBot">
-                                    <table class="table table-hover dt-responsive nowrap bot-tbl" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">#</th>
-                                                <th class="text-center">No Siri</th>                                                        
-                                                <th class="text-center">Nama</th> 
-                                                <th class="text-center">Kekerapan</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
