@@ -24,6 +24,9 @@ use app\models\Boat;
 use app\models\ReportDamage;
 use app\models\ReportSurvey;
 use app\models\ReportRepair;
+use app\models\Report17Defect;
+use app\models\Report17Survey;
+use app\models\Report17Repair;
 use app\models\Equipment;
 
 class SiteController extends Controller
@@ -91,10 +94,24 @@ class SiteController extends Controller
         $totalBoatReportNoWarranty = array();
         foreach ($modelBoat as $boat){
             $boatName[] = $boat->short_name;
-            $totalBoatReport[] = ReportDamage::find()->where(['status_id'=>2])->andWhere(['boat_id'=>$boat->id])->count();
-            $totalBoatReportFix[] = ReportRepair::find()->select('reportDamage.boat_id')->joinWith('reportSurvey')->joinWith('reportSurvey.reportDamage')->where(['report_repair.status_id' => 5,'report_damage.boat_id' => $boat->id])->count();
-            $totalBoatReportNotFix[] = ReportRepair::find()->select('reportDamage.boat_id')->joinWith('reportSurvey')->joinWith('reportSurvey.reportDamage')->where(['report_repair.status_id' => 4,'report_damage.boat_id' => $boat->id])->count();
-            $totalBoatReportNoWarranty[] = ReportSurvey::find()->joinWith('reportDamage')->where(['report_survey.status_id' => 3,'report_survey.warranty_protection' => 0,'report_damage.boat_id' => $boat->id])->count();
+            $report = ReportDamage::find()->where(['status_id'=>2])->andWhere(['boat_id'=>$boat->id])->count();
+            $report += Report17Defect::find()->where(['status_id'=>2])->andWhere(['boat_id'=>$boat->id])->count();
+            $totalBoatReport[] = $report;
+
+            $reportFix = ReportRepair::find()->select('reportDamage.boat_id')->joinWith('reportSurvey')->joinWith('reportSurvey.reportDamage')->where(['report_repair.status_id' => 5,'report_damage.boat_id' => $boat->id])->count();
+            $reportFix += Report17Repair::find()->select('report17Defect.boat_id')
+            ->joinWith('reportSurvey')
+            ->joinWith('reportSurvey.reportDamage')
+            ->where(['report17_repair.status_id' => 5,'report17_defect.boat_id' => $boat->id])->count();
+            $totalBoatReportFix[] = $reportFix;
+
+            $reportNotFix = ReportRepair::find()->select('reportDamage.boat_id')->joinWith('reportSurvey')->joinWith('reportSurvey.reportDamage')->where(['report_repair.status_id' => 4,'report_damage.boat_id' => $boat->id])->count();
+            $reportNotFix += Report17Repair::find()->select('report17Defect.boat_id')->joinWith('reportSurvey')->joinWith('reportSurvey.reportDamage')->where(['report17_repair.status_id' => 4,'report17_defect.boat_id' => $boat->id])->count();
+            $totalBoatReportNotFix[] = $reportNotFix;
+
+            $reportNoWar = ReportSurvey::find()->joinWith('reportDamage')->where(['report_survey.status_id' => 3,'report_survey.warranty_protection' => 0,'report_damage.boat_id' => $boat->id])->count();
+            $reportNoWar += Report17Survey::find()->joinWith('reportDamage')->where(['report17_survey.status_id' => 3,'report17_survey.warranty_protection' => 0,'report17_defect.boat_id' => $boat->id])->count();
+            $totalBoatReportNoWarranty[] = $reportNoWar;
         }
 
         $modelAlat = Equipment::find()->all();
@@ -111,11 +128,21 @@ class SiteController extends Controller
         $totalDamage = ReportDamage::find()->count();
         $totalSurvey = ReportSurvey::find()->count();
         $totalRepair = ReportRepair::find()->count();
+
+        $totalDamage += Report17Defect::find()->count();
+        $totalSurvey += Report17Survey::find()->count();
+        $totalRepair += Report17Repair::find()->count();
+
         $totalAllReport = $totalDamage + $totalSurvey + $totalRepair;
         $totalReport = ReportDamage::find()->andWhere(['status_id'=>2])->count(); // total report yg dah approved
         $totalFixed = ReportRepair::find()->andWhere(['status_id'=>5])->count(); // report pembaikan yg dah approved
         $totalNotFixed = ReportRepair::find()->andWhere(['status_id'=>4])->count(); // report kerosakan yg dah approved tapi belum dibaiki
         $totalNoWarranty = ReportSurvey::find()->andWhere(['status_id'=>3])->andWhere(['warranty_protection'=>0])->count(); // report tinjauan yg dah approved and no warranty
+
+        $totalReport += Report17Defect::find()->andWhere(['status_id'=>2])->count(); // total report 17 yg dah approved
+        $totalFixed += Report17Repair::find()->andWhere(['status_id'=>5])->count(); // report pembaikan yg dah approved
+        $totalNotFixed += Report17Repair::find()->andWhere(['status_id'=>4])->count(); // report kerosakan yg dah approved tapi belum dibaiki
+        $totalNoWarranty += Report17Survey::find()->andWhere(['status_id'=>3])->andWhere(['warranty_protection'=>0])->count(); // report tinjauan yg dah approved and no warranty
 
         if ($totalReport){
             $fixedPercent = ($totalFixed / $totalReport) * 100;
