@@ -102,9 +102,9 @@ $baseUrl = Url::base();
                     
                     <div class="card-footer mt-3">
                         
-                            <a href="<?php echo Url::to(['boat/index', 'status'=>'']) ?>" title="Cancel" class="btn btn-label btn-warning btn-animation bg-gradient waves-effect waves-light rounded-pill"><i class="mdi mdi-keyboard-return label-icon align-middle rounded-pill"></i> Senarai</a>
+                            <a href="<?php echo Url::to(['boat/index', 'status'=>'']) ?>" title="Cancel" class="btn btn-label btn-warning btn-animation bg-gradient waves-effect waves-light rounded-pill"><i class="mdi mdi-format-list-bulleted label-icon align-middle rounded-pill"></i> Senarai</a>
                             
-                            <?= Html::a('<i class="mdi mdi-content-save label-icon align-middle rounded-pill"></i>Kemaskini', ['update', 'id' => $model->id], ['class' => 'btn btn-label btn-primary rounded-pill btn-animation bg-gradient waves-effect waves-light float-end']) ?>
+                            <?= Html::a('<i class="mdi mdi-square-edit-outline label-icon align-middle rounded-pill"></i>Kemaskini', ['update', 'id' => $model->id], ['class' => 'btn btn-label btn-primary rounded-pill btn-animation bg-gradient waves-effect waves-light float-end']) ?>
                             <?= Html::a('<i class="mdi mdi-delete label-icon align-middle rounded-pill"></i>Padam', ['delete', 'id' => $model->id], [
                                 'class' => 'btn btn-label btn-danger rounded-pill btn-animation bg-gradient waves-effect waves-light',
                                 'data' => [
