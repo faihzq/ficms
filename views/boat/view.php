@@ -160,7 +160,7 @@ $baseUrl = Url::base();
                                 </tr>
                                 <tr>
                                     <td class="fw-medium"><?php echo $model->getAttributeLabel('boat_range'); ?></td>
-                                    <td><?php echo $model->boat_range ?></td>
+                                    <td><?php echo nl2br($model->boat_range) ?></td>
                                 </tr>
                                 <tr>
                                     <td class="fw-medium"><?php echo $model->getAttributeLabel('boat_status_id'); ?></td>
