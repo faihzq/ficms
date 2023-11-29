@@ -101,17 +101,22 @@ class ReportDamage extends \yii\db\ActiveRecord
         return $model;
     }
 
-    public function upload($i)
+    public function upload($i, $uploadedFile)
     {
         $file = 'support_doc_'.$i;
-        if ($this->validate()) {            
-            $filePath = 'uploads/reportDamage/' . $this->$file->baseName . '.' . $this->$file->extension;
+        $name = $uploadedFile->baseName .'_'.date('YmdHis'). '.' . $uploadedFile->extension;
+        if ($this->validate()) {
+            $filePath = 'uploads/reportDamage/' . $name;
             $directoryPath = dirname($filePath);
             if (!file_exists($directoryPath)) {
                 mkdir($directoryPath, 0777, true);
             }
-            $this->$file->saveAs($filePath, false);
-            $this->$file = $this->$file->baseName . '.' . $this->$file->extension;
+            $uploadedFile->saveAs($filePath, false);
+            // Check if a file already exists for the specific support_doc field
+            if ($this->$file && file_exists('uploads/reportDamage/' . $this->$file)) {
+                unlink('uploads/reportDamage/' . $this->$file); // Delete the previous file
+            }
+            $this->$file = $name;
             return true;
         } else {
             return false;

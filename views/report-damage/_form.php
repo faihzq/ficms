@@ -130,7 +130,7 @@ $baseUrl = Url::base();
                                 </div>
 
                                 <div class="col-lg-6" id="uploadFileId">
-                                    <label>Lampiran/Gambar</label><br>
+                                    <label>Lampiran</label><br>
                                     <?php if ($model->support_doc_1): ?>
                                         <div class="mb-3">
                                             <a href="<?php echo $baseUrl.'/uploads/reportDamage/';echo $model->support_doc_1; ?>" title="Download" class="btn btn-outline-primary" target="_blank"><i class="mdi mdi-cloud-download-outline"></i> <?php echo $model->support_doc_1 ?></a>
@@ -138,7 +138,7 @@ $baseUrl = Url::base();
                                             <button type="button" class="btn btn-outline-danger btn-icon waves-effect waves-light" onclick="removeFile('<?php echo $model->id ?>',1)"><i class="ri-delete-bin-5-line"></i></button><br>
                                         </div>
                                         <?php else: ?>
-                                            <?= $form->field($model, 'support_doc_1')->fileInput(['class'=>'form-control', 'options' => ['accept' => 'image/png']])->label(false) ?>
+                                            <?= $form->field($model, 'support_doc_1')->fileInput(['class'=>'form-control', 'options' => ['accept' => 'image/*,.pdf']])->label(false) ?>
                                     <?php endif ?>
                                     <?php if ($model->support_doc_2): ?>
                                         <div class="mb-3">
@@ -147,9 +147,17 @@ $baseUrl = Url::base();
                                             <button type="button" class="btn btn-outline-danger btn-icon waves-effect waves-light " onclick="removeFile('<?php echo $model->id ?>',2)"><i class="ri-delete-bin-5-line"></i></button>
                                         </div>
                                         <?php else: ?>
-                                            <?= $form->field($model, 'support_doc_2')->fileInput(['class'=>'form-control', 'options' => ['accept' => 'image/png']])->label(false) ?>
+                                            <?= $form->field($model, 'support_doc_2')->fileInput(['class'=>'form-control', 'options' => ['accept' => 'image/*,.pdf']])->label(false) ?>
                                     <?php endif ?>
-                                    <?= $form->field($model, 'support_doc_3')->fileInput(['class'=>'form-control', 'options' => ['accept' => 'image/png']])->label(false) ?>
+                                    <?php if ($model->support_doc_3): ?>
+                                        <div class="mb-3">
+                                            <a href="<?php echo $baseUrl.'/uploads/reportDamage/';echo $model->support_doc_3; ?>" title="Download" class="btn btn-outline-primary" target="_blank"><i class="mdi mdi-cloud-download-outline"></i> <?php echo $model->support_doc_3 ?></a>
+                                            <a href="<?= Url::to(['report-damage/download','filename'=>$model->support_doc_3]) ?>" title="Download" class="btn btn-outline-success btn-icon waves-effect waves-light" target="_blank"><i class="mdi mdi-cloud-download-outline"></i> </a>
+                                            <button type="button" class="btn btn-outline-danger btn-icon waves-effect waves-light " onclick="removeFile('<?php echo $model->id ?>',3)"><i class="ri-delete-bin-5-line"></i></button>
+                                        </div>
+                                        <?php else: ?>
+                                            <?= $form->field($model, 'support_doc_3')->fileInput(['class'=>'form-control', 'options' => ['accept' => 'image/*,.pdf']])->label(false) ?>
+                                    <?php endif ?>
                                 </div>
                             </div>
                             <!-- end row -->
@@ -184,7 +192,7 @@ $baseUrl = Url::base();
         <div class="col-lg-3">
             <div class="card" id="contact-view-detail">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Dilaporkan Oleh</h5>
+                    <h5 class="card-title mb-0"><i class="bx bx-user-pin bx-fw"></i>Dilaporkan Oleh</h5>
                 </div>
                 <div class="card-body text-center">
                     <div class="position-relative d-inline-block">
@@ -195,18 +203,18 @@ $baseUrl = Url::base();
                 </div>
                 <div class="card-body">
                     <div class="table-responsive table-card">
-                        <table class="table table-borderless mb-0">
+                        <table class="table mb-0">
                             <tbody>
                                 <tr>
-                                    <td class="fw-medium" scope="row">Jawatan</td>
+                                    <td class="fw-medium text-center" scope="row"><i class="bx bx-id-card bx-fw"></i></td>
                                     <td><?php echo Yii::$app->user->identity->designation ?></td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-medium" scope="row">E-mel</td>
+                                    <td class="fw-medium text-center" scope="row"><i class="bx bxl-gmail bx-fw"></i></td>
                                     <td><?php echo Yii::$app->user->identity->email ?></td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-medium" scope="row">No. Tel</td>
+                                    <td class="fw-medium text-center" scope="row"><i class="bx bx-phone-call bx-fw"></i></td>
                                     <td><?php echo Yii::$app->user->identity->phone_no ?></td>
                                 </tr>
                             </tbody>

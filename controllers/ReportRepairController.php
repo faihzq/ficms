@@ -46,7 +46,7 @@ class ReportRepairController extends Controller
      */
     public function actionIndex()
     {
-        $model = ReportRepair::find()->all();
+        $model = ReportRepair::find()->orderBy(['created_time' => SORT_DESC])->all();
         $listStatus = ArrayHelper::map(ReportStatus::find()->all(), 'name', 'name');
 
         // Add a new item to the array
@@ -191,13 +191,13 @@ class ReportRepairController extends Controller
     public function actionTask()
     {
         if (Yii::$app->user->identity->user_role_id == 1){
-            $model1 = ReportRepair::find()->where(['=', 'status_id', 4])->andWhere(['=', 'engineer_sign_status_id', 0])->all();
-            $model2 = ReportRepair::find()->where(['=', 'status_id', 4])->andWhere(['=', 'engineer_sign_status_id', 1])->andWhere(['=', 'commander_sign_status_id', 0])->all();
+            $model1 = ReportRepair::find()->where(['=', 'status_id', 4])->andWhere(['=', 'engineer_sign_status_id', 0])->orderBy(['created_time' => SORT_DESC])->all();
+            $model2 = ReportRepair::find()->where(['=', 'status_id', 4])->andWhere(['=', 'engineer_sign_status_id', 1])->andWhere(['=', 'commander_sign_status_id', 0])->orderBy(['created_time' => SORT_DESC])->all();
             $model = array_merge($model1, $model2);
         } else if (Yii::$app->user->identity->user_role_id == 3 || Yii::$app->user->identity->user_role_id == 2){
-            $model = ReportRepair::find()->where(['=', 'status_id', 4])->all();
+            $model = ReportRepair::find()->where(['=', 'status_id', 4])->orderBy(['created_time' => SORT_DESC])->all();
         } else {
-            $model = ReportRepair::find()->where(['=', 'status_id', 4])->andWhere(['=', 'engineer_sign_status_id', 1])->andWhere(['=', 'commander_sign_status_id', 0])->all();
+            $model = ReportRepair::find()->where(['=', 'status_id', 4])->andWhere(['=', 'engineer_sign_status_id', 1])->andWhere(['=', 'commander_sign_status_id', 0])->orderBy(['created_time' => SORT_DESC])->all();
         }
         $listStatus = ArrayHelper::map(ReportStatus::find()->all(), 'name', 'name');
 
@@ -272,7 +272,7 @@ class ReportRepairController extends Controller
                             $modelBoat->comm_check = $check;
                             break;
                         case 5:
-                            $modelBoat->warframe_check = $check;
+                            $modelBoat->warfare_check = $check;
                             break; 
                         default:
                             break;

@@ -121,8 +121,16 @@ class SiteController extends Controller
         $active = Boat::find()->andWhere(['boat_status_id'=>1])->count();
         $inactive = Boat::find()->andWhere(['boat_status_id'=>2])->count();
 
-        $activePercent = round((($active / $total) * 100), 0); 
-        $inactivePercent = round((($inactive / $total) * 100), 0); 
+        if ($active > 0){
+            $activePercent = round((($active / $total) * 100), 0);
+        }else {
+            $activePercent = 0;
+        }
+        if ($inactive > 0){
+            $inactivePercent = round((($inactive / $total) * 100), 0);
+        }else {
+            $inactivePercent = 0;
+        }
 
         // pie chart report
         $totalDamage = ReportDamage::find()->count();

@@ -7,6 +7,7 @@ use Mpdf\Mpdf;
 use app\models\ReportSurvey;
 use app\models\ReportDamage;
 use app\models\ReportStatus;
+use app\models\Boat;
 use app\models\BoatStatus;
 use app\models\SignatureLog;
 use app\models\ReportRepair;
@@ -49,7 +50,7 @@ class ReportSurveyController extends Controller
      */
     public function actionIndex()
     {
-        $model = ReportSurvey::find()->all();
+        $model = ReportSurvey::find()->orderBy(['created_time' => SORT_DESC])->all();
         $listStatus = ArrayHelper::map(ReportStatus::find()->all(), 'name', 'name');
 
         // Add a new item to the array
@@ -195,13 +196,13 @@ class ReportSurveyController extends Controller
     public function actionTask()
     {
         if (Yii::$app->user->identity->user_role_id == 1){
-            $model1 = ReportSurvey::find()->where(['=', 'status_id', 2])->andWhere(['=', 'engineer_sign_status_id', 0])->all();
-            $model2 = ReportSurvey::find()->where(['=', 'status_id', 2])->andWhere(['=', 'engineer_sign_status_id', 1])->andWhere(['=', 'commander_sign_status_id', 0])->all();
+            $model1 = ReportSurvey::find()->where(['=', 'status_id', 2])->andWhere(['=', 'engineer_sign_status_id', 0])->orderBy(['created_time' => SORT_DESC])->all();
+            $model2 = ReportSurvey::find()->where(['=', 'status_id', 2])->andWhere(['=', 'engineer_sign_status_id', 1])->andWhere(['=', 'commander_sign_status_id', 0])->orderBy(['created_time' => SORT_DESC])->all();
             $model = array_merge($model1, $model2);
         } else if (Yii::$app->user->identity->user_role_id == 3 || Yii::$app->user->identity->user_role_id == 2){
-            $model = ReportSurvey::find()->where(['=', 'status_id', 2])->all();
+            $model = ReportSurvey::find()->where(['=', 'status_id', 2])->orderBy(['created_time' => SORT_DESC])->all();
         } else {
-            $model = ReportSurvey::find()->where(['=', 'status_id', 2])->andWhere(['=', 'engineer_sign_status_id', 1])->andWhere(['=', 'commander_sign_status_id', 0])->all();
+            $model = ReportSurvey::find()->where(['=', 'status_id', 2])->andWhere(['=', 'engineer_sign_status_id', 1])->andWhere(['=', 'commander_sign_status_id', 0])->orderBy(['created_time' => SORT_DESC])->all();
         }
         $listStatus = ArrayHelper::map(ReportStatus::find()->all(), 'name', 'name');
 
@@ -298,6 +299,10 @@ class ReportSurveyController extends Controller
                     $modelRepair->updated_user_id = $model->requestor_id;
                     $modelRepair->save(false);
                 }
+
+                $modelBoat = Boat::findOne(['id' => $model->boat_id]);
+                $modelBoat->boat_status_id = $model->boat_status_id;
+                $modelBoat->save(false);
                 // Yii::$app->session->setFlash('success');
 
                 return $this->redirect(['view', 'id' => $model->id]);

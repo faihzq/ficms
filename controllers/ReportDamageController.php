@@ -53,7 +53,7 @@ class ReportDamageController extends Controller
      */
     public function actionIndex()
     {
-        $model = ReportDamage::find()->all();
+        $model = ReportDamage::find()->orderBy(['created_time' => SORT_DESC])->all();
         $listStatus = ArrayHelper::map(ReportStatus::find()->all(), 'name', 'name');
 
         // Add a new item to the array
@@ -79,7 +79,7 @@ class ReportDamageController extends Controller
      */
     public function actionView($id)
     {
-        $modelReportStatusLog = ReportStatusLog::find()->where(['report_id'=>$id])->andWhere(['report_type_id'=>1])->orderBy(['updated_time'=>SORT_DESC])->all();
+        $modelReportStatusLog = ReportStatusLog::find()->where(['report_id'=>$id])->andWhere(['report_type_id'=>1])->andWhere(['report_no'=>1])->orderBy(['updated_time'=>SORT_DESC])->all();
         return $this->render('view', [
             'model' => $this->findModel($id),
             'modelReportStatusLog' => $modelReportStatusLog
@@ -127,15 +127,7 @@ class ReportDamageController extends Controller
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
 
-                for ($i=1; $i < 4; $i++) {
-                    $file = 'support_doc_'.$i;
-
-                    // input image
-                    $model->$file = UploadedFile::getInstance($model, $file);
-                    if ($model->$file){
-                        $model->upload($i);
-                    }
-                }
+                
                 
 
                 // set created & updated time
@@ -146,12 +138,23 @@ class ReportDamageController extends Controller
                 //set status new
                 $model->status_id = 1;
 
-                if ($model->save(false)){
+                for ($i=1; $i < 4; $i++) {
+                    $file = 'support_doc_'.$i;
+            
+                    // input image
+                    $uploadedFile = UploadedFile::getInstance($model, $file);
+                    if ($uploadedFile) {
+                        $model->upload($i, $uploadedFile);
+                    }
+                }
+
+                if ($model->save()){
 
                     $modelReportStatusLog = new ReportStatusLog();
                     $modelReportStatusLog->report_id = $model->id;
                     $modelReportStatusLog->report_status_id = $model->status_id;
                     $modelReportStatusLog->report_type_id = 1;
+                    $modelReportStatusLog->report_no = 1;
                     $modelReportStatusLog->updated_user_id = $model->requestor_id;
                     $modelReportStatusLog->updated_time = $model->updated_time;
                     $modelReportStatusLog->save();
@@ -207,18 +210,19 @@ class ReportDamageController extends Controller
 
             for ($i=1; $i < 4; $i++) {
                 $file = 'support_doc_'.$i;
-
+        
                 // input image
-                $model->$file = UploadedFile::getInstance($model, $file);
-                if ($model->$file){
-                    $model->upload($i);
+                $uploadedFile = UploadedFile::getInstance($model, $file);
+                if ($uploadedFile) {
+                    $model->upload($i, $uploadedFile);
                 }
             }
-
+        
             // set updated time
             $model->updated_time = $time;
-
-            if ($model->save()){
+        
+            if ($model->save()) {
+                $modelBoat = Boat::findOne(['id' => $model->boat_id]);
                 return $this->redirect(['view', 'id' => $model->id]);
             }
             
@@ -238,9 +242,9 @@ class ReportDamageController extends Controller
     public function actionTask()
     {
         if (in_array(Yii::$app->user->identity->user_role_id,[1,2])){
-            $model = ReportDamage::find()->where(['=', 'status_id', 1])->all();
+            $model = ReportDamage::find()->where(['=', 'status_id', 1])->orderBy(['created_time' => SORT_DESC])->all();
         } else {
-            $model = ReportDamage::find()->where(['=', 'status_id', 0])->all();
+            $model = ReportDamage::find()->where(['=', 'status_id', 0])->orderBy(['created_time' => SORT_DESC])->all();
         }
         
         $listStatus = ArrayHelper::map(ReportStatus::find()->all(), 'name', 'name');
@@ -302,7 +306,7 @@ class ReportDamageController extends Controller
                         $modelBoat->comm_check = $uncheck;
                         break;
                     case 5:
-                        $modelBoat->warframe_check = $uncheck;
+                        $modelBoat->warfare_check = $uncheck;
                         break; 
                     default:
                         break;
@@ -314,6 +318,7 @@ class ReportDamageController extends Controller
                 $modelReportStatusLog->report_id = $model->id;
                 $modelReportStatusLog->report_status_id = $model->status_id;
                 $modelReportStatusLog->report_type_id = 1;
+                $modelReportStatusLog->report_no = 1;
                 $modelReportStatusLog->updated_user_id = $model->requestor_id;
                 $modelReportStatusLog->updated_time = $model->updated_time;
                 $modelReportStatusLog->save();
@@ -438,6 +443,7 @@ class ReportDamageController extends Controller
         $modelReportStatusLog->report_id = $model->id;
         $modelReportStatusLog->report_status_id = $model->status_id;
         $modelReportStatusLog->report_type_id = 1;
+        $modelReportStatusLog->report_no = 1;
         $modelReportStatusLog->updated_user_id = $model->requestor_id;
         $modelReportStatusLog->updated_time = $model->updated_time;
         $modelReportStatusLog->save();
