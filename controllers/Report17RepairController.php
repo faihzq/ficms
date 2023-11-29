@@ -83,7 +83,7 @@ class Report17RepairController extends Controller
 
         $model = $this->findModel($id);
 
-        $modelReportStatusLog = ReportStatusLog::find()->where(['report_id'=>$id])->andWhere(['report_type_id'=>3])->orderBy(['updated_time'=>SORT_DESC])->all();
+        $modelReportStatusLog = ReportStatusLog::find()->where(['report_id'=>$id])->andWhere(['report_type_id'=>3])->andWhere(['report_no'=>2])->orderBy(['updated_time'=>SORT_DESC])->all();
 
         return $this->render('view', [
             'model' => $model,
@@ -170,6 +170,7 @@ class Report17RepairController extends Controller
                 $modelReportStatusLog->report_id = $model->id;
                 $modelReportStatusLog->report_status_id = $model->status_id;
                 $modelReportStatusLog->report_type_id = 3;
+                $modelReportStatusLog->report_no = 2;
                 $modelReportStatusLog->updated_user_id = $model->requestor_id;
                 $modelReportStatusLog->updated_time = $model->updated_time;
                 $modelReportStatusLog->save();
@@ -285,6 +286,7 @@ class Report17RepairController extends Controller
                 $modelReportStatusLog->report_id = $model->id;
                 $modelReportStatusLog->report_status_id = $model->status_id;
                 $modelReportStatusLog->report_type_id = 3;
+                $modelReportStatusLog->report_no = 2;
                 $modelReportStatusLog->updated_user_id = $model->requestor_id;
                 $modelReportStatusLog->updated_time = $model->updated_time;
                 $modelReportStatusLog->save();

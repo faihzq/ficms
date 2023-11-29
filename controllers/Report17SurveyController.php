@@ -78,7 +78,7 @@ class Report17SurveyController extends Controller
      */
     public function actionView($id)
     {
-        $modelReportStatusLog = ReportStatusLog::find()->where(['report_id'=>$id])->andWhere(['report_type_id'=>2])->orderBy(['updated_time'=>SORT_DESC])->all();
+        $modelReportStatusLog = ReportStatusLog::find()->where(['report_id'=>$id])->andWhere(['report_type_id'=>2])->andWhere(['report_no'=>2])->orderBy(['updated_time'=>SORT_DESC])->all();
         return $this->render('view', [
             'model' => $this->findModel($id),
             'modelReportStatusLog' => $modelReportStatusLog
@@ -175,6 +175,7 @@ class Report17SurveyController extends Controller
                 $modelReportStatusLog->report_id = $model->id;
                 $modelReportStatusLog->report_status_id = $model->status_id;
                 $modelReportStatusLog->report_type_id = 2;
+                $modelReportStatusLog->report_no = 2;
                 $modelReportStatusLog->updated_user_id = $model->requestor_id;
                 $modelReportStatusLog->updated_time = $model->updated_time;
                 $modelReportStatusLog->save();
@@ -239,9 +240,9 @@ class Report17SurveyController extends Controller
 
         if ($this->request->isPost && $model->load($this->request->post())) {
 
-            if ($model->warranty_protection == 1){
-                $model->status_id = 4;
-            }
+            // if ($model->warranty_protection == 1){
+            //     $model->status_id = 4;
+            // }
 
             if ($section == 1){
                 $model->engineer_sign= Yii::$app->request->post('Report17Survey')['engineer_sign'];
@@ -260,6 +261,8 @@ class Report17SurveyController extends Controller
                 $model->commander_sign_pic = $model->base64_to_png_com();
                 if ($model->warranty_protection == 0){
                     $model->status_id = 3;
+                } else {
+                    $model->status_id = 4;
                 }
             }
             
@@ -270,6 +273,7 @@ class Report17SurveyController extends Controller
                 $modelReportStatusLog->report_id = $model->id;
                 $modelReportStatusLog->report_status_id = $model->status_id;
                 $modelReportStatusLog->report_type_id = 2;
+                $modelReportStatusLog->report_no = 2;
                 $modelReportStatusLog->updated_user_id = $model->requestor_id;
                 $modelReportStatusLog->updated_time = $model->updated_time;
                 $modelReportStatusLog->save();
