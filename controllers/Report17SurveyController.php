@@ -297,6 +297,10 @@ class Report17SurveyController extends Controller
                     $modelRepair->updated_user_id = $model->requestor_id;
                     $modelRepair->save(false);
                 }
+
+                $modelBoat = Boat::findOne(['id' => $model->reportDamage->boat->id]);
+                $modelBoat->boat_status_id = $model->boat_status_id;
+                $modelBoat->save(false);
                 // Yii::$app->session->setFlash('success');
 
                 return $this->redirect(['view', 'id' => $model->id]);

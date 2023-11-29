@@ -300,7 +300,7 @@ class ReportSurveyController extends Controller
                     $modelRepair->save(false);
                 }
 
-                $modelBoat = Boat::findOne(['id' => $model->boat_id]);
+                $modelBoat = Boat::findOne(['id' => $model->reportDamage->boat->id]);
                 $modelBoat->boat_status_id = $model->boat_status_id;
                 $modelBoat->save(false);
                 // Yii::$app->session->setFlash('success');
